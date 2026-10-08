@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Leads | Hunter Help</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -34,6 +38,7 @@
             display: flex;
         }
 
+
         /* =========================
            SIDEBAR
         ========================= */
@@ -60,13 +65,19 @@
             width: 40px;
             height: 40px;
             border-radius: 11px;
-            background: #f59e0b;
-            color: #111;
+            overflow: hidden;
+            background: #111;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 21px;
-            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .brand-text {
@@ -167,6 +178,7 @@
             border-color: #444;
         }
 
+
         /* =========================
            MAIN
         ========================= */
@@ -178,62 +190,66 @@
             overflow-x: hidden;
         }
 
-        .top {
+        .header {
             display: flex;
-            align-items: flex-start;
             justify-content: space-between;
+            align-items: flex-start;
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
         }
 
-        .top h1 {
+        .header h1 {
             font-size: 28px;
             margin-bottom: 7px;
         }
 
-        .top p {
+        .header p {
             color: #777;
             font-size: 13px;
+            line-height: 1.5;
         }
 
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            color: #7f7f84;
-            font-size: 11px;
+        .header-badge {
+            padding: 8px 11px;
+            border-radius: 7px;
+            background: #17261e;
+            border: 1px solid #21452f;
+            color: #62d594;
+            font-size: 9px;
+            white-space: nowrap;
         }
 
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #35c978;
-            box-shadow: 0 0 10px rgba(53, 201, 120, .5);
-        }
 
         /* =========================
            SEARCH
         ========================= */
 
-        .search-box {
+        .search-panel {
             background: #111112;
             border: 1px solid #252527;
             border-radius: 14px;
             padding: 22px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        .section-title {
-            font-size: 15px;
-            font-weight: 700;
+        .panel-title {
             margin-bottom: 18px;
         }
 
-        .form-grid {
+        .panel-title h2 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .panel-title p {
+            color: #666;
+            font-size: 10px;
+        }
+
+        .fields {
             display: grid;
             grid-template-columns: 1.2fr 1fr 1fr auto;
-            gap: 12px;
+            gap: 10px;
             align-items: end;
         }
 
@@ -244,45 +260,56 @@
         }
 
         .field label {
-            color: #858589;
-            font-size: 11px;
+            color: #999;
+            font-size: 10px;
         }
 
         .field input,
         .field select {
             width: 100%;
+            height: 43px;
             background: #0b0b0c;
-            border: 1px solid #29292c;
-            border-radius: 8px;
-            color: #eee;
-            padding: 12px;
+            border: 1px solid #2a2a2d;
+            border-radius: 9px;
+            color: #fff;
             outline: none;
-            font-size: 12px;
+            padding: 0 12px;
+            font-size: 11px;
+        }
+
+        .field input::placeholder {
+            color: #555;
         }
 
         .field input:focus,
         .field select:focus {
-            border-color: #f59e0b;
-        }
-
-        .field select option {
-            background: #111;
+            border-color: #8f6518;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, .06);
         }
 
         .search-btn {
-            height: 40px;
-            padding: 0 20px;
+            height: 43px;
             border: 0;
-            border-radius: 8px;
+            border-radius: 9px;
             background: #f59e0b;
             color: #111;
-            font-size: 12px;
             font-weight: 800;
+            font-size: 11px;
+            padding: 0 18px;
+            transition: .2s;
         }
 
         .search-btn:hover {
-            background: #ffb52e;
+            background: #ffad21;
+            transform: translateY(-1px);
         }
+
+        .search-btn:disabled {
+            opacity: .6;
+            cursor: wait;
+            transform: none;
+        }
+
 
         /* =========================
            STATS
@@ -291,67 +318,62 @@
         .stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .stat {
             background: #111112;
             border: 1px solid #252527;
             border-radius: 12px;
-            padding: 19px;
+            padding: 17px;
         }
 
         .stat small {
             display: block;
-            color: #777;
-            font-size: 10px;
+            color: #666;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
             margin-bottom: 8px;
         }
 
         .stat strong {
+            display: block;
             font-size: 25px;
+            margin-bottom: 4px;
         }
 
         .stat span {
-            display: block;
-            color: #666;
-            font-size: 10px;
-            margin-top: 5px;
+            color: #777;
+            font-size: 9px;
         }
 
-        .stat.highlight {
-            border-color: #493716;
-        }
-
-        .stat.highlight strong {
-            color: #f59e0b;
-        }
 
         /* =========================
-           RESULTS
+           LEADS
         ========================= */
 
-        .results-header {
+        .section-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 13px;
         }
 
-        .results-header h2 {
-            font-size: 16px;
+        .section-header h2 {
+            font-size: 15px;
         }
 
-        .results-header span {
+        .section-header span {
             color: #666;
-            font-size: 11px;
+            font-size: 10px;
         }
 
-        .leads-grid {
+        .leads {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
+            gap: 13px;
         }
 
         .lead-card {
@@ -363,120 +385,150 @@
         }
 
         .lead-card:hover {
-            border-color: #3b3b3e;
+            border-color: #3b3b3f;
             transform: translateY(-2px);
         }
 
         .lead-top {
             display: flex;
-            justify-content: space-between;
             align-items: flex-start;
+            justify-content: space-between;
             gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .lead-name {
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .lead-type {
-            color: #777;
-            font-size: 10px;
-            margin-top: 4px;
-        }
-
-        .badge {
-            font-size: 9px;
-            padding: 5px 7px;
-            border-radius: 5px;
-            white-space: nowrap;
-        }
-
-        .badge.high {
-            color: #f5b43d;
-            background: #2b2110;
-        }
-
-        .badge.capture {
-            color: #63d69a;
-            background: #10271c;
-        }
-
-        .lead-info {
-            border-top: 1px solid #222224;
-            border-bottom: 1px solid #222224;
-            padding: 12px 0;
             margin-bottom: 14px;
         }
 
-        .lead-info div {
+        .lead-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: #1c1811;
+            border: 1px solid #3a2c17;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f59e0b;
+            font-size: 16px;
+        }
+
+        .potential {
+            font-size: 8px;
+            color: #63d697;
+            background: #14231b;
+            border: 1px solid #21452f;
+            border-radius: 5px;
+            padding: 5px 7px;
+        }
+
+        .lead-card h3 {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .lead-location {
+            color: #777;
+            font-size: 9px;
+            margin-bottom: 15px;
+        }
+
+        .lead-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 13px;
+            border-top: 1px solid #222224;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
             justify-content: space-between;
             gap: 10px;
-            margin-bottom: 7px;
         }
 
-        .lead-info div:last-child {
-            margin-bottom: 0;
-        }
-
-        .lead-info span {
+        .info-row span:first-child {
             color: #666;
-            font-size: 10px;
+            font-size: 9px;
         }
 
-        .lead-info strong {
-            color: #bbb;
-            font-size: 10px;
+        .info-row span:last-child {
+            color: #ccc;
+            font-size: 9px;
             text-align: right;
         }
 
         .lead-actions {
-            display: flex;
-            gap: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+            margin-top: 15px;
         }
 
         .lead-actions button {
-            flex: 1;
-            padding: 9px;
+            height: 34px;
             border-radius: 7px;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
         }
 
-        .btn-primary {
-            border: 0;
-            background: #f59e0b;
-            color: #111;
-        }
-
-        .btn-secondary {
-            border: 1px solid #303034;
+        .details-btn {
             background: transparent;
+            border: 1px solid #303033;
             color: #aaa;
         }
 
-        .btn-secondary:hover {
-            color: #fff;
+        .details-btn:hover {
             border-color: #555;
+            color: #fff;
         }
+
+        .approach-btn {
+            background: #f59e0b;
+            border: 1px solid #f59e0b;
+            color: #111;
+        }
+
+        .approach-btn:hover {
+            background: #ffad21;
+        }
+
 
         /* =========================
-           LOADING
+           EMPTY / SEARCHING
         ========================= */
 
-        .loading {
+        .searching {
             display: none;
+            padding: 30px;
             text-align: center;
-            padding: 35px;
             color: #777;
-            font-size: 12px;
+            font-size: 11px;
+            background: #111112;
+            border: 1px solid #252527;
+            border-radius: 13px;
         }
 
-        .loading.active {
+        .searching.active {
             display: block;
         }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #333;
+            border-top-color: #f59e0b;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
 
         /* =========================
            MODAL
@@ -485,7 +537,7 @@
         .modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, .78);
+            background: rgba(0, 0, 0, .72);
             display: none;
             align-items: center;
             justify-content: center;
@@ -498,90 +550,91 @@
         }
 
         .modal-box {
-            width: 100%;
-            max-width: 480px;
+            width: min(500px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
             background: #111112;
-            border: 1px solid #2b2b2e;
+            border: 1px solid #303033;
             border-radius: 14px;
-            padding: 23px;
-            box-shadow: 0 20px 70px rgba(0,0,0,.5);
+            padding: 22px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, .45);
         }
 
-        .modal-head {
+        .modal-header {
             display: flex;
+            align-items: center;
             justify-content: space-between;
             gap: 15px;
-            align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
-        .modal-head h3 {
+        .modal-header h2 {
             font-size: 16px;
         }
 
         .close {
             width: 30px;
             height: 30px;
+            border: 1px solid #2b2b2e;
             border-radius: 7px;
-            border: 1px solid #29292c;
             background: transparent;
             color: #888;
-            cursor: pointer;
         }
 
-        .modal-text {
-            color: #aaa;
+        .close:hover {
+            color: #fff;
+        }
+
+        .message-box {
             background: #0b0b0c;
-            border: 1px solid #242426;
+            border: 1px solid #28282b;
             border-radius: 9px;
             padding: 15px;
-            font-size: 12px;
+            color: #bbb;
+            font-size: 11px;
             line-height: 1.7;
             white-space: pre-line;
-            margin-bottom: 14px;
         }
 
         .copy-btn {
             width: 100%;
+            height: 42px;
+            margin-top: 12px;
             border: 0;
             border-radius: 8px;
             background: #f59e0b;
             color: #111;
-            padding: 11px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 800;
         }
 
-        .detail-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .detail-item {
-            background: #0b0b0c;
-            border: 1px solid #242426;
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .detail-item small {
-            display: block;
-            color: #666;
-            font-size: 9px;
-            margin-bottom: 4px;
-        }
-
-        .detail-item strong {
-            color: #ddd;
-            font-size: 12px;
-        }
 
         /* =========================
            MOBILE
         ========================= */
 
+        @media (max-width: 1100px) {
+
+            .fields {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .leads {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+
         @media (max-width: 900px) {
+
+            .app {
+                display: block;
+            }
 
             .sidebar {
                 width: 100%;
@@ -589,10 +642,6 @@
                 border-right: 0;
                 border-bottom: 1px solid #252527;
                 padding: 12px;
-            }
-
-            .app {
-                display: block;
             }
 
             .brand {
@@ -626,34 +675,24 @@
                 padding: 22px 15px;
             }
 
-            .form-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .search-btn {
-                width: 100%;
-            }
-
-            .leads-grid {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
-        @media (max-width: 600px) {
 
-            .top {
-                margin-bottom: 22px;
+        @media (max-width: 650px) {
+
+            .header {
+                flex-direction: column;
             }
 
-            .top h1 {
+            .header h1 {
                 font-size: 23px;
             }
 
-            .status {
+            .header-badge {
                 display: none;
             }
 
-            .form-grid {
+            .fields {
                 grid-template-columns: 1fr;
             }
 
@@ -661,26 +700,40 @@
                 grid-template-columns: 1fr;
             }
 
-            .leads-grid {
+            .leads {
                 grid-template-columns: 1fr;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
 <div class="app">
 
-    <!-- SIDEBAR -->
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
 
     <aside class="sidebar">
+
 
         <div class="brand">
 
             <div class="brand-icon">
-                H
+
+                <img
+                    src="../Assets/A8E0C9E9-E5F9-4B9A-8293-FE6E0E764BB6.png"
+                    alt="Hunter Help"
+                >
+
             </div>
+
 
             <div class="brand-text">
 
@@ -704,50 +757,87 @@
 
         <nav class="nav">
 
+
             <a href="dashboard.html">
+
                 <span class="nav-icon">⌂</span>
+
                 Dashboard
+
             </a>
+
 
             <a href="diagnostico.html">
+
                 <span class="nav-icon">◈</span>
+
                 Diagnóstico
+
             </a>
 
-            <a href="leads.html" class="active">
+
+            <a
+                href="leads.html"
+                class="active"
+            >
+
                 <span class="nav-icon">◎</span>
+
                 Leads
+
             </a>
+
 
             <a href="anuncios.html">
+
                 <span class="nav-icon">▣</span>
+
                 Anúncios
+
             </a>
+
 
             <a href="atendimento.html">
+
                 <span class="nav-icon">◌</span>
+
                 Atendimento
+
             </a>
+
 
             <a href="concorrentes.html">
+
                 <span class="nav-icon">⇄</span>
+
                 Concorrentes
+
             </a>
+
 
             <a href="seo.html">
+
                 <span class="nav-icon">⌕</span>
+
                 SEO Local
+
             </a>
 
+
             <a href="automacao.html">
+
                 <span class="nav-icon">⚙</span>
+
                 Automação
+
             </a>
+
 
         </nav>
 
 
         <div class="sidebar-bottom">
+
 
             <div class="agency-mini">
 
@@ -769,16 +859,21 @@
                 Sair da conta
             </button>
 
+
         </div>
+
 
     </aside>
 
 
-    <!-- MAIN -->
+    <!-- =========================
+         MAIN
+    ========================= -->
 
     <main class="main">
 
-        <header class="top">
+
+        <header class="header">
 
             <div>
 
@@ -787,41 +882,51 @@
                 </h1>
 
                 <p>
-                    Encontre oportunidades comerciais para sua imobiliária.
+                    Encontre oportunidades comerciais e transforme pesquisas em novos negócios.
                 </p>
 
             </div>
 
-            <div class="status">
 
-                <span class="status-dot"></span>
-
-                Hunter Help online
-
+            <div class="header-badge">
+                MOTOR DE OPORTUNIDADES
             </div>
 
         </header>
 
 
-        <!-- SEARCH -->
+        <!-- =========================
+             BUSCA
+        ========================= -->
 
-        <section class="search-box">
+        <section class="search-panel">
 
-            <div class="section-title">
-                Encontrar oportunidades
+
+            <div class="panel-title">
+
+                <h2>
+                    Encontrar oportunidades
+                </h2>
+
+                <p>
+                    Defina a região e o perfil do imóvel que deseja prospectar.
+                </p>
+
             </div>
 
-            <div class="form-grid">
+
+            <div class="fields">
+
 
                 <div class="field">
 
-                    <label>
+                    <label for="cidade">
                         Cidade ou região
                     </label>
 
                     <input
-                        type="text"
                         id="cidade"
+                        type="text"
                         placeholder="Ex.: São José do Rio Preto"
                     >
 
@@ -830,29 +935,29 @@
 
                 <div class="field">
 
-                    <label>
+                    <label for="tipo">
                         Tipo de imóvel
                     </label>
 
                     <select id="tipo">
 
-                        <option value="Todos">
+                        <option value="">
                             Todos
                         </option>
 
-                        <option value="Casa">
+                        <option>
                             Casa
                         </option>
 
-                        <option value="Apartamento">
+                        <option>
                             Apartamento
                         </option>
 
-                        <option value="Terreno">
+                        <option>
                             Terreno
                         </option>
 
-                        <option value="Comercial">
+                        <option>
                             Comercial
                         </option>
 
@@ -863,25 +968,29 @@
 
                 <div class="field">
 
-                    <label>
+                    <label for="objetivo">
                         Objetivo
                     </label>
 
                     <select id="objetivo">
 
-                        <option value="Todos">
+                        <option value="">
                             Todos
                         </option>
 
-                        <option value="Compra">
+                        <option>
                             Compra
                         </option>
 
-                        <option value="Aluguel">
+                        <option>
+                            Venda
+                        </option>
+
+                        <option>
                             Aluguel
                         </option>
 
-                        <option value="Captação">
+                        <option>
                             Captação
                         </option>
 
@@ -892,49 +1001,38 @@
 
                 <button
                     class="search-btn"
+                    id="searchBtn"
                     onclick="buscarLeads()"
                 >
-                    Buscar oportunidades
+                    Buscar leads
                 </button>
 
+
             </div>
+
 
         </section>
 
 
-        <!-- STATS -->
+        <!-- =========================
+             STATS
+        ========================= -->
 
         <section class="stats">
+
 
             <div class="stat">
 
                 <small>
-                    OPORTUNIDADES ENCONTRADAS
+                    Oportunidades
                 </small>
 
-                <strong id="totalLeads">
+                <strong>
                     12
                 </strong>
 
                 <span>
-                    oportunidades identificadas
-                </span>
-
-            </div>
-
-
-            <div class="stat highlight">
-
-                <small>
-                    ALTO POTENCIAL
-                </small>
-
-                <strong id="highPotential">
-                    5
-                </strong>
-
-                <span>
-                    leads prioritários
+                    encontradas recentemente
                 </span>
 
             </div>
@@ -943,88 +1041,139 @@
             <div class="stat">
 
                 <small>
-                    POTENCIAIS CAPTAÇÕES
+                    Alto potencial
                 </small>
 
-                <strong id="captureLeads">
-                    7
+                <strong>
+                    5
                 </strong>
 
                 <span>
-                    oportunidades para captação
+                    prioridade de abordagem
                 </span>
 
             </div>
 
+
+            <div class="stat">
+
+                <small>
+                    Captação
+                </small>
+
+                <strong>
+                    7
+                </strong>
+
+                <span>
+                    possíveis novos imóveis
+                </span>
+
+            </div>
+
+
         </section>
 
 
-        <!-- RESULTS -->
+        <!-- =========================
+             RESULTADOS
+        ========================= -->
 
-        <div class="results-header">
+        <div class="section-header">
 
             <h2>
-                Oportunidades
+                Oportunidades encontradas
             </h2>
 
-            <span id="resultLabel">
-                Resultado inicial
+            <span>
+                Atualizado agora
             </span>
 
         </div>
 
 
         <div
-            class="loading"
-            id="loading"
+            class="searching"
+            id="searching"
         >
-            Analisando oportunidades comerciais...
+
+            <div class="spinner"></div>
+
+            Buscando novas oportunidades comerciais...
+
         </div>
 
 
         <section
-            class="leads-grid"
-            id="leadsGrid"
+            class="leads"
+            id="leads"
         >
 
+
+            <!-- LEAD 1 -->
+
             <article class="lead-card">
 
                 <div class="lead-top">
 
-                    <div>
-
-                        <div class="lead-name">
-                            Proprietário interessado
-                        </div>
-
-                        <div class="lead-type">
-                            Casa • Captação
-                        </div>
-
+                    <div class="lead-icon">
+                        ⌂
                     </div>
 
-                    <span class="badge high">
-                        Alto potencial
-                    </span>
+                    <div class="potential">
+                        ALTO POTENCIAL
+                    </div>
 
+                </div>
+
+
+                <h3>
+                    Proprietário — Casa
+                </h3>
+
+                <div class="lead-location">
+                    São José do Rio Preto — SP
                 </div>
 
 
                 <div class="lead-info">
 
-                    <div>
-                        <span>Região</span>
-                        <strong>Centro</strong>
+                    <div class="info-row">
+
+                        <span>
+                            Perfil
+                        </span>
+
+                        <span>
+                            Venda
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Oportunidade</span>
-                        <strong>Captação</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Faixa
+                        </span>
+
+                        <span>
+                            R$ 450 mil
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Prioridade</span>
-                        <strong>Alta</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Oportunidade
+                        </span>
+
+                        <span>
+                            Captação
+                        </span>
+
                     </div>
 
                 </div>
@@ -1033,17 +1182,17 @@
                 <div class="lead-actions">
 
                     <button
-                        class="btn-primary"
-                        onclick="abrirAbordagem('Proprietário interessado')"
+                        class="details-btn"
+                        onclick="verDetalhes('Casa residencial')"
                     >
-                        Criar abordagem
+                        Ver detalhes
                     </button>
 
                     <button
-                        class="btn-secondary"
-                        onclick="abrirDetalhes('Proprietário interessado', 'Casa', 'Centro', 'Captação', 'Alta')"
+                        class="approach-btn"
+                        onclick="criarAbordagem('proprietário de uma casa')"
                     >
-                        Detalhes
+                        Criar abordagem
                     </button>
 
                 </div>
@@ -1051,44 +1200,70 @@
             </article>
 
 
+            <!-- LEAD 2 -->
+
             <article class="lead-card">
 
                 <div class="lead-top">
 
-                    <div>
-
-                        <div class="lead-name">
-                            Comprador de apartamento
-                        </div>
-
-                        <div class="lead-type">
-                            Apartamento • Compra
-                        </div>
-
+                    <div class="lead-icon">
+                        ▣
                     </div>
 
-                    <span class="badge high">
-                        Alto potencial
-                    </span>
+                    <div class="potential">
+                        ALTO POTENCIAL
+                    </div>
 
+                </div>
+
+
+                <h3>
+                    Interessado — Apartamento
+                </h3>
+
+                <div class="lead-location">
+                    Fernandópolis — SP
                 </div>
 
 
                 <div class="lead-info">
 
-                    <div>
-                        <span>Região</span>
-                        <strong>Zona Sul</strong>
+                    <div class="info-row">
+
+                        <span>
+                            Perfil
+                        </span>
+
+                        <span>
+                            Compra
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Oportunidade</span>
-                        <strong>Compra</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Faixa
+                        </span>
+
+                        <span>
+                            R$ 320 mil
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Prioridade</span>
-                        <strong>Alta</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Oportunidade
+                        </span>
+
+                        <span>
+                            Venda
+                        </span>
+
                     </div>
 
                 </div>
@@ -1097,17 +1272,17 @@
                 <div class="lead-actions">
 
                     <button
-                        class="btn-primary"
-                        onclick="abrirAbordagem('Comprador de apartamento')"
+                        class="details-btn"
+                        onclick="verDetalhes('Apartamento residencial')"
                     >
-                        Criar abordagem
+                        Ver detalhes
                     </button>
 
                     <button
-                        class="btn-secondary"
-                        onclick="abrirDetalhes('Comprador de apartamento', 'Apartamento', 'Zona Sul', 'Compra', 'Alta')"
+                        class="approach-btn"
+                        onclick="criarAbordagem('interessado em comprar um apartamento')"
                     >
-                        Detalhes
+                        Criar abordagem
                     </button>
 
                 </div>
@@ -1115,44 +1290,70 @@
             </article>
 
 
+            <!-- LEAD 3 -->
+
             <article class="lead-card">
 
                 <div class="lead-top">
 
-                    <div>
-
-                        <div class="lead-name">
-                            Proprietário de terreno
-                        </div>
-
-                        <div class="lead-type">
-                            Terreno • Captação
-                        </div>
-
+                    <div class="lead-icon">
+                        ◈
                     </div>
 
-                    <span class="badge capture">
-                        Captação
-                    </span>
+                    <div class="potential">
+                        BOM POTENCIAL
+                    </div>
 
+                </div>
+
+
+                <h3>
+                    Proprietário — Terreno
+                </h3>
+
+                <div class="lead-location">
+                    Votuporanga — SP
                 </div>
 
 
                 <div class="lead-info">
 
-                    <div>
-                        <span>Região</span>
-                        <strong>Jardim América</strong>
+                    <div class="info-row">
+
+                        <span>
+                            Perfil
+                        </span>
+
+                        <span>
+                            Venda
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Oportunidade</span>
-                        <strong>Captação</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Faixa
+                        </span>
+
+                        <span>
+                            R$ 180 mil
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Prioridade</span>
-                        <strong>Média</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Oportunidade
+                        </span>
+
+                        <span>
+                            Captação
+                        </span>
+
                     </div>
 
                 </div>
@@ -1161,17 +1362,17 @@
                 <div class="lead-actions">
 
                     <button
-                        class="btn-primary"
-                        onclick="abrirAbordagem('Proprietário de terreno')"
+                        class="details-btn"
+                        onclick="verDetalhes('Terreno residencial')"
                     >
-                        Criar abordagem
+                        Ver detalhes
                     </button>
 
                     <button
-                        class="btn-secondary"
-                        onclick="abrirDetalhes('Proprietário de terreno', 'Terreno', 'Jardim América', 'Captação', 'Média')"
+                        class="approach-btn"
+                        onclick="criarAbordagem('proprietário de um terreno')"
                     >
-                        Detalhes
+                        Criar abordagem
                     </button>
 
                 </div>
@@ -1179,44 +1380,70 @@
             </article>
 
 
+            <!-- LEAD 4 -->
+
             <article class="lead-card">
 
                 <div class="lead-top">
 
-                    <div>
-
-                        <div class="lead-name">
-                            Busca por casa
-                        </div>
-
-                        <div class="lead-type">
-                            Casa • Compra
-                        </div>
-
+                    <div class="lead-icon">
+                        ◌
                     </div>
 
-                    <span class="badge high">
-                        Alto potencial
-                    </span>
+                    <div class="potential">
+                        BOM POTENCIAL
+                    </div>
 
+                </div>
+
+
+                <h3>
+                    Proprietário — Comercial
+                </h3>
+
+                <div class="lead-location">
+                    Jales — SP
                 </div>
 
 
                 <div class="lead-info">
 
-                    <div>
-                        <span>Região</span>
-                        <strong>Zona Norte</strong>
+                    <div class="info-row">
+
+                        <span>
+                            Perfil
+                        </span>
+
+                        <span>
+                            Aluguel
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Oportunidade</span>
-                        <strong>Compra</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Faixa
+                        </span>
+
+                        <span>
+                            R$ 4.500/mês
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Prioridade</span>
-                        <strong>Alta</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Oportunidade
+                        </span>
+
+                        <span>
+                            Captação
+                        </span>
+
                     </div>
 
                 </div>
@@ -1225,17 +1452,17 @@
                 <div class="lead-actions">
 
                     <button
-                        class="btn-primary"
-                        onclick="abrirAbordagem('Busca por casa')"
+                        class="details-btn"
+                        onclick="verDetalhes('Imóvel comercial')"
                     >
-                        Criar abordagem
+                        Ver detalhes
                     </button>
 
                     <button
-                        class="btn-secondary"
-                        onclick="abrirDetalhes('Busca por casa', 'Casa', 'Zona Norte', 'Compra', 'Alta')"
+                        class="approach-btn"
+                        onclick="criarAbordagem('proprietário de um imóvel comercial')"
                     >
-                        Detalhes
+                        Criar abordagem
                     </button>
 
                 </div>
@@ -1243,44 +1470,70 @@
             </article>
 
 
+            <!-- LEAD 5 -->
+
             <article class="lead-card">
 
                 <div class="lead-top">
 
-                    <div>
-
-                        <div class="lead-name">
-                            Sala comercial
-                        </div>
-
-                        <div class="lead-type">
-                            Comercial • Aluguel
-                        </div>
-
+                    <div class="lead-icon">
+                        ⌂
                     </div>
 
-                    <span class="badge capture">
-                        Oportunidade
-                    </span>
+                    <div class="potential">
+                        ALTO POTENCIAL
+                    </div>
 
+                </div>
+
+
+                <h3>
+                    Interessado — Casa
+                </h3>
+
+                <div class="lead-location">
+                    Bebedouro — SP
                 </div>
 
 
                 <div class="lead-info">
 
-                    <div>
-                        <span>Região</span>
-                        <strong>Centro</strong>
+                    <div class="info-row">
+
+                        <span>
+                            Perfil
+                        </span>
+
+                        <span>
+                            Compra
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Oportunidade</span>
-                        <strong>Aluguel</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Faixa
+                        </span>
+
+                        <span>
+                            R$ 590 mil
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Prioridade</span>
-                        <strong>Média</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Oportunidade
+                        </span>
+
+                        <span>
+                            Venda
+                        </span>
+
                     </div>
 
                 </div>
@@ -1289,17 +1542,17 @@
                 <div class="lead-actions">
 
                     <button
-                        class="btn-primary"
-                        onclick="abrirAbordagem('Sala comercial')"
+                        class="details-btn"
+                        onclick="verDetalhes('Casa de alto potencial')"
                     >
-                        Criar abordagem
+                        Ver detalhes
                     </button>
 
                     <button
-                        class="btn-secondary"
-                        onclick="abrirDetalhes('Sala comercial', 'Comercial', 'Centro', 'Aluguel', 'Média')"
+                        class="approach-btn"
+                        onclick="criarAbordagem('interessado em comprar uma casa')"
                     >
-                        Detalhes
+                        Criar abordagem
                     </button>
 
                 </div>
@@ -1307,44 +1560,70 @@
             </article>
 
 
+            <!-- LEAD 6 -->
+
             <article class="lead-card">
 
                 <div class="lead-top">
 
-                    <div>
-
-                        <div class="lead-name">
-                            Casa para vender
-                        </div>
-
-                        <div class="lead-type">
-                            Casa • Captação
-                        </div>
-
+                    <div class="lead-icon">
+                        ▣
                     </div>
 
-                    <span class="badge capture">
-                        Captação
-                    </span>
+                    <div class="potential">
+                        BOM POTENCIAL
+                    </div>
 
+                </div>
+
+
+                <h3>
+                    Proprietário — Apartamento
+                </h3>
+
+                <div class="lead-location">
+                    Catanduva — SP
                 </div>
 
 
                 <div class="lead-info">
 
-                    <div>
-                        <span>Região</span>
-                        <strong>Vila Nova</strong>
+                    <div class="info-row">
+
+                        <span>
+                            Perfil
+                        </span>
+
+                        <span>
+                            Venda
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Oportunidade</span>
-                        <strong>Captação</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Faixa
+                        </span>
+
+                        <span>
+                            R$ 280 mil
+                        </span>
+
                     </div>
 
-                    <div>
-                        <span>Prioridade</span>
-                        <strong>Média</strong>
+
+                    <div class="info-row">
+
+                        <span>
+                            Oportunidade
+                        </span>
+
+                        <span>
+                            Captação
+                        </span>
+
                     </div>
 
                 </div>
@@ -1353,49 +1632,55 @@
                 <div class="lead-actions">
 
                     <button
-                        class="btn-primary"
-                        onclick="abrirAbordagem('Casa para vender')"
+                        class="details-btn"
+                        onclick="verDetalhes('Apartamento para venda')"
                     >
-                        Criar abordagem
+                        Ver detalhes
                     </button>
 
                     <button
-                        class="btn-secondary"
-                        onclick="abrirDetalhes('Casa para vender', 'Casa', 'Vila Nova', 'Captação', 'Média')"
+                        class="approach-btn"
+                        onclick="criarAbordagem('proprietário de um apartamento')"
                     >
-                        Detalhes
+                        Criar abordagem
                     </button>
 
                 </div>
 
             </article>
+
 
         </section>
+
 
     </main>
 
 </div>
 
 
-<!-- MODAL ABORDAGEM -->
+<!-- =========================
+     MODAL
+========================= -->
 
 <div
     class="modal"
-    id="approachModal"
-    onclick="fecharModalFora(event)"
+    id="modal"
+    onclick="fecharModal(event)"
 >
+
 
     <div class="modal-box">
 
-        <div class="modal-head">
 
-            <h3>
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
                 Abordagem comercial
-            </h3>
+            </h2>
 
             <button
                 class="close"
-                onclick="fecharModal('approachModal')"
+                onclick="fecharModal()"
             >
                 ×
             </button>
@@ -1404,69 +1689,41 @@
 
 
         <div
-            class="modal-text"
-            id="approachText"
+            class="message-box"
+            id="modalMessage"
         ></div>
 
 
         <button
             class="copy-btn"
-            onclick="copiarAbordagem()"
+            onclick="copiarMensagem()"
         >
             Copiar mensagem
         </button>
 
-    </div>
-
-</div>
-
-
-<!-- MODAL DETALHES -->
-
-<div
-    class="modal"
-    id="detailModal"
-    onclick="fecharModalFora(event)"
->
-
-    <div class="modal-box">
-
-        <div class="modal-head">
-
-            <h3>
-                Detalhes da oportunidade
-            </h3>
-
-            <button
-                class="close"
-                onclick="fecharModal('detailModal')"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <div
-            class="detail-list"
-            id="detailList"
-        ></div>
 
     </div>
+
 
 </div>
 
 
 <script>
 
+
     /* =========================
        AUTH
     ========================= */
 
-    const token = localStorage.getItem("hunter_token");
+    const token =
+        localStorage.getItem("hunter_token");
+
 
     if (!token) {
-        window.location.href = "../index.html";
+
+        window.location.href =
+            "../index.html";
+
     }
 
 
@@ -1474,25 +1731,14 @@
        AGENCY
     ========================= */
 
-    const agency = JSON.parse(
-        localStorage.getItem("hunter_agency") || "{}"
-    );
+    const agency =
+        JSON.parse(
+            localStorage.getItem("hunter_agency") || "{}"
+        );
+
 
     document.getElementById("agencyName").textContent =
         agency.name || "Sua imobiliária";
-
-
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    function logout() {
-
-        localStorage.removeItem("hunter_token");
-        localStorage.removeItem("hunter_agency");
-
-        window.location.href = "../index.html";
-    }
 
 
     /* =========================
@@ -1501,100 +1747,109 @@
 
     function buscarLeads() {
 
+
         const cidade =
-            document.getElementById("cidade").value.trim();
+            document
+                .getElementById("cidade")
+                .value
+                .trim();
+
 
         const tipo =
-            document.getElementById("tipo").value;
+            document
+                .getElementById("tipo")
+                .value;
+
 
         const objetivo =
-            document.getElementById("objetivo").value;
-
-        const loading =
-            document.getElementById("loading");
-
-        const grid =
-            document.getElementById("leadsGrid");
-
-        const resultLabel =
-            document.getElementById("resultLabel");
+            document
+                .getElementById("objetivo")
+                .value;
 
 
-        loading.classList.add("active");
+        const button =
+            document.getElementById("searchBtn");
 
-        grid.style.opacity = ".35";
+
+        const leads =
+            document.getElementById("leads");
+
+
+        const searching =
+            document.getElementById("searching");
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Buscando...";
+
+
+        leads.style.display =
+            "none";
+
+
+        searching.classList.add("active");
 
 
         setTimeout(() => {
 
-            loading.classList.remove("active");
 
-            grid.style.opacity = "1";
+            searching.classList.remove("active");
 
-
-            const cidadeTexto =
-                cidade || "sua região";
+            leads.style.display =
+                "grid";
 
 
-            resultLabel.textContent =
-                `Oportunidades em ${cidadeTexto}`;
+            button.disabled = false;
+
+            button.textContent =
+                "Buscar leads";
 
 
-            document.getElementById("totalLeads").textContent = "12";
-            document.getElementById("highPotential").textContent = "5";
-            document.getElementById("captureLeads").textContent = "7";
-
-        }, 1000);
+        }, 1100);
 
     }
 
 
     /* =========================
-       ABORDAGEM
+       CRIAR ABORDAGEM
     ========================= */
 
     let mensagemAtual = "";
 
 
-    function abrirAbordagem(nome) {
+    function criarAbordagem(tipo) {
+
 
         mensagemAtual =
 `Olá! Tudo bem?
 
-Estou entrando em contato porque identifiquei uma oportunidade relacionada a ${nome}.
+Estou entrando em contato porque identificamos uma oportunidade relacionada a ${tipo}.
 
-Trabalho com estratégias comerciais para imobiliárias e posso ajudar sua equipe a transformar mais oportunidades em negócios.
+Trabalho com estratégias comerciais para imobiliárias e acredito que podemos ajudar a encontrar compradores ou interessados para esse tipo de imóvel.
 
-Se fizer sentido, posso te mostrar uma sugestão rápida de abordagem para esse perfil de cliente.`;
+Gostaria de entender um pouco melhor o seu objetivo e, se fizer sentido, apresentar uma possibilidade sem compromisso.
 
-        document.getElementById("approachText").textContent =
+Podemos conversar?`;
+
+
+        document.getElementById(
+            "modalTitle"
+        ).textContent =
+            "Abordagem comercial";
+
+
+        document.getElementById(
+            "modalMessage"
+        ).textContent =
             mensagemAtual;
 
-        document
-            .getElementById("approachModal")
-            .classList.add("active");
-    }
 
+        document.getElementById(
+            "modal"
+        ).classList.add("active");
 
-    function copiarAbordagem() {
-
-        navigator.clipboard.writeText(mensagemAtual);
-
-        const button =
-            document.querySelector(".copy-btn");
-
-        const original =
-            button.textContent;
-
-        button.textContent =
-            "Mensagem copiada ✓";
-
-        setTimeout(() => {
-
-            button.textContent =
-                original;
-
-        }, 1800);
     }
 
 
@@ -1602,92 +1857,122 @@ Se fizer sentido, posso te mostrar uma sugestão rápida de abordagem para esse 
        DETALHES
     ========================= */
 
-    function abrirDetalhes(
-        nome,
-        tipo,
-        regiao,
-        oportunidade,
-        prioridade
-    ) {
+    function verDetalhes(tipo) {
 
-        document.getElementById("detailList").innerHTML = `
 
-            <div class="detail-item">
-                <small>OPORTUNIDADE</small>
-                <strong>${nome}</strong>
-            </div>
+        document.getElementById(
+            "modalTitle"
+        ).textContent =
+            "Detalhes da oportunidade";
 
-            <div class="detail-item">
-                <small>TIPO DE IMÓVEL</small>
-                <strong>${tipo}</strong>
-            </div>
 
-            <div class="detail-item">
-                <small>REGIÃO</small>
-                <strong>${regiao}</strong>
-            </div>
+        document.getElementById(
+            "modalMessage"
+        ).textContent =
+`Oportunidade identificada:
 
-            <div class="detail-item">
-                <small>OBJETIVO</small>
-                <strong>${oportunidade}</strong>
-            </div>
+${tipo}
 
-            <div class="detail-item">
-                <small>PRIORIDADE</small>
-                <strong>${prioridade}</strong>
-            </div>
+Potencial: alto
 
-        `;
+Próximo passo recomendado:
+Iniciar uma abordagem personalizada, entender o objetivo do contato e qualificar a oportunidade antes de apresentar uma solução.`;
 
-        document
-            .getElementById("detailModal")
-            .classList.add("active");
+
+        document.getElementById(
+            "modal"
+        ).classList.add("active");
+
+
     }
 
 
     /* =========================
-       MODAIS
+       COPIAR
     ========================= */
 
-    function fecharModal(id) {
-
-        document
-            .getElementById(id)
-            .classList.remove("active");
-    }
+    function copiarMensagem() {
 
 
-    function fecharModalFora(event) {
+        const texto =
+            document.getElementById(
+                "modalMessage"
+            ).textContent;
 
-        if (event.target.classList.contains("modal")) {
 
-            event.target.classList.remove("active");
+        navigator.clipboard
+            .writeText(texto)
+            .then(() => {
 
-        }
+                const button =
+                    document.querySelector(
+                        ".copy-btn"
+                    );
+
+                button.textContent =
+                    "Mensagem copiada ✓";
+
+
+                setTimeout(() => {
+
+                    button.textContent =
+                        "Copiar mensagem";
+
+                }, 1500);
+
+            });
+
     }
 
 
     /* =========================
-       ESC
+       FECHAR MODAL
     ========================= */
 
-    document.addEventListener("keydown", event => {
+    function fecharModal(event) {
 
-        if (event.key === "Escape") {
 
-            document
-                .querySelectorAll(".modal.active")
-                .forEach(modal => {
+        if (
+            event &&
+            event.target !==
+                document.getElementById("modal")
+        ) {
 
-                    modal.classList.remove("active");
-
-                });
+            return;
 
         }
 
-    });
+
+        document.getElementById(
+            "modal"
+        ).classList.remove("active");
+
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    function logout() {
+
+        localStorage.removeItem(
+            "hunter_token"
+        );
+
+        localStorage.removeItem(
+            "hunter_agency"
+        );
+
+        window.location.href =
+            "../index.html";
+
+    }
+
 
 </script>
 
+
 </body>
+
 </html>
