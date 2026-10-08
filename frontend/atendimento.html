@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Atendimento | Hunter Help</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,7 +27,6 @@
         }
 
         button,
-        input,
         textarea,
         select {
             font: inherit;
@@ -34,6 +40,7 @@
             min-height: 100vh;
             display: flex;
         }
+
 
         /* =========================
            SIDEBAR
@@ -61,13 +68,19 @@
             width: 40px;
             height: 40px;
             border-radius: 11px;
-            background: #f59e0b;
-            color: #111;
+            overflow: hidden;
+            background: #111;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 21px;
-            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .brand-text {
@@ -168,6 +181,7 @@
             border-color: #444;
         }
 
+
         /* =========================
            MAIN
         ========================= */
@@ -179,39 +193,21 @@
             overflow-x: hidden;
         }
 
-        .top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 30px;
+        .header {
+            margin-bottom: 28px;
         }
 
-        .top h1 {
+        .header h1 {
             font-size: 28px;
             margin-bottom: 7px;
         }
 
-        .top p {
+        .header p {
             color: #777;
             font-size: 13px;
+            line-height: 1.5;
         }
 
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            color: #7f7f84;
-            font-size: 11px;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #35c978;
-            box-shadow: 0 0 10px rgba(53, 201, 120, .5);
-        }
 
         /* =========================
            GRID
@@ -219,8 +215,8 @@
 
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
+            grid-template-columns: .85fr 1.15fr;
+            gap: 20px;
             align-items: start;
         }
 
@@ -231,49 +227,58 @@
             padding: 22px;
         }
 
-        .panel.full {
-            grid-column: 1 / -1;
+        .panel-title {
+            margin-bottom: 20px;
         }
 
-        .panel-title {
+        .panel-title h2 {
             font-size: 15px;
-            font-weight: 700;
             margin-bottom: 5px;
         }
 
-        .panel-subtitle {
-            color: #707075;
-            font-size: 11px;
+        .panel-title p {
+            color: #666;
+            font-size: 10px;
             line-height: 1.5;
-            margin-bottom: 20px;
         }
+
 
         /* =========================
            FORM
         ========================= */
 
+        .fields {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
         .field {
             display: flex;
             flex-direction: column;
             gap: 7px;
-            margin-bottom: 14px;
         }
 
         .field label {
-            color: #858589;
-            font-size: 11px;
+            color: #999;
+            font-size: 10px;
         }
 
         .field select,
         .field textarea {
             width: 100%;
             background: #0b0b0c;
-            border: 1px solid #29292c;
-            border-radius: 8px;
-            color: #eee;
-            padding: 12px;
+            border: 1px solid #2a2a2d;
+            border-radius: 9px;
+            color: #fff;
             outline: none;
-            font-size: 12px;
+            padding: 11px 12px;
+            font-size: 11px;
+            transition: .2s;
+        }
+
+        .field select {
+            height: 43px;
         }
 
         .field textarea {
@@ -282,74 +287,78 @@
             line-height: 1.6;
         }
 
-        .field select:focus,
-        .field textarea:focus {
-            border-color: #f59e0b;
+        .field textarea::placeholder {
+            color: #555;
         }
 
-        .field select option {
-            background: #111;
+        .field select:focus,
+        .field textarea:focus {
+            border-color: #8f6518;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, .06);
         }
 
         .analyze-btn {
             width: 100%;
+            height: 45px;
             border: 0;
-            border-radius: 8px;
+            border-radius: 9px;
             background: #f59e0b;
             color: #111;
-            padding: 12px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
+            transition: .2s;
         }
 
         .analyze-btn:hover {
-            background: #ffb52e;
+            background: #ffad21;
+            transform: translateY(-1px);
         }
 
+        .analyze-btn:disabled {
+            opacity: .6;
+            cursor: wait;
+            transform: none;
+        }
+
+
         /* =========================
-           EMPTY RESULT
+           LOADING
         ========================= */
 
-        .empty {
-            min-height: 320px;
-            border: 1px dashed #29292c;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-        }
-
-        .empty-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 13px;
-            background: #19191b;
-            color: #f59e0b;
-            display: flex;
+        .loading {
+            display: none;
             align-items: center;
             justify-content: center;
-            font-size: 21px;
-            margin-bottom: 14px;
-        }
-
-        .empty strong {
-            color: #aaa;
-            font-size: 13px;
-            margin-bottom: 6px;
-        }
-
-        .empty span {
-            color: #555;
-            max-width: 280px;
+            gap: 9px;
+            color: #777;
             font-size: 10px;
-            line-height: 1.5;
+            padding-top: 16px;
         }
+
+        .loading.active {
+            display: flex;
+        }
+
+        .loader {
+            width: 14px;
+            height: 14px;
+            border: 2px solid #333;
+            border-top-color: #f59e0b;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
 
         /* =========================
-           RESULT
+           RESULTADO
         ========================= */
 
         .result {
@@ -360,141 +369,177 @@
             display: block;
         }
 
-        .conversion {
+        .result-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
-            background: #0b0b0c;
-            border: 1px solid #252527;
-            border-radius: 9px;
-            padding: 14px;
-            margin-bottom: 12px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .conversion small {
-            color: #666;
-            font-size: 9px;
-            display: block;
+        .result-header h2 {
+            font-size: 16px;
             margin-bottom: 5px;
         }
 
-        .conversion strong {
-            font-size: 19px;
-            color: #f59e0b;
+        .result-header p {
+            color: #666;
+            font-size: 10px;
         }
 
-        .conversion-badge {
-            color: #63d69a;
-            background: #10271c;
-            padding: 6px 8px;
-            border-radius: 6px;
+        .score-badge {
+            background: #17261e;
+            border: 1px solid #21452f;
+            color: #63d697;
+            padding: 7px 9px;
+            border-radius: 7px;
             font-size: 9px;
-            font-weight: bold;
+            white-space: nowrap;
         }
 
-        .response-box {
-            background: #0b0b0c;
+
+        /* =========================
+           CONVERSATION
+        ========================= */
+
+        .conversation {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .bubble {
+            max-width: 88%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .bubble.customer {
+            background: #171719;
+            border: 1px solid #29292c;
+            color: #aaa;
+            align-self: flex-start;
+        }
+
+        .bubble.hunter {
+            background: #201b13;
+            border: 1px solid #3b2d18;
+            color: #ddd;
+            align-self: flex-end;
+        }
+
+        .bubble small {
+            display: block;
+            color: #666;
+            font-size: 8px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .bubble.hunter small {
+            color: #a86d0a;
+        }
+
+
+        /* =========================
+           NEXT STEP
+        ========================= */
+
+        .next-step {
+            background: #0d0d0e;
             border: 1px solid #252527;
-            border-radius: 9px;
+            border-radius: 10px;
             padding: 15px;
             margin-bottom: 12px;
         }
 
-        .response-box small {
-            color: #666;
-            font-size: 9px;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .response-box p {
-            color: #bbb;
-            font-size: 11px;
-            line-height: 1.7;
-            white-space: pre-line;
-        }
-
-        .next-step {
-            background: #17140f;
-            border: 1px solid #3a2c16;
-            border-radius: 9px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-
         .next-step small {
-            display: block;
             color: #f59e0b;
-            font-size: 9px;
-            margin-bottom: 6px;
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .next-step strong {
-            color: #ddd;
+            display: block;
             font-size: 11px;
+            margin: 7px 0 5px;
+        }
+
+        .next-step p {
+            color: #777;
+            font-size: 9px;
+            line-height: 1.5;
         }
 
         .copy-btn {
             width: 100%;
+            height: 42px;
             border: 0;
             border-radius: 8px;
             background: #f59e0b;
             color: #111;
-            padding: 12px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 800;
         }
+
+        .copy-btn:hover {
+            background: #ffad21;
+        }
+
 
         /* =========================
            GUIDANCE
         ========================= */
 
         .guidance {
+            margin-top: 20px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
         .guidance-card {
-            background: #0b0b0c;
+            padding: 14px;
+            background: #0d0d0e;
             border: 1px solid #252527;
             border-radius: 9px;
-            padding: 15px;
         }
 
         .guidance-card strong {
             display: block;
-            font-size: 11px;
+            font-size: 10px;
             margin-bottom: 6px;
         }
 
-        .guidance-card span {
-            color: #6e6e73;
-            font-size: 10px;
+        .guidance-card p {
+            color: #666;
+            font-size: 9px;
             line-height: 1.5;
         }
 
-        /* =========================
-           LOADING
-        ========================= */
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 14px;
-            color: #777;
-            font-size: 11px;
-        }
-
-        .loading.active {
-            display: block;
-        }
 
         /* =========================
            MOBILE
         ========================= */
 
+        @media (max-width: 1050px) {
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
         @media (max-width: 900px) {
+
+            .app {
+                display: block;
+            }
 
             .sidebar {
                 width: 100%;
@@ -502,10 +547,6 @@
                 border-right: 0;
                 border-bottom: 1px solid #252527;
                 padding: 12px;
-            }
-
-            .app {
-                display: block;
             }
 
             .brand {
@@ -539,49 +580,60 @@
                 padding: 22px 15px;
             }
 
-            .content-grid {
-                grid-template-columns: 1fr;
+        }
+
+        @media (max-width: 650px) {
+
+            .header h1 {
+                font-size: 23px;
             }
 
-            .panel.full {
-                grid-column: auto;
+            .panel {
+                padding: 18px;
+            }
+
+            .result-header {
+                flex-direction: column;
             }
 
             .guidance {
                 grid-template-columns: 1fr;
             }
+
+            .bubble {
+                max-width: 95%;
+            }
+
         }
 
-        @media (max-width: 600px) {
-
-            .top h1 {
-                font-size: 23px;
-            }
-
-            .status {
-                display: none;
-            }
-
-            .panel {
-                padding: 17px;
-            }
-        }
     </style>
+
 </head>
+
 
 <body>
 
 <div class="app">
 
-    <!-- SIDEBAR -->
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
 
     <aside class="sidebar">
+
 
         <div class="brand">
 
             <div class="brand-icon">
-                H
+
+                <img
+                    src="../Assets/A8E0C9E9-E5F9-4B9A-8293-FE6E0E764BB6.png"
+                    alt="Hunter Help"
+                >
+
             </div>
+
 
             <div class="brand-text">
 
@@ -605,50 +657,87 @@
 
         <nav class="nav">
 
+
             <a href="dashboard.html">
+
                 <span class="nav-icon">⌂</span>
+
                 Dashboard
+
             </a>
+
 
             <a href="diagnostico.html">
+
                 <span class="nav-icon">◈</span>
+
                 Diagnóstico
+
             </a>
+
 
             <a href="leads.html">
+
                 <span class="nav-icon">◎</span>
+
                 Leads
+
             </a>
+
 
             <a href="anuncios.html">
+
                 <span class="nav-icon">▣</span>
+
                 Anúncios
+
             </a>
 
-            <a href="atendimento.html" class="active">
+
+            <a
+                href="atendimento.html"
+                class="active"
+            >
+
                 <span class="nav-icon">◌</span>
+
                 Atendimento
+
             </a>
+
 
             <a href="concorrentes.html">
+
                 <span class="nav-icon">⇄</span>
+
                 Concorrentes
+
             </a>
+
 
             <a href="seo.html">
+
                 <span class="nav-icon">⌕</span>
+
                 SEO Local
+
             </a>
 
+
             <a href="automacao.html">
+
                 <span class="nav-icon">⚙</span>
+
                 Automação
+
             </a>
+
 
         </nav>
 
 
         <div class="sidebar-bottom">
+
 
             <div class="agency-mini">
 
@@ -670,237 +759,230 @@
                 Sair da conta
             </button>
 
+
         </div>
+
 
     </aside>
 
 
-    <!-- MAIN -->
+    <!-- =========================
+         MAIN
+    ========================= -->
 
     <main class="main">
 
-        <header class="top">
 
-            <div>
+        <header class="header">
 
-                <h1>
-                    Atendimento
-                </h1>
+            <h1>
+                Atendimento
+            </h1>
 
-                <p>
-                    Melhore suas respostas e aumente as chances de conversão.
-                </p>
-
-            </div>
-
-            <div class="status">
-
-                <span class="status-dot"></span>
-
-                Hunter Help online
-
-            </div>
+            <p>
+                Analise conversas e crie respostas mais estratégicas para transformar contatos em oportunidades.
+            </p>
 
         </header>
 
 
         <div class="content-grid">
 
-            <!-- INPUT -->
+
+            <!-- =========================
+                 INPUT
+            ========================= -->
 
             <section class="panel">
 
-                <div class="panel-title">
-                    Analisar atendimento
-                </div>
-
-                <div class="panel-subtitle">
-                    Cole a mensagem do cliente e deixe o Hunter Help sugerir uma resposta comercial.
-                </div>
-
-
-                <div class="field">
-
-                    <label>
-                        Objetivo do atendimento
-                    </label>
-
-                    <select id="objetivo">
-
-                        <option value="Vender imóvel">
-                            Vender imóvel
-                        </option>
-
-                        <option value="Alugar imóvel">
-                            Alugar imóvel
-                        </option>
-
-                        <option value="Captar imóvel">
-                            Captar imóvel
-                        </option>
-
-                        <option value="Tirar dúvida">
-                            Tirar dúvida
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="field">
-
-                    <label>
-                        Mensagem recebida
-                    </label>
-
-                    <textarea
-                        id="mensagem"
-                        placeholder="Ex.: Olá, vi o apartamento anunciado. Ainda está disponível? Qual o valor?"
-                    ></textarea>
-
-                </div>
-
-
-                <div
-                    class="loading"
-                    id="loading"
-                >
-                    Analisando conversa e preparando resposta...
-                </div>
-
-
-                <button
-                    class="analyze-btn"
-                    onclick="analisarAtendimento()"
-                >
-                    Analisar e criar resposta
-                </button>
-
-            </section>
-
-
-            <!-- RESULT -->
-
-            <section class="panel">
 
                 <div class="panel-title">
-                    Sugestão do Hunter Help
-                </div>
 
-                <div class="panel-subtitle">
-                    A resposta é estruturada para manter a conversa ativa e conduzir o cliente ao próximo passo.
-                </div>
+                    <h2>
+                        Analisar atendimento
+                    </h2>
 
-
-                <div
-                    class="empty"
-                    id="empty"
-                >
-
-                    <div class="empty-icon">
-                        ◌
-                    </div>
-
-                    <strong>
-                        Nenhuma conversa analisada
-                    </strong>
-
-                    <span>
-                        Insira uma mensagem do cliente para receber uma sugestão de resposta.
-                    </span>
+                    <p>
+                        Informe o objetivo do contato e cole a mensagem recebida.
+                    </p>
 
                 </div>
 
 
-                <div
-                    class="result"
-                    id="result"
-                >
-
-                    <div class="conversion">
-
-                        <div>
-
-                            <small>
-                                POTENCIAL DE CONVERSÃO
-                            </small>
-
-                            <strong>
-                                82%
-                            </strong>
-
-                        </div>
-
-                        <span class="conversion-badge">
-                            Alto potencial
-                        </span>
-
-                    </div>
+                <div class="fields">
 
 
-                    <div class="response-box">
+                    <div class="field">
 
-                        <small>
-                            RESPOSTA SUGERIDA
-                        </small>
+                        <label for="objetivo">
+                            Objetivo do cliente
+                        </label>
 
-                        <p id="resposta">
-                            —
-                        </p>
+                        <select id="objetivo">
+
+                            <option value="vender">
+                                Comprar imóvel
+                            </option>
+
+                            <option value="alugar">
+                                Alugar imóvel
+                            </option>
+
+                            <option value="captar">
+                                Oferecer imóvel para a imobiliária
+                            </option>
+
+                            <option value="duvida">
+                                Tirar uma dúvida
+                            </option>
+
+                        </select>
 
                     </div>
 
 
-                    <div class="next-step">
+                    <div class="field">
 
-                        <small>
-                            PRÓXIMO PASSO RECOMENDADO
-                        </small>
+                        <label for="mensagem">
+                            Mensagem recebida
+                        </label>
 
-                        <strong id="proximoPasso">
-                            —
-                        </strong>
+                        <textarea
+                            id="mensagem"
+                            placeholder="Cole aqui a mensagem que o cliente enviou no WhatsApp ou Instagram..."
+                        ></textarea>
 
                     </div>
 
 
                     <button
-                        class="copy-btn"
-                        onclick="copiarResposta()"
+                        class="analyze-btn"
+                        id="analyzeBtn"
+                        onclick="analisarAtendimento()"
                     >
-                        Copiar resposta
+                        Analisar e criar resposta
                     </button>
 
+
+                    <div
+                        class="loading"
+                        id="loading"
+                    >
+
+                        <span class="loader"></span>
+
+                        Analisando intenção e potencial de conversão...
+
+                    </div>
+
+
                 </div>
+
 
             </section>
 
 
-            <!-- GUIDANCE -->
+            <!-- =========================
+                 RESULTADO
+            ========================= -->
 
-            <section class="panel full">
+            <section
+                class="panel result"
+                id="resultado"
+            >
 
-                <div class="panel-title">
-                    Como melhorar a conversão
+
+                <div class="result-header">
+
+                    <div>
+
+                        <h2>
+                            Resposta recomendada
+                        </h2>
+
+                        <p>
+                            Uma resposta pensada para conduzir o próximo passo da conversa.
+                        </p>
+
+                    </div>
+
+
+                    <div class="score-badge">
+                        POTENCIAL ALTO · 82%
+                    </div>
+
                 </div>
 
-                <div class="panel-subtitle">
-                    O atendimento não deve apenas responder. Ele precisa conduzir a conversa.
+
+                <div class="conversation">
+
+
+                    <div class="bubble customer">
+
+                        <small>
+                            Cliente
+                        </small>
+
+                        <span id="customerMessage">
+                            Mensagem do cliente aparecerá aqui.
+                        </span>
+
+                    </div>
+
+
+                    <div class="bubble hunter">
+
+                        <small>
+                            Hunter Help
+                        </small>
+
+                        <span id="responseMessage">
+                            Resposta recomendada aparecerá aqui.
+                        </span>
+
+                    </div>
+
+
                 </div>
+
+
+                <div class="next-step">
+
+                    <small>
+                        Próximo passo
+                    </small>
+
+                    <strong>
+                        Qualificar e conduzir para uma ação
+                    </strong>
+
+                    <p>
+                        Evite apenas responder a dúvida. Termine a mensagem com uma pergunta ou convite que facilite a continuidade da conversa.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="copy-btn"
+                    onclick="copiarResposta()"
+                >
+                    Copiar resposta
+                </button>
 
 
                 <div class="guidance">
 
+
                     <div class="guidance-card">
 
                         <strong>
-                            Responda rápido
+                            Seja rápido
                         </strong>
 
-                        <span>
-                            Quanto mais tempo um lead espera, maior a chance de perder o interesse.
-                        </span>
+                        <p>
+                            Respostas rápidas reduzem a chance de o lead procurar outra imobiliária.
+                        </p>
 
                     </div>
 
@@ -908,12 +990,12 @@
                     <div class="guidance-card">
 
                         <strong>
-                            Faça uma pergunta
+                            Faça perguntas
                         </strong>
 
-                        <span>
-                            Termine a resposta com uma pergunta que mantenha o cliente conversando.
-                        </span>
+                        <p>
+                            Descubra localização, orçamento e objetivo antes de oferecer imóveis.
+                        </p>
 
                     </div>
 
@@ -921,36 +1003,47 @@
                     <div class="guidance-card">
 
                         <strong>
-                            Conduza para a ação
+                            Termine com ação
                         </strong>
 
-                        <span>
-                            O objetivo final deve ser uma visita, ligação, envio de dados ou outra ação comercial.
-                        </span>
+                        <p>
+                            Direcione o cliente para visita, ligação, envio de opções ou próxima etapa.
+                        </p>
 
                     </div>
+
 
                 </div>
 
+
             </section>
+
 
         </div>
 
+
     </main>
+
 
 </div>
 
 
 <script>
 
+
     /* =========================
        AUTH
     ========================= */
 
-    const token = localStorage.getItem("hunter_token");
+    const token =
+        localStorage.getItem("hunter_token");
+
 
     if (!token) {
-        window.location.href = "../index.html";
+
+        window.location.href =
+            "../index.html";
+
     }
 
 
@@ -958,29 +1051,18 @@
        AGENCY
     ========================= */
 
-    const agency = JSON.parse(
-        localStorage.getItem("hunter_agency") || "{}"
-    );
+    const agency =
+        JSON.parse(
+            localStorage.getItem("hunter_agency") || "{}"
+        );
+
 
     document.getElementById("agencyName").textContent =
         agency.name || "Sua imobiliária";
 
 
     /* =========================
-       LOGOUT
-    ========================= */
-
-    function logout() {
-
-        localStorage.removeItem("hunter_token");
-        localStorage.removeItem("hunter_agency");
-
-        window.location.href = "../index.html";
-    }
-
-
-    /* =========================
-       ATENDIMENTO
+       ANÁLISE
     ========================= */
 
     let respostaAtual = "";
@@ -988,85 +1070,96 @@
 
     function analisarAtendimento() {
 
+
         const objetivo =
-            document.getElementById("objetivo").value;
+            document
+                .getElementById("objetivo")
+                .value;
+
 
         const mensagem =
-            document.getElementById("mensagem").value.trim();
+            document
+                .getElementById("mensagem")
+                .value
+                .trim();
+
 
         if (!mensagem) {
 
-            alert("Cole a mensagem recebida do cliente.");
+            alert(
+                "Cole a mensagem recebida pelo cliente para continuar."
+            );
 
             return;
+
         }
+
+
+        const button =
+            document.getElementById("analyzeBtn");
 
 
         const loading =
             document.getElementById("loading");
 
-        const result =
-            document.getElementById("result");
 
-        const empty =
-            document.getElementById("empty");
+        const resultado =
+            document.getElementById("resultado");
 
+
+        button.disabled = true;
+
+        button.textContent =
+            "Analisando...";
+
+
+        resultado.classList.remove("active");
 
         loading.classList.add("active");
 
 
         setTimeout(() => {
 
-            loading.classList.remove("active");
-
 
             let resposta = "";
-            let proximoPasso = "";
 
 
-            if (objetivo === "Vender imóvel") {
+            if (objetivo === "vender") {
 
                 resposta =
-`Olá! Tudo bem? Sim, posso te ajudar com esse imóvel.
+`Olá! Tudo bem? Obrigado pelo contato.
 
-Ele continua disponível no momento. Para eu te passar todas as informações e entender melhor o que você procura, posso te enviar os detalhes e verificar o melhor horário para uma visita.
+Claro, posso te ajudar a encontrar algumas opções que façam sentido para o que você procura.
 
-Você prefere receber as informações por aqui ou já gostaria de verificar um horário para conhecer o imóvel?`;
+Para eu conseguir selecionar os imóveis mais adequados, me conta: qual região você prefere e qual faixa de investimento pretende trabalhar?
 
-                proximoPasso =
-                    "Tentar transformar o interesse em uma visita ao imóvel.";
+A partir disso posso te apresentar algumas opções.`;
 
             }
 
 
-            else if (objetivo === "Alugar imóvel") {
+            else if (objetivo === "alugar") {
 
                 resposta =
-`Olá! Tudo bem? Claro, posso te ajudar com esse imóvel.
+`Olá! Tudo bem? Claro, podemos te ajudar com isso.
 
-Vou te passar as principais informações e podemos verificar juntos se ele atende ao que você procura.
+Para encontrar opções de aluguel que realmente façam sentido para você, me informe a região de preferência, faixa de valor e quantas pessoas irão morar no imóvel.
 
-Para agilizar, você está procurando para morar ou para outra finalidade?`;
-
-                proximoPasso =
-                    "Identificar o perfil do cliente e avançar para a visita.";
+Com essas informações consigo direcionar melhor as opções disponíveis.`;
 
             }
 
 
-            else if (objetivo === "Captar imóvel") {
+            else if (objetivo === "captar") {
 
                 resposta =
-`Olá! Tudo bem?
+`Olá! Tudo bem? Obrigado por entrar em contato com nossa imobiliária.
 
-Podemos conversar sim. Nossa equipe trabalha com divulgação e comercialização de imóveis e podemos avaliar a melhor estratégia para o seu imóvel.
+Temos interesse em entender melhor o imóvel e avaliar a possibilidade de trabalharmos a divulgação e comercialização dele.
 
-Se quiser, posso entender alguns detalhes sobre o imóvel e explicar como funciona o processo de divulgação.
+Pode me enviar a localização, tipo do imóvel e uma faixa de valor que pretende negociar?
 
-Podemos começar pela localização e pelo tipo do imóvel?`;
-
-                proximoPasso =
-                    "Qualificar o proprietário e iniciar a captação.";
+Assim conseguimos analisar a melhor estratégia para a captação.`;
 
             }
 
@@ -1074,33 +1167,47 @@ Podemos começar pela localização e pelo tipo do imóvel?`;
             else {
 
                 resposta =
-`Olá! Tudo bem?
+`Olá! Tudo bem? Claro, vou te ajudar.
 
-Claro, posso esclarecer essa dúvida para você.
+Para conseguir te passar uma informação mais precisa, me explica um pouco melhor o que você precisa e, se estiver relacionado a algum imóvel específico, me envie também a localização ou o anúncio.
 
-Para te passar uma informação correta e já verificar a melhor opção, me conta um pouco mais sobre o que você está procurando.
-
-Assim consigo te orientar de forma mais precisa.`;
-
-                proximoPasso =
-                    "Entender a necessidade do cliente antes de apresentar uma solução.";
+Assim consigo te orientar da melhor forma.`;
 
             }
 
 
-            respostaAtual = resposta;
-
-
-            document.getElementById("resposta").textContent =
+            respostaAtual =
                 resposta;
 
-            document.getElementById("proximoPasso").textContent =
-                proximoPasso;
+
+            document.getElementById(
+                "customerMessage"
+            ).textContent =
+                mensagem;
 
 
-            empty.style.display = "none";
+            document.getElementById(
+                "responseMessage"
+            ).textContent =
+                resposta;
 
-            result.classList.add("active");
+
+            loading.classList.remove("active");
+
+            button.disabled = false;
+
+            button.textContent =
+                "Analisar e criar resposta";
+
+
+            resultado.classList.add("active");
+
+
+            resultado.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
 
         }, 1000);
 
@@ -1113,26 +1220,58 @@ Assim consigo te orientar de forma mais precisa.`;
 
     function copiarResposta() {
 
-        navigator.clipboard.writeText(respostaAtual);
 
-        const button =
-            document.querySelector(".copy-btn");
+        navigator.clipboard
+            .writeText(respostaAtual)
+            .then(() => {
 
-        const original =
-            button.textContent;
+                const button =
+                    document.querySelector(".copy-btn");
 
-        button.textContent =
-            "Resposta copiada ✓";
 
-        setTimeout(() => {
+                const original =
+                    button.textContent;
 
-            button.textContent =
-                original;
 
-        }, 1800);
+                button.textContent =
+                    "Resposta copiada ✓";
+
+
+                setTimeout(() => {
+
+                    button.textContent =
+                        original;
+
+                }, 1500);
+
+            });
+
     }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    function logout() {
+
+        localStorage.removeItem(
+            "hunter_token"
+        );
+
+        localStorage.removeItem(
+            "hunter_agency"
+        );
+
+        window.location.href =
+            "../index.html";
+
+    }
+
 
 </script>
 
+
 </body>
+
 </html>
