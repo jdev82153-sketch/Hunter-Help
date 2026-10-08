@@ -1,1 +1,1234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Leads — Hunter Help</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #090909;
+            --panel: #111111;
+            --panel-2: #151515;
+            --border: #252525;
+            --text: #f5f5f5;
+            --muted: #8d8d8d;
+            --orange: #ff8a00;
+            --orange-dark: #d96f00;
+            --green: #39d98a;
+            --red: #ff5f5f;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: #0d0d0d;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            z-index: 20;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 4px 8px 28px;
+        }
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--orange);
+            color: #090909;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: 16px;
+        }
+
+        .brand-text span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .menu-title {
+            color: #555;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            padding: 0 10px 9px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #999;
+            padding: 12px 11px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .menu a:hover {
+            background: #171717;
+            color: #fff;
+        }
+
+        .menu a.active {
+            background: rgba(255, 138, 0, .11);
+            color: var(--orange);
+            border: 1px solid rgba(255, 138, 0, .14);
+        }
+
+        .menu-icon {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 16px;
+            right: 16px;
+        }
+
+        .logout {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #242424;
+            color: #888;
+            padding: 11px;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .logout:hover {
+            color: #fff;
+            border-color: #444;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+            padding: 30px 36px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 34px;
+        }
+
+        .topbar h1 {
+            font-size: 27px;
+            letter-spacing: -.6px;
+        }
+
+        .topbar p {
+            color: var(--muted);
+            margin-top: 6px;
+            font-size: 13px;
+        }
+
+        .agency {
+            border: 1px solid var(--border);
+            background: var(--panel);
+            padding: 9px 13px;
+            border-radius: 10px;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        /* SEARCH */
+
+        .search-panel {
+            background: linear-gradient(145deg, #151515, #101010);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 23px;
+            margin-bottom: 28px;
+        }
+
+        .panel-heading {
+            margin-bottom: 20px;
+        }
+
+        .panel-heading h2 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .panel-heading p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .field label {
+            display: block;
+            color: #999;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            background: #0b0b0b;
+            border: 1px solid #292929;
+            color: #fff;
+            border-radius: 9px;
+            padding: 12px;
+            outline: none;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--orange);
+        }
+
+        .search-button {
+            border: none;
+            background: var(--orange);
+            color: #111;
+            font-weight: 800;
+            border-radius: 9px;
+            padding: 12px 19px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .search-button:hover {
+            background: #ff9e2e;
+        }
+
+        .search-button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .stat {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 17px;
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .stat strong {
+            font-size: 24px;
+        }
+
+        .stat small {
+            color: var(--green);
+            font-size: 11px;
+            margin-left: 5px;
+        }
+
+        /* RESULTS */
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .results-header h2 {
+            font-size: 17px;
+        }
+
+        .results-header span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .leads {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .lead-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px;
+            transition: .2s;
+        }
+
+        .lead-card:hover {
+            border-color: #3b3b3b;
+            transform: translateY(-2px);
+        }
+
+        .lead-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 17px;
+        }
+
+        .lead-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #1d1d1d;
+            border: 1px solid #303030;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--orange);
+        }
+
+        .potential {
+            height: fit-content;
+            font-size: 10px;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: rgba(57, 217, 138, .1);
+            color: var(--green);
+            border: 1px solid rgba(57, 217, 138, .15);
+        }
+
+        .lead-card h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .location {
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 15px;
+        }
+
+        .opportunity {
+            background: #0c0c0c;
+            border: 1px solid #202020;
+            border-radius: 9px;
+            padding: 11px;
+            margin-bottom: 14px;
+        }
+
+        .opportunity span {
+            display: block;
+            color: #666;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 5px;
+        }
+
+        .opportunity strong {
+            font-size: 12px;
+            color: #ddd;
+            line-height: 1.4;
+        }
+
+        .lead-actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .lead-actions button {
+            flex: 1;
+            border-radius: 8px;
+            padding: 9px 7px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .btn-main {
+            background: var(--orange);
+            border: 1px solid var(--orange);
+            color: #111;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #292929;
+            color: #bbb;
+        }
+
+        .btn-secondary:hover {
+            border-color: #555;
+            color: #fff;
+        }
+
+        /* EMPTY / LOADING */
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 35px;
+            color: #999;
+            grid-column: 1 / -1;
+        }
+
+        .loader {
+            width: 27px;
+            height: 27px;
+            border: 3px solid #292929;
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* MODAL */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.78);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 520px;
+            background: #121212;
+            border: 1px solid #303030;
+            border-radius: 16px;
+            padding: 23px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 17px;
+        }
+
+        .modal-header h2 {
+            font-size: 18px;
+        }
+
+        .close {
+            border: none;
+            background: transparent;
+            color: #777;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+
+        .message-box {
+            background: #090909;
+            border: 1px solid #282828;
+            border-radius: 10px;
+            padding: 15px;
+            color: #ccc;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-line;
+            margin-bottom: 14px;
+        }
+
+        .copy-button {
+            width: 100%;
+            background: var(--orange);
+            border: none;
+            color: #111;
+            padding: 12px;
+            border-radius: 9px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1050px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+
+            .leads {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 760px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .sidebar-bottom {
+                position: static;
+                margin-top: 15px;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 22px 15px 45px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .agency {
+                display: none;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .leads {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">H</div>
+
+            <div class="brand-text">
+                <strong>Hunter Help</strong>
+                <span>Inteligência comercial</span>
+            </div>
+        </div>
+
+        <div class="menu-title">Principal</div>
+
+        <nav class="menu">
+
+            <a href="dashboard.html">
+                <span class="menu-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="diagnostico.html">
+                <span class="menu-icon">◈</span>
+                Diagnóstico
+            </a>
+
+            <a href="leads.html" class="active">
+                <span class="menu-icon">◎</span>
+                Leads
+            </a>
+
+            <a href="anuncios.html">
+                <span class="menu-icon">▣</span>
+                Anúncios
+            </a>
+
+            <a href="atendimento.html">
+                <span class="menu-icon">◌</span>
+                Atendimento
+            </a>
+
+            <a href="concorrentes.html">
+                <span class="menu-icon">⌁</span>
+                Concorrentes
+            </a>
+
+            <a href="seo.html">
+                <span class="menu-icon">⌕</span>
+                SEO Local
+            </a>
+
+            <a href="automacao.html">
+                <span class="menu-icon">⚙</span>
+                Automação
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="logout" onclick="logout()">
+                Sair da conta
+            </button>
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Gerador de Leads</h1>
+                <p>Encontre novas oportunidades comerciais para sua imobiliária.</p>
+            </div>
+
+            <div class="agency" id="agencyName">
+                Imobiliária
+            </div>
+
+        </header>
+
+
+        <section class="search-panel">
+
+            <div class="panel-heading">
+                <h2>Encontrar oportunidades</h2>
+                <p>Defina onde e qual tipo de oportunidade você deseja encontrar.</p>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Cidade ou região</label>
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Ex.: São José do Rio Preto - SP"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Tipo de imóvel</label>
+
+                    <select id="propertyType">
+                        <option value="Todos">Todos</option>
+                        <option value="Casas">Casas</option>
+                        <option value="Apartamentos">Apartamentos</option>
+                        <option value="Terrenos">Terrenos</option>
+                        <option value="Comercial">Comercial</option>
+                        <option value="Alto padrão">Alto padrão</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Objetivo</label>
+
+                    <select id="objective">
+                        <option value="Venda">Venda</option>
+                        <option value="Aluguel">Aluguel</option>
+                        <option value="Captação">Captação</option>
+                        <option value="Investidores">Investidores</option>
+                    </select>
+                </div>
+
+                <button
+                    class="search-button"
+                    id="searchButton"
+                    onclick="searchLeads()"
+                >
+                    Buscar oportunidades
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section class="stats">
+
+            <div class="stat">
+                <span>Oportunidades encontradas</span>
+                <strong id="totalLeads">12</strong>
+                <small>+18%</small>
+            </div>
+
+            <div class="stat">
+                <span>Alto potencial</span>
+                <strong id="highPotential">5</strong>
+                <small>+11%</small>
+            </div>
+
+            <div class="stat">
+                <span>Oportunidades de captação</span>
+                <strong id="captureLeads">7</strong>
+                <small>+24%</small>
+            </div>
+
+        </section>
+
+
+        <div class="results-header">
+            <h2>Oportunidades encontradas</h2>
+            <span id="resultText">12 oportunidades disponíveis</span>
+        </div>
+
+
+        <section class="leads" id="leadsContainer">
+
+            <div class="lead-card">
+
+                <div class="lead-top">
+                    <div class="lead-avatar">JC</div>
+                    <div class="potential">Alto potencial</div>
+                </div>
+
+                <h3>João Carlos Imóveis</h3>
+
+                <div class="location">
+                    São José do Rio Preto — SP
+                </div>
+
+                <div class="opportunity">
+                    <span>Oportunidade</span>
+                    <strong>
+                        Presença digital limitada e baixo aproveitamento de anúncios.
+                    </strong>
+                </div>
+
+                <div class="lead-actions">
+                    <button
+                        class="btn-main"
+                        onclick="generateApproach('João Carlos Imóveis')"
+                    >
+                        Criar abordagem
+                    </button>
+
+                    <button
+                        class="btn-secondary"
+                        onclick="showDetails('João Carlos Imóveis')"
+                    >
+                        Ver detalhes
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="lead-card">
+
+                <div class="lead-top">
+                    <div class="lead-avatar">MR</div>
+                    <div class="potential">Alto potencial</div>
+                </div>
+
+                <h3>MR Negócios Imobiliários</h3>
+
+                <div class="location">
+                    Votuporanga — SP
+                </div>
+
+                <div class="opportunity">
+                    <span>Oportunidade</span>
+                    <strong>
+                        Captação de imóveis pode ser ampliada através do digital.
+                    </strong>
+                </div>
+
+                <div class="lead-actions">
+                    <button
+                        class="btn-main"
+                        onclick="generateApproach('MR Negócios Imobiliários')"
+                    >
+                        Criar abordagem
+                    </button>
+
+                    <button
+                        class="btn-secondary"
+                        onclick="showDetails('MR Negócios Imobiliários')"
+                    >
+                        Ver detalhes
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="lead-card">
+
+                <div class="lead-top">
+                    <div class="lead-avatar">VP</div>
+                    <div class="potential">Bom potencial</div>
+                </div>
+
+                <h3>Vale Prime Imóveis</h3>
+
+                <div class="location">
+                    Fernandópolis — SP
+                </div>
+
+                <div class="opportunity">
+                    <span>Oportunidade</span>
+                    <strong>
+                        Anúncios poderiam utilizar títulos e CTAs mais comerciais.
+                    </strong>
+                </div>
+
+                <div class="lead-actions">
+                    <button
+                        class="btn-main"
+                        onclick="generateApproach('Vale Prime Imóveis')"
+                    >
+                        Criar abordagem
+                    </button>
+
+                    <button
+                        class="btn-secondary"
+                        onclick="showDetails('Vale Prime Imóveis')"
+                    >
+                        Ver detalhes
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="lead-card">
+
+                <div class="lead-top">
+                    <div class="lead-avatar">SA</div>
+                    <div class="potential">Alto potencial</div>
+                </div>
+
+                <h3>São Paulo Assessoria</h3>
+
+                <div class="location">
+                    Jales — SP
+                </div>
+
+                <div class="opportunity">
+                    <span>Oportunidade</span>
+                    <strong>
+                        Falta uma página específica para transformar visitantes em leads.
+                    </strong>
+                </div>
+
+                <div class="lead-actions">
+                    <button
+                        class="btn-main"
+                        onclick="generateApproach('São Paulo Assessoria')"
+                    >
+                        Criar abordagem
+                    </button>
+
+                    <button
+                        class="btn-secondary"
+                        onclick="showDetails('São Paulo Assessoria')"
+                    >
+                        Ver detalhes
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="lead-card">
+
+                <div class="lead-top">
+                    <div class="lead-avatar">GH</div>
+                    <div class="potential">Bom potencial</div>
+                </div>
+
+                <h3>GH Imóveis</h3>
+
+                <div class="location">
+                    Mirassol — SP
+                </div>
+
+                <div class="opportunity">
+                    <span>Oportunidade</span>
+                    <strong>
+                        Atendimento digital pode ganhar velocidade com automações.
+                    </strong>
+                </div>
+
+                <div class="lead-actions">
+                    <button
+                        class="btn-main"
+                        onclick="generateApproach('GH Imóveis')"
+                    >
+                        Criar abordagem
+                    </button>
+
+                    <button
+                        class="btn-secondary"
+                        onclick="showDetails('GH Imóveis')"
+                    >
+                        Ver detalhes
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="lead-card">
+
+                <div class="lead-top">
+                    <div class="lead-avatar">LV</div>
+                    <div class="potential">Bom potencial</div>
+                </div>
+
+                <h3>LV Imobiliária</h3>
+
+                <div class="location">
+                    Catanduva — SP
+                </div>
+
+                <div class="opportunity">
+                    <span>Oportunidade</span>
+                    <strong>
+                        SEO local e presença no Google apresentam espaço para melhoria.
+                    </strong>
+                </div>
+
+                <div class="lead-actions">
+                    <button
+                        class="btn-main"
+                        onclick="generateApproach('LV Imobiliária')"
+                    >
+                        Criar abordagem
+                    </button>
+
+                    <button
+                        class="btn-secondary"
+                        onclick="showDetails('LV Imobiliária')"
+                    >
+                        Ver detalhes
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="loading" id="loading">
+
+                <div class="loader"></div>
+
+                Procurando novas oportunidades...
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- MODAL -->
+
+    <div class="modal" id="modal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+                <h2 id="modalTitle">Abordagem comercial</h2>
+
+                <button
+                    class="close"
+                    onclick="closeModal()"
+                >
+                    ×
+                </button>
+            </div>
+
+            <div
+                class="message-box"
+                id="messageBox"
+            ></div>
+
+            <button
+                class="copy-button"
+                onclick="copyMessage()"
+            >
+                Copiar mensagem
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* PROTEÇÃO */
+
+        const token = localStorage.getItem("hunter_token");
+
+        if (!token) {
+            window.location.href = "../index.html";
+        }
+
+
+        /* AGÊNCIA */
+
+        const agency = JSON.parse(
+            localStorage.getItem("hunter_agency") || "{}"
+        );
+
+        if (agency.name) {
+            document.getElementById("agencyName").textContent = agency.name;
+        }
+
+
+        /* BUSCA */
+
+        function searchLeads() {
+
+            const location =
+                document.getElementById("location").value.trim();
+
+            const propertyType =
+                document.getElementById("propertyType").value;
+
+            const objective =
+                document.getElementById("objective").value;
+
+            const button =
+                document.getElementById("searchButton");
+
+            const loading =
+                document.getElementById("loading");
+
+            const container =
+                document.getElementById("leadsContainer");
+
+            if (!location) {
+                alert("Informe uma cidade ou região.");
+                return;
+            }
+
+            button.disabled = true;
+            button.textContent = "Buscando...";
+
+            const cards =
+                container.querySelectorAll(".lead-card");
+
+            cards.forEach(card => {
+                card.style.display = "none";
+            });
+
+            loading.style.display = "block";
+
+            setTimeout(() => {
+
+                loading.style.display = "none";
+
+                cards.forEach(card => {
+                    card.style.display = "block";
+                });
+
+                document.getElementById("totalLeads").textContent = "12";
+                document.getElementById("highPotential").textContent = "5";
+                document.getElementById("captureLeads").textContent = "7";
+
+                document.getElementById("resultText").textContent =
+                    `12 oportunidades em ${location}`;
+
+                button.disabled = false;
+                button.textContent = "Atualizar busca";
+
+                console.log({
+                    location,
+                    propertyType,
+                    objective
+                });
+
+            }, 1300);
+        }
+
+
+        /* ABORDAGEM */
+
+        function generateApproach(company) {
+
+            const location =
+                document.getElementById("location").value.trim();
+
+            const message =
+
+`Olá, tudo bem?
+
+Meu nome é João e trabalho com soluções digitais para empresas do mercado imobiliário.
+
+Estive analisando a presença digital da ${company} e identifiquei algumas oportunidades que podem ajudar a gerar mais contatos e melhorar a conversão dos interessados.
+
+Preparei algumas ideias específicas para a empresa, incluindo melhorias na apresentação dos imóveis e na captação de novos leads.
+
+Posso te enviar uma prévia sem compromisso?`;
+
+            document.getElementById("modalTitle").textContent =
+                "Abordagem para " + company;
+
+            document.getElementById("messageBox").textContent =
+                message;
+
+            document.getElementById("modal").style.display =
+                "flex";
+        }
+
+
+        /* DETALHES */
+
+        function showDetails(company) {
+
+            const message =
+
+`${company}
+
+Potencial comercial identificado:
+
+• Presença digital
+• Captação de leads
+• Conversão de visitantes
+• Atendimento comercial
+• Anúncios de imóveis
+• SEO local
+
+O Hunter Help pode transformar essa análise em um plano de ação comercial.`;
+
+            document.getElementById("modalTitle").textContent =
+                "Análise da oportunidade";
+
+            document.getElementById("messageBox").textContent =
+                message;
+
+            document.getElementById("modal").style.display =
+                "flex";
+        }
+
+
+        /* COPIAR */
+
+        function copyMessage() {
+
+            const message =
+                document.getElementById("messageBox").textContent;
+
+            navigator.clipboard.writeText(message)
+                .then(() => {
+
+                    const button =
+                        document.querySelector(".copy-button");
+
+                    button.textContent =
+                        "Mensagem copiada ✓";
+
+                    setTimeout(() => {
+                        button.textContent =
+                            "Copiar mensagem";
+                    }, 1800);
+
+                })
+                .catch(() => {
+                    alert("Não foi possível copiar a mensagem.");
+                });
+        }
+
+
+        /* FECHAR */
+
+        function closeModal() {
+
+            document.getElementById("modal").style.display =
+                "none";
+        }
+
+
+        /* LOGOUT */
+
+        function logout() {
+
+            localStorage.removeItem("hunter_token");
+            localStorage.removeItem("hunter_agency");
+
+            window.location.href =
+                "../index.html";
+        }
+
+    </script>
+
+</body>
+</html>
