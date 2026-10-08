@@ -1,1 +1,21 @@
+* {
+    box-sizing: border-box;
+}
 
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080909;
+    color: #ffffff;
+}
+
+button,
+input {
+    font-family: inherit;
+}
