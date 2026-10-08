@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 
@@ -8,15 +7,9 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors());
 
 app.use(express.json());
-
-app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
     res.json({
@@ -31,6 +24,8 @@ app.get("/api/health", (req, res) => {
         status: "online"
     });
 });
+
+app.use("/api/auth", authRoutes);
 
 app.listen(PORT, () => {
     console.log(`Hunter Help API rodando na porta ${PORT}`);
