@@ -2,68 +2,251 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard — Hunter Help</title>
 
-    <link
-        rel="stylesheet"
-        href="../css/global.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/dashboard.css"
-    >
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 
     <style>
+        /* ===== PADRÃO DO SIDEBAR ===== */
 
-        /* CONTROLE DA LOGO */
+        .sidebar {
+            width: 250px;
+            min-width: 250px;
+            min-height: 100vh;
+            background: #111112;
+            border-right: 1px solid #252527;
+            padding: 22px 16px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 4px 8px 25px;
+        }
 
         .brand-icon {
             width: 40px !important;
             height: 40px !important;
             min-width: 40px !important;
             max-width: 40px !important;
-
-            min-height: 40px !important;
-            max-height: 40px !important;
-
-            border-radius: 10px;
-
+            border-radius: 11px;
             overflow: hidden;
-
+            background: #111;
             display: flex;
             align-items: center;
             justify-content: center;
-
             flex-shrink: 0;
-
-            background: #111;
         }
 
         .brand-icon img {
             width: 40px !important;
             height: 40px !important;
-
             max-width: 40px !important;
             max-height: 40px !important;
-
             object-fit: cover;
-
             display: block;
         }
 
-        .sidebar {
-            overflow: hidden;
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
         }
 
+        .brand-text strong {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .brand-text span {
+            font-size: 10px;
+            color: #777;
+        }
+
+        .nav-title {
+            padding: 0 10px 10px;
+            color: #626267;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav a {
+            color: #8c8c91;
+            text-decoration: none;
+            padding: 12px 11px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .nav a:hover {
+            background: #19191b;
+            color: #fff;
+        }
+
+        .nav a.active {
+            background: #201b13;
+            color: #f59e0b;
+        }
+
+        .nav-icon {
+            width: 18px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .agency-mini {
+            border-top: 1px solid #252527;
+            padding: 18px 10px 14px;
+        }
+
+        .agency-mini small {
+            display: block;
+            color: #666;
+            font-size: 9px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .agency-mini strong {
+            color: #ddd;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .logout {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #29292c;
+            color: #888;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .logout:hover {
+            color: #fff;
+            border-color: #444;
+        }
+
+        /* ===== DASHBOARD ===== */
+
+        body {
+            background: #0d0d0e;
+        }
+
+        .main {
+            background: #0d0d0e;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            margin-bottom: 28px;
+        }
+
+        .topbar h1 {
+            color: #f5f5f5;
+            font-size: 29px;
+            font-weight: 700;
+            letter-spacing: -.7px;
+            margin: 6px 0;
+        }
+
+        .topbar p {
+            color: #747479;
+            font-size: 13px;
+        }
+
+        .stats {
+            gap: 14px;
+        }
+
+        .stat-card {
+            background: #151516;
+            border: 1px solid #252527;
+            border-radius: 13px;
+        }
+
+        .panel {
+            background: #151516;
+            border: 1px solid #252527;
+            border-radius: 14px;
+        }
+
+        .today {
+            background: #151516;
+            border: 1px solid #252527;
+            border-radius: 14px;
+        }
+
+        /* ===== MOBILE ===== */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 100%;
+                min-width: 0;
+                min-height: auto;
+                border-right: 0;
+                border-bottom: 1px solid #252527;
+                padding: 12px;
+            }
+
+            .brand {
+                padding: 4px 7px 14px;
+            }
+
+            .nav-title,
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .nav {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 5px;
+            }
+
+            .nav a {
+                justify-content: center;
+                padding: 9px 4px;
+                flex-direction: column;
+                gap: 3px;
+                font-size: 0;
+            }
+
+            .nav-icon {
+                font-size: 17px;
+            }
+
+            .main {
+                padding: 22px 15px;
+            }
+        }
     </style>
 
 </head>
@@ -71,14 +254,12 @@
 
 <body>
 
-
 <div class="app">
 
 
     <!-- SIDEBAR -->
 
     <aside class="sidebar">
-
 
         <div class="brand">
 
@@ -91,12 +272,9 @@
 
             </div>
 
-
             <div class="brand-text">
 
-                <strong>
-                    Hunter Help
-                </strong>
+                <strong>Hunter Help</strong>
 
                 <span>
                     Inteligência comercial
@@ -122,67 +300,39 @@
                 Dashboard
             </a>
 
-
             <a href="diagnostico.html">
-
                 <span class="nav-icon">◈</span>
-
                 Diagnóstico
-
             </a>
-
 
             <a href="leads.html">
-
                 <span class="nav-icon">◎</span>
-
                 Leads
-
             </a>
-
 
             <a href="anuncios.html">
-
                 <span class="nav-icon">▣</span>
-
                 Anúncios
-
             </a>
-
 
             <a href="atendimento.html">
-
                 <span class="nav-icon">◌</span>
-
                 Atendimento
-
             </a>
-
 
             <a href="concorrentes.html">
-
                 <span class="nav-icon">⇄</span>
-
                 Concorrentes
-
             </a>
-
 
             <a href="seo.html">
-
                 <span class="nav-icon">⌕</span>
-
                 SEO Local
-
             </a>
 
-
             <a href="automacao.html">
-
                 <span class="nav-icon">⚙</span>
-
                 Automação
-
             </a>
 
         </nav>
@@ -192,9 +342,7 @@
 
             <div class="agency-mini">
 
-                <small>
-                    IMOBILIÁRIA
-                </small>
+                <small>IMOBILIÁRIA</small>
 
                 <strong id="agencyName">
                     Carregando...
@@ -212,14 +360,12 @@
 
         </div>
 
-
     </aside>
 
 
-    <!-- MAIN -->
+    <!-- CONTEÚDO -->
 
     <main class="main">
-
 
         <header class="topbar">
 
@@ -234,28 +380,24 @@
                 </h1>
 
                 <p>
-                    Acompanhe a performance comercial
-                    da sua imobiliária.
+                    Acompanhe os principais indicadores
+                    comerciais da sua imobiliária.
                 </p>
 
             </div>
 
 
             <div class="status">
-
                 <span></span>
-
                 Sistema online
-
             </div>
 
         </header>
 
 
-        <!-- KPIs -->
+        <!-- INDICADORES -->
 
         <section class="stats">
-
 
             <div class="stat-card">
 
@@ -285,7 +427,7 @@
                 </strong>
 
                 <small>
-                    Boa presença
+                    Bom desempenho
                 </small>
 
             </div>
@@ -294,7 +436,7 @@
             <div class="stat-card">
 
                 <span class="stat-label">
-                    Captação
+                    Captação de leads
                 </span>
 
                 <strong>
@@ -302,7 +444,7 @@
                 </strong>
 
                 <small>
-                    Pode melhorar
+                    Há oportunidades
                 </small>
 
             </div>
@@ -319,11 +461,10 @@
                 </strong>
 
                 <small class="warning">
-                    Atenção necessária
+                    Precisa de atenção
                 </small>
 
             </div>
-
 
         </section>
 
@@ -332,8 +473,6 @@
 
         <section class="dashboard-grid">
 
-
-            <!-- SAÚDE -->
 
             <div class="panel">
 
@@ -358,9 +497,7 @@
                             74
                         </strong>
 
-                        <span>
-                            /100
-                        </span>
+                        <span>/100</span>
 
                     </div>
 
@@ -378,9 +515,7 @@
                                 Presença digital
                             </span>
 
-                            <strong>
-                                82
-                            </strong>
+                            <strong>82</strong>
 
                         </div>
 
@@ -399,9 +534,7 @@
                                 Captação de leads
                             </span>
 
-                            <strong>
-                                68
-                            </strong>
+                            <strong>68</strong>
 
                         </div>
 
@@ -420,9 +553,7 @@
                                 Conversão
                             </span>
 
-                            <strong>
-                                54
-                            </strong>
+                            <strong>54</strong>
 
                         </div>
 
@@ -441,9 +572,7 @@
                                 Atendimento
                             </span>
 
-                            <strong>
-                                79
-                            </strong>
+                            <strong>79</strong>
 
                         </div>
 
@@ -459,8 +588,6 @@
             </div>
 
 
-            <!-- OPORTUNIDADES -->
-
             <div class="panel">
 
                 <div class="panel-header">
@@ -472,7 +599,7 @@
                         </span>
 
                         <h2>
-                            Oportunidades
+                            Principais oportunidades
                         </h2>
 
                     </div>
@@ -489,12 +616,12 @@
                     <div>
 
                         <strong>
-                            Melhorar follow-up
+                            Melhorar o follow-up
                         </strong>
 
                         <p>
-                            Leads sem acompanhamento podem
-                            representar oportunidades perdidas.
+                            Criar uma rotina de acompanhamento
+                            pode recuperar leads que não avançaram.
                         </p>
 
                     </div>
@@ -511,12 +638,12 @@
                     <div>
 
                         <strong>
-                            Criar landing page
+                            Aumentar a captação
                         </strong>
 
                         <p>
-                            Uma página focada em conversão pode
-                            aumentar a geração de contatos.
+                            Existem oportunidades para gerar
+                            mais contatos através dos canais digitais.
                         </p>
 
                     </div>
@@ -533,18 +660,17 @@
                     <div>
 
                         <strong>
-                            Otimizar anúncios
+                            Melhorar a conversão
                         </strong>
 
                         <p>
-                            Destaque melhor os diferenciais
-                            dos seus imóveis.
+                            O atendimento e o processo comercial
+                            são pontos importantes para evolução.
                         </p>
 
                     </div>
 
                 </div>
-
 
             </div>
 
@@ -552,25 +678,24 @@
         </section>
 
 
-        <!-- AÇÃO -->
+        <!-- PRÓXIMA AÇÃO -->
 
         <section class="today">
-
 
             <div class="today-content">
 
                 <span class="eyebrow">
-                    PRÓXIMA AÇÃO
+                    RECOMENDAÇÃO
                 </span>
 
                 <h2>
-                    O que fazer hoje para vender mais?
+                    Sua próxima ação
                 </h2>
 
                 <p>
-                    Sua conversão é o principal ponto de atenção.
-                    Comece analisando seus atendimentos e melhore
-                    a forma como sua equipe acompanha cada lead.
+                    Analise seus atendimentos e descubra como
+                    transformar mais conversas em oportunidades
+                    reais de negócio.
                 </p>
 
             </div>
@@ -580,24 +705,18 @@
                 href="atendimento.html"
                 class="action-button"
             >
-                Melhorar atendimento →
+                Analisar atendimento →
             </a>
-
 
         </section>
 
 
     </main>
 
-
 </div>
 
 
 <script>
-
-    // ==========================
-    // AUTENTICAÇÃO
-    // ==========================
 
     const token =
         localStorage.getItem("hunter_token");
@@ -610,10 +729,6 @@
 
     }
 
-
-    // ==========================
-    // IMOBILIÁRIA
-    // ==========================
 
     try {
 
@@ -641,10 +756,6 @@
     }
 
 
-    // ==========================
-    // LOGOUT
-    // ==========================
-
     function logout() {
 
         localStorage.removeItem(
@@ -654,7 +765,6 @@
         localStorage.removeItem(
             "hunter_agency"
         );
-
 
         window.location.href =
             "../index.html";
@@ -666,4 +776,4 @@
 
 </body>
 
-</html>
+    </html>
