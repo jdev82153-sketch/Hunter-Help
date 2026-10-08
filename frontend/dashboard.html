@@ -1,91 +1,200 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Dashboard — Hunter Help</title>
 
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <style>
+
+        /* CONTROLE DA LOGO */
+
+        .brand-icon {
+            width: 40px !important;
+            height: 40px !important;
+            min-width: 40px !important;
+            max-width: 40px !important;
+
+            min-height: 40px !important;
+            max-height: 40px !important;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            background: #111;
+        }
+
+        .brand-icon img {
+            width: 40px !important;
+            height: 40px !important;
+
+            max-width: 40px !important;
+            max-height: 40px !important;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .sidebar {
+            overflow: hidden;
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
+
 <div class="app">
 
+
     <!-- SIDEBAR -->
+
     <aside class="sidebar">
+
 
         <div class="brand">
 
             <div class="brand-icon">
+
                 <img
                     src="./A8E0C9E9-E5F9-4B9A-8293-FE6E0E764BB6.png"
                     alt="Hunter Help"
                 >
+
             </div>
 
+
             <div class="brand-text">
-                <strong>Hunter Help</strong>
-                <span>Inteligência comercial</span>
+
+                <strong>
+                    Hunter Help
+                </strong>
+
+                <span>
+                    Inteligência comercial
+                </span>
+
             </div>
 
         </div>
+
 
         <div class="nav-title">
             Menu principal
         </div>
 
+
         <nav class="nav">
 
-            <a href="dashboard.html" class="active">
+            <a
+                href="dashboard.html"
+                class="active"
+            >
                 <span class="nav-icon">⌂</span>
                 Dashboard
             </a>
 
+
             <a href="diagnostico.html">
+
                 <span class="nav-icon">◈</span>
+
                 Diagnóstico
+
             </a>
+
 
             <a href="leads.html">
+
                 <span class="nav-icon">◎</span>
+
                 Leads
+
             </a>
+
 
             <a href="anuncios.html">
+
                 <span class="nav-icon">▣</span>
+
                 Anúncios
+
             </a>
+
 
             <a href="atendimento.html">
+
                 <span class="nav-icon">◌</span>
+
                 Atendimento
+
             </a>
+
 
             <a href="concorrentes.html">
+
                 <span class="nav-icon">⇄</span>
+
                 Concorrentes
+
             </a>
+
 
             <a href="seo.html">
+
                 <span class="nav-icon">⌕</span>
+
                 SEO Local
+
             </a>
 
+
             <a href="automacao.html">
+
                 <span class="nav-icon">⚙</span>
+
                 Automação
+
             </a>
 
         </nav>
+
 
         <div class="sidebar-bottom">
 
             <div class="agency-mini">
 
-                <small>IMOBILIÁRIA</small>
+                <small>
+                    IMOBILIÁRIA
+                </small>
 
                 <strong id="agencyName">
                     Carregando...
@@ -93,40 +202,60 @@
 
             </div>
 
-            <button class="logout" onclick="logout()">
+
+            <button
+                class="logout"
+                onclick="logout()"
+            >
                 Sair da conta
             </button>
 
         </div>
 
+
     </aside>
 
 
-    <!-- CONTEÚDO -->
+    <!-- MAIN -->
+
     <main class="main">
+
 
         <header class="topbar">
 
             <div>
-                <span class="eyebrow">VISÃO GERAL</span>
 
-                <h1>Dashboard</h1>
+                <span class="eyebrow">
+                    VISÃO GERAL
+                </span>
+
+                <h1>
+                    Dashboard
+                </h1>
 
                 <p>
-                    Acompanhe a saúde comercial da sua imobiliária.
+                    Acompanhe a performance comercial
+                    da sua imobiliária.
                 </p>
+
             </div>
 
+
             <div class="status">
+
                 <span></span>
+
                 Sistema online
+
             </div>
 
         </header>
 
 
         <!-- KPIs -->
+
         <section class="stats">
+
 
             <div class="stat-card">
 
@@ -195,28 +324,44 @@
 
             </div>
 
+
         </section>
 
 
-        <!-- PRINCIPAL -->
+        <!-- PAINÉIS -->
+
         <section class="dashboard-grid">
 
+
             <!-- SAÚDE -->
-            <div class="panel health-panel">
+
+            <div class="panel">
 
                 <div class="panel-header">
 
                     <div>
+
                         <span class="eyebrow">
                             PERFORMANCE
                         </span>
 
-                        <h2>Saúde comercial</h2>
+                        <h2>
+                            Saúde comercial
+                        </h2>
+
                     </div>
 
+
                     <div class="score">
-                        <strong>74</strong>
-                        <span>/100</span>
+
+                        <strong>
+                            74
+                        </strong>
+
+                        <span>
+                            /100
+                        </span>
+
                     </div>
 
                 </div>
@@ -224,11 +369,19 @@
 
                 <div class="progress-list">
 
+
                     <div class="progress-item">
 
                         <div class="progress-info">
-                            <span>Presença digital</span>
-                            <strong>82</strong>
+
+                            <span>
+                                Presença digital
+                            </span>
+
+                            <strong>
+                                82
+                            </strong>
+
                         </div>
 
                         <div class="progress">
@@ -241,8 +394,15 @@
                     <div class="progress-item">
 
                         <div class="progress-info">
-                            <span>Captação de leads</span>
-                            <strong>68</strong>
+
+                            <span>
+                                Captação de leads
+                            </span>
+
+                            <strong>
+                                68
+                            </strong>
+
                         </div>
 
                         <div class="progress">
@@ -255,8 +415,15 @@
                     <div class="progress-item">
 
                         <div class="progress-info">
-                            <span>Conversão</span>
-                            <strong>54</strong>
+
+                            <span>
+                                Conversão
+                            </span>
+
+                            <strong>
+                                54
+                            </strong>
+
                         </div>
 
                         <div class="progress">
@@ -269,8 +436,15 @@
                     <div class="progress-item">
 
                         <div class="progress-info">
-                            <span>Atendimento</span>
-                            <strong>79</strong>
+
+                            <span>
+                                Atendimento
+                            </span>
+
+                            <strong>
+                                79
+                            </strong>
+
                         </div>
 
                         <div class="progress">
@@ -279,22 +453,28 @@
 
                     </div>
 
+
                 </div>
 
             </div>
 
 
             <!-- OPORTUNIDADES -->
+
             <div class="panel">
 
                 <div class="panel-header">
 
                     <div>
+
                         <span class="eyebrow">
                             HUNTER INSIGHT
                         </span>
 
-                        <h2>Oportunidades</h2>
+                        <h2>
+                            Oportunidades
+                        </h2>
+
                     </div>
 
                 </div>
@@ -307,14 +487,16 @@
                     </div>
 
                     <div>
+
                         <strong>
                             Melhorar follow-up
                         </strong>
 
                         <p>
-                            Alguns leads podem estar sendo perdidos
-                            por falta de acompanhamento.
+                            Leads sem acompanhamento podem
+                            representar oportunidades perdidas.
                         </p>
+
                     </div>
 
                 </div>
@@ -327,6 +509,7 @@
                     </div>
 
                     <div>
+
                         <strong>
                             Criar landing page
                         </strong>
@@ -335,6 +518,7 @@
                             Uma página focada em conversão pode
                             aumentar a geração de contatos.
                         </p>
+
                     </div>
 
                 </div>
@@ -347,25 +531,31 @@
                     </div>
 
                     <div>
+
                         <strong>
                             Otimizar anúncios
                         </strong>
 
                         <p>
-                            Os anúncios podem destacar melhor
-                            os diferenciais dos imóveis.
+                            Destaque melhor os diferenciais
+                            dos seus imóveis.
                         </p>
+
                     </div>
 
                 </div>
 
+
             </div>
+
 
         </section>
 
 
-        <!-- AÇÃO DO DIA -->
+        <!-- AÇÃO -->
+
         <section class="today">
+
 
             <div class="today-content">
 
@@ -378,65 +568,102 @@
                 </h2>
 
                 <p>
-                    Comece melhorando o atendimento dos leads.
-                    Uma resposta mais rápida e estratégica pode
-                    aumentar suas chances de conversão.
+                    Sua conversão é o principal ponto de atenção.
+                    Comece analisando seus atendimentos e melhore
+                    a forma como sua equipe acompanha cada lead.
                 </p>
 
             </div>
 
 
-            <a href="atendimento.html" class="action-button">
+            <a
+                href="atendimento.html"
+                class="action-button"
+            >
                 Melhorar atendimento →
             </a>
+
 
         </section>
 
 
     </main>
 
+
 </div>
 
 
 <script>
 
-    // Verifica login
-    const token = localStorage.getItem("hunter_token");
+    // ==========================
+    // AUTENTICAÇÃO
+    // ==========================
+
+    const token =
+        localStorage.getItem("hunter_token");
+
 
     if (!token) {
-        window.location.href = "../index.html";
+
+        window.location.href =
+            "../index.html";
+
     }
 
 
-    // Dados da imobiliária
+    // ==========================
+    // IMOBILIÁRIA
+    // ==========================
+
     try {
 
-        const agency = JSON.parse(
-            localStorage.getItem("hunter_agency") || "{}"
-        );
+        const agency =
+            JSON.parse(
+                localStorage.getItem(
+                    "hunter_agency"
+                ) || "{}"
+            );
 
-        document.getElementById("agencyName").textContent =
-            agency.name || "Sua imobiliária";
+
+        document.getElementById(
+            "agencyName"
+        ).textContent =
+            agency.name ||
+            "Sua imobiliária";
 
     } catch (error) {
 
-        document.getElementById("agencyName").textContent =
+        document.getElementById(
+            "agencyName"
+        ).textContent =
             "Sua imobiliária";
 
     }
 
 
-    // Logout
+    // ==========================
+    // LOGOUT
+    // ==========================
+
     function logout() {
 
-        localStorage.removeItem("hunter_token");
-        localStorage.removeItem("hunter_agency");
+        localStorage.removeItem(
+            "hunter_token"
+        );
 
-        window.location.href = "../index.html";
+        localStorage.removeItem(
+            "hunter_agency"
+        );
+
+
+        window.location.href =
+            "../index.html";
 
     }
 
 </script>
 
+
 </body>
+
 </html>
