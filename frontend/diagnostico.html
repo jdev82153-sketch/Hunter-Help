@@ -1,1 +1,1252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Diagnóstico — Hunter Help</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #080808;
+            --sidebar: #0d0d0d;
+            --panel: #111111;
+            --panel2: #151515;
+            --border: #272727;
+            --text: #f5f5f5;
+            --muted: #858585;
+            --orange: #ff6a00;
+            --green: #35d889;
+            --red: #ff5c5c;
+            --yellow: #ffc857;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+
+            padding: 24px 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 8px 30px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            background: var(--orange);
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .brand-name {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .brand-name span {
+            display: block;
+
+            color: #666;
+            font-size: 10px;
+            font-weight: 500;
+
+            margin-top: 3px;
+
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+
+        .menu-title {
+            color: #555;
+            font-size: 10px;
+            font-weight: 700;
+
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+
+            padding: 0 10px;
+            margin: 10px 0;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .menu a {
+            text-decoration: none;
+
+            color: #929292;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 13px;
+
+            transition: .2s;
+        }
+
+        .menu a:hover {
+            background: #171717;
+            color: #fff;
+        }
+
+        .menu a.active {
+            background: rgba(255, 106, 0, .12);
+            color: #fff;
+        }
+
+        .menu a.active .menu-icon {
+            color: var(--orange);
+        }
+
+        .menu-icon {
+            width: 18px;
+            text-align: center;
+        }
+
+        .logout {
+            position: absolute;
+
+            left: 16px;
+            right: 16px;
+            bottom: 20px;
+
+            width: calc(100% - 32px);
+
+            padding: 11px;
+
+            border: 1px solid var(--border);
+            background: transparent;
+
+            color: #888;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+        }
+
+        .logout:hover {
+            color: #fff;
+            border-color: #444;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 245px;
+
+            min-height: 100vh;
+
+            padding: 32px 38px 60px;
+        }
+
+        .topbar {
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            color: var(--orange);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 30px;
+            font-weight: 850;
+
+            letter-spacing: -.8px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            margin-top: 7px;
+        }
+
+        /* INPUT PANEL */
+
+        .scan-panel {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 15px;
+
+            padding: 24px;
+
+            margin-bottom: 24px;
+        }
+
+        .scan-header {
+            margin-bottom: 20px;
+        }
+
+        .scan-header h2 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .scan-header p {
+            color: #707070;
+            font-size: 11px;
+        }
+
+        .fields {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr 1fr auto;
+
+            gap: 10px;
+        }
+
+        .field label {
+            display: block;
+
+            color: #999;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+        .field input {
+            width: 100%;
+
+            height: 43px;
+
+            background: #0b0b0b;
+
+            border: 1px solid #303030;
+
+            border-radius: 8px;
+
+            color: #fff;
+
+            padding: 0 12px;
+
+            outline: none;
+
+            font-size: 11px;
+        }
+
+        .field input:focus {
+            border-color: var(--orange);
+        }
+
+        .analyze-button {
+            align-self: end;
+
+            height: 43px;
+
+            padding: 0 20px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: var(--orange);
+
+            color: #fff;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+        }
+
+        .analyze-button:hover {
+            background: #dc5700;
+        }
+
+        /* RESULT */
+
+        #result {
+            display: none;
+        }
+
+        .result-grid {
+            display: grid;
+
+            grid-template-columns: 280px 1fr;
+
+            gap: 18px;
+
+            margin-bottom: 18px;
+        }
+
+        .score-card,
+        .category-card,
+        .opportunities-card,
+        .action-card {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+        }
+
+        /* SCORE */
+
+        .score-card {
+            padding: 25px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+        }
+
+        .score-label {
+            color: #777;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 65px;
+
+            line-height: 1;
+
+            font-weight: 900;
+
+            color: var(--orange);
+        }
+
+        .score-total {
+            color: #555;
+
+            font-size: 12px;
+
+            margin-top: 3px;
+        }
+
+        .score-status {
+            margin-top: 15px;
+
+            padding: 7px 12px;
+
+            border-radius: 30px;
+
+            background: rgba(255, 106, 0, .1);
+
+            color: var(--orange);
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* CATEGORIES */
+
+        .category-card {
+            padding: 22px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 800;
+
+            margin-bottom: 18px;
+        }
+
+        .category {
+            margin-bottom: 16px;
+        }
+
+        .category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-top {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+        }
+
+        .category-name {
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .category-score {
+            font-size: 10px;
+            color: #777;
+        }
+
+        .bar {
+            height: 5px;
+
+            background: #242424;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .bar div {
+            height: 100%;
+
+            border-radius: 20px;
+
+            background: var(--orange);
+        }
+
+        /* OPPORTUNITIES */
+
+        .opportunities-card {
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 22px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h2 {
+            font-size: 14px;
+        }
+
+        .card-header p {
+            color: #666;
+
+            font-size: 10px;
+
+            margin-top: 5px;
+        }
+
+        .opportunity {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 17px 22px;
+
+            border-bottom: 1px solid #1d1d1d;
+        }
+
+        .opportunity:last-child {
+            border-bottom: none;
+        }
+
+        .priority {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            flex-shrink: 0;
+        }
+
+        .high {
+            background: var(--red);
+        }
+
+        .medium {
+            background: var(--yellow);
+        }
+
+        .low {
+            background: var(--green);
+        }
+
+        .opp-content {
+            flex: 1;
+        }
+
+        .opp-content strong {
+            display: block;
+
+            font-size: 11px;
+
+            margin-bottom: 5px;
+        }
+
+        .opp-content span {
+            color: #666;
+
+            font-size: 10px;
+        }
+
+        .impact {
+            color: var(--orange);
+
+            font-size: 9px;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        /* ACTION */
+
+        .action-card {
+            margin-top: 18px;
+
+            padding: 22px;
+
+            border-color: rgba(255, 106, 0, .25);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(255, 106, 0, .08),
+                    transparent
+                ),
+                var(--panel);
+        }
+
+        .action-card h2 {
+            font-size: 14px;
+
+            margin-bottom: 7px;
+        }
+
+        .action-card p {
+            color: #777;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+            max-width: 700px;
+        }
+
+        .action-button {
+            margin-top: 15px;
+
+            background: var(--orange);
+
+            border: none;
+
+            border-radius: 8px;
+
+            color: white;
+
+            padding: 11px 16px;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1050px) {
+
+            .fields {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .analyze-button {
+                width: 100%;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+                height: auto;
+
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+
+                padding: 15px;
+            }
+
+            .brand {
+                padding-bottom: 15px;
+            }
+
+            .menu-title,
+            .logout {
+                display: none;
+            }
+
+            .menu {
+                flex-direction: row;
+
+                overflow-x: auto;
+            }
+
+            .menu a {
+                white-space: nowrap;
+
+                padding: 9px 11px;
+            }
+
+            .main {
+                margin-left: 0;
+
+                padding: 25px 18px 45px;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .fields {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 25px;
+            }
+
+            .scan-panel {
+                padding: 18px;
+            }
+
+            .opportunity {
+                padding: 15px;
+            }
+
+            .impact {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                H
+            </div>
+
+            <div class="brand-name">
+                Hunter Help
+                <span>Inteligência comercial</span>
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            Principal
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="dashboard.html">
+                <span class="menu-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="diagnostico.html" class="active">
+                <span class="menu-icon">◉</span>
+                Diagnóstico
+            </a>
+
+            <a href="leads.html">
+                <span class="menu-icon">♢</span>
+                Leads
+            </a>
+
+            <a href="anuncios.html">
+                <span class="menu-icon">▣</span>
+                Anúncios
+            </a>
+
+            <a href="atendimento.html">
+                <span class="menu-icon">◌</span>
+                Atendimento
+            </a>
+
+            <a href="concorrentes.html">
+                <span class="menu-icon">◇</span>
+                Concorrentes
+            </a>
+
+            <a href="seo.html">
+                <span class="menu-icon">⌕</span>
+                SEO Local
+            </a>
+
+            <a href="automacao.html">
+                <span class="menu-icon">⚙</span>
+                Automação
+            </a>
+
+        </nav>
+
+
+        <button class="logout" onclick="logout()">
+            Sair da conta
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div class="eyebrow">
+                Inteligência comercial
+            </div>
+
+            <h1 class="title">
+                Diagnóstico da imobiliária
+            </h1>
+
+            <p class="subtitle">
+                Descubra o que está impedindo sua imobiliária de vender mais.
+            </p>
+
+        </header>
+
+
+        <!-- INPUT -->
+
+        <section class="scan-panel">
+
+            <div class="scan-header">
+
+                <h2>
+                    Analisar presença comercial
+                </h2>
+
+                <p>
+                    Informe os canais da imobiliária para gerar uma análise.
+                </p>
+
+            </div>
+
+
+            <div class="fields">
+
+                <div class="field">
+
+                    <label for="company">
+                        Nome da imobiliária
+                    </label>
+
+                    <input
+                        id="company"
+                        type="text"
+                        placeholder="Ex.: Imobiliária Horizonte"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="website">
+                        Site
+                    </label>
+
+                    <input
+                        id="website"
+                        type="text"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="instagram">
+                        Instagram
+                    </label>
+
+                    <input
+                        id="instagram"
+                        type="text"
+                        placeholder="@suaimobiliaria"
+                    >
+
+                </div>
+
+
+                <button
+                    class="analyze-button"
+                    onclick="analyze()"
+                    id="analyzeButton"
+                >
+                    Gerar diagnóstico
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULTADO -->
+
+        <section id="result">
+
+
+            <div class="result-grid">
+
+
+                <!-- SCORE -->
+
+                <div class="score-card">
+
+                    <div class="score-label">
+                        Índice comercial
+                    </div>
+
+                    <div class="score">
+                        74
+                    </div>
+
+                    <div class="score-total">
+                        de 100 pontos
+                    </div>
+
+                    <div class="score-status">
+                        Bom potencial
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORIAS -->
+
+                <div class="category-card">
+
+                    <div class="card-title">
+                        Desempenho por área
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-top">
+
+                            <span class="category-name">
+                                Presença digital
+                            </span>
+
+                            <span class="category-score">
+                                82/100
+                            </span>
+
+                        </div>
+
+                        <div class="bar">
+                            <div style="width:82%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-top">
+
+                            <span class="category-name">
+                                Captação de leads
+                            </span>
+
+                            <span class="category-score">
+                                68/100
+                            </span>
+
+                        </div>
+
+                        <div class="bar">
+                            <div style="width:68%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-top">
+
+                            <span class="category-name">
+                                Conversão
+                            </span>
+
+                            <span class="category-score">
+                                54/100
+                            </span>
+
+                        </div>
+
+                        <div class="bar">
+                            <div style="width:54%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-top">
+
+                            <span class="category-name">
+                                Atendimento
+                            </span>
+
+                            <span class="category-score">
+                                79/100
+                            </span>
+
+                        </div>
+
+                        <div class="bar">
+                            <div style="width:79%"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OPORTUNIDADES -->
+
+            <div class="opportunities-card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Oportunidades encontradas
+                    </h2>
+
+                    <p>
+                        Pontos que podem gerar impacto comercial.
+                    </p>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="priority high"></div>
+
+                    <div class="opp-content">
+
+                        <strong>
+                            Follow-up de leads precisa ser melhorado
+                        </strong>
+
+                        <span>
+                            A falta de acompanhamento pode fazer a imobiliária perder oportunidades.
+                        </span>
+
+                    </div>
+
+                    <div class="impact">
+                        ALTO IMPACTO
+                    </div>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="priority high"></div>
+
+                    <div class="opp-content">
+
+                        <strong>
+                            Captação digital abaixo do potencial
+                        </strong>
+
+                        <span>
+                            Existem oportunidades para gerar mais contatos através da presença online.
+                        </span>
+
+                    </div>
+
+                    <div class="impact">
+                        ALTO IMPACTO
+                    </div>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="priority medium"></div>
+
+                    <div class="opp-content">
+
+                        <strong>
+                            Anúncios de imóveis podem ser mais persuasivos
+                        </strong>
+
+                        <span>
+                            Títulos, descrições e chamadas podem aumentar o interesse dos visitantes.
+                        </span>
+
+                    </div>
+
+                    <div class="impact">
+                        MÉDIO IMPACTO
+                    </div>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="priority low"></div>
+
+                    <div class="opp-content">
+
+                        <strong>
+                            SEO local possui espaço para crescimento
+                        </strong>
+
+                        <span>
+                            Melhorias na presença local podem aumentar a descoberta da imobiliária.
+                        </span>
+
+                    </div>
+
+                    <div class="impact">
+                        OPORTUNIDADE
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AÇÃO -->
+
+            <div class="action-card">
+
+                <h2>
+                    Próximo passo recomendado
+                </h2>
+
+                <p>
+                    Sua maior oportunidade neste momento está na conversão.
+                    Melhorar o acompanhamento dos leads e estruturar uma abordagem
+                    comercial pode transformar mais contatos em visitas e negócios.
+                </p>
+
+                <button
+                    class="action-button"
+                    onclick="goToAtendimento()"
+                >
+                    Melhorar meu atendimento →
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* PROTEÇÃO */
+
+        const token =
+            localStorage.getItem("hunter_token");
+
+        if (!token) {
+
+            window.location.href =
+                "../index.html";
+
+        }
+
+
+        /* ANÁLISE */
+
+        function analyze() {
+
+            const company =
+                document
+                    .getElementById("company")
+                    .value
+                    .trim();
+
+            const website =
+                document
+                    .getElementById("website")
+                    .value
+                    .trim();
+
+            const instagram =
+                document
+                    .getElementById("instagram")
+                    .value
+                    .trim();
+
+
+            if (!company) {
+
+                alert(
+                    "Informe o nome da imobiliária."
+                );
+
+                return;
+            }
+
+
+            const button =
+                document.getElementById(
+                    "analyzeButton"
+                );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Analisando...";
+
+
+            /*
+             * Simulação inicial.
+             *
+             * Depois vamos substituir isso
+             * pela análise real feita pelo backend.
+             */
+
+            setTimeout(function() {
+
+                document
+                    .getElementById("result")
+                    .style.display = "block";
+
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Atualizar diagnóstico";
+
+
+                document
+                    .getElementById("result")
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+
+                console.log({
+                    company,
+                    website,
+                    instagram
+                });
+
+            }, 1000);
+
+        }
+
+
+        /* ATENDIMENTO */
+
+        function goToAtendimento() {
+
+            window.location.href =
+                "atendimento.html";
+
+        }
+
+
+        /* LOGOUT */
+
+        function logout() {
+
+            localStorage.removeItem(
+                "hunter_token"
+            );
+
+            localStorage.removeItem(
+                "hunter_agency"
+            );
+
+            window.location.href =
+                "../index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
