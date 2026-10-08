@@ -1,1 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="description"
+        content="Hunter Help — A inteligência comercial da sua imobiliária."
+    >
+
+    <title>Hunter Help — Acesso</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-card">
+
+            <div class="login-brand">
+                <div class="brand-mark">H</div>
+
+                <div>
+                    <h1>Hunter Help</h1>
+                    <span>Inteligência comercial</span>
+                </div>
+            </div>
+
+            <div class="login-header">
+                <span class="eyebrow">ÁREA DA IMOBILIÁRIA</span>
+
+                <h2>Bem-vindo de volta.</h2>
+
+                <p>
+                    Acesse o painel da sua imobiliária para analisar
+                    oportunidades e melhorar seus resultados comerciais.
+                </p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+
+                <div class="field">
+
+                    <label for="agencyKey">
+                        Chave de acesso
+                    </label>
+
+                    <input
+                        type="text"
+                        id="agencyKey"
+                        name="agencyKey"
+                        placeholder="HUNTER-XXXX-XXXX"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <small>
+                        A chave foi fornecida pelo Hunter Help.
+                    </small>
+
+                </div>
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="login-button"
+                >
+                    <span id="loginButtonText">
+                        Entrar no Hunter Help
+                    </span>
+
+                    <span
+                        id="loginLoader"
+                        class="login-loader"
+                        hidden
+                    >
+                        Verificando...
+                    </span>
+                </button>
+
+                <p
+                    id="loginMessage"
+                    class="login-message"
+                    role="alert"
+                    hidden
+                ></p>
+
+            </form>
+
+            <div class="login-footer">
+
+                <span>Ambiente protegido</span>
+
+                <span class="status-dot"></span>
+
+                <span>Hunter Help</span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const agencyKey = document.getElementById("agencyKey");
+        const loginButton = document.getElementById("loginButton");
+        const loginButtonText = document.getElementById("loginButtonText");
+        const loginLoader = document.getElementById("loginLoader");
+        const loginMessage = document.getElementById("loginMessage");
+
+        loginForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            const key = agencyKey.value.trim();
+
+            if (!key) {
+                showLoginMessage(
+                    "Digite sua chave de acesso.",
+                    "error"
+                );
+
+                return;
+            }
+
+            setLoading(true);
+            hideLoginMessage();
+
+            try {
+
+                const data = await apiRequest("/api/auth/login", {
+                    method: "POST",
+
+                    body: JSON.stringify({
+                        key: key
+                    })
+                });
+
+                if (!data.success) {
+                    throw new Error(
+                        data.message || "Não foi possível realizar o acesso."
+                    );
+                }
+
+                localStorage.setItem(
+                    "hunter_token",
+                    data.token
+                );
+
+                localStorage.setItem(
+                    "hunter_agency",
+                    JSON.stringify(data.agency)
+                );
+
+                showLoginMessage(
+                    "Acesso autorizado. Entrando...",
+                    "success"
+                );
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 500);
+
+            } catch (error) {
+
+                showLoginMessage(
+                    error.message || "Chave inválida.",
+                    "error"
+                );
+
+                setLoading(false);
+            }
+        });
+
+        function setLoading(loading) {
+
+            loginButton.disabled = loading;
+
+            if (loading) {
+
+                loginButtonText.hidden = true;
+                loginLoader.hidden = false;
+
+            } else {
+
+                loginButtonText.hidden = false;
+                loginLoader.hidden = true;
+            }
+        }
+
+        function showLoginMessage(message, type) {
+
+            loginMessage.textContent = message;
+
+            loginMessage.className =
+                "login-message " + type;
+
+            loginMessage.hidden = false;
+        }
+
+        function hideLoginMessage() {
+
+            loginMessage.hidden = true;
+
+            loginMessage.textContent = "";
+        }
+    </script>
+
+</body>
+</html>
