@@ -1,198 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Hunter Help — Inteligência Comercial</title>
-
-    <meta
-        name="description"
-        content="Hunter Help — inteligência comercial para imobiliárias."
-    >
+    <title>Hunter Help — Acesso</title>
 
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg: #080808;
-            --card: #111111;
-            --border: #292929;
-            --text: #f5f5f5;
-            --muted: #8b8b8b;
-            --orange: #ff6a00;
-            --orange-dark: #db5600;
-            --green: #35d889;
         }
 
         body {
             min-height: 100vh;
-            background:
-                radial-gradient(
-                    circle at 50% -10%,
-                    rgba(255, 106, 0, 0.10),
-                    transparent 38%
-                ),
-                var(--bg);
-
-            color: var(--text);
-            font-family: Arial, Helvetica, sans-serif;
+            background: #0a0a0b;
+            color: #f5f5f5;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            padding: 24px;
+            padding: 20px;
         }
 
-        .container {
+        .login-page {
             width: 100%;
-            max-width: 430px;
+            max-width: 420px;
         }
 
         /* LOGO */
 
         .brand {
-            text-align: center;
-            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        .logo {
-            width: 54px;
-            height: 54px;
+        .logo-box {
+            width: 64px;
+            height: 64px;
 
-            margin: 0 auto 15px;
+            border-radius: 16px;
+            overflow: hidden;
 
-            border-radius: 14px;
-
-            background: var(--orange);
+            background: #111113;
+            border: 1px solid #29292c;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            color: #fff;
+            margin-bottom: 15px;
+        }
 
-            font-size: 27px;
-            font-weight: 900;
-
-            box-shadow:
-                0 10px 35px rgba(255, 106, 0, .20);
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .brand h1 {
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: -.4px;
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .brand p {
-            color: #666;
-            font-size: 11px;
-            margin-top: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1.3px;
+            margin-top: 5px;
+            color: #707075;
+            font-size: 12px;
         }
 
         /* CARD */
 
-        .card {
-            background: rgba(17, 17, 17, .94);
-
-            border: 1px solid var(--border);
-
+        .login-card {
+            background: #121214;
+            border: 1px solid #27272a;
             border-radius: 18px;
 
-            padding: 32px;
+            padding: 30px;
 
-            box-shadow:
-                0 25px 80px rgba(0, 0, 0, .45);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, .35);
         }
 
-        .eyebrow {
-            color: var(--orange);
-
-            font-size: 10px;
-            font-weight: 800;
-
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-
-            margin-bottom: 10px;
-        }
-
-        .card h2 {
-            font-size: 27px;
-            line-height: 1.15;
-
-            letter-spacing: -.8px;
-
-            margin-bottom: 10px;
+        .login-card h2 {
+            font-size: 20px;
+            font-weight: 650;
+            margin-bottom: 7px;
         }
 
         .description {
-            color: var(--muted);
-
-            font-size: 13px;
+            color: #77777d;
+            font-size: 12px;
             line-height: 1.6;
-
-            margin-bottom: 27px;
+            margin-bottom: 25px;
         }
 
         /* INPUT */
 
-        .field {
-            margin-bottom: 16px;
+        .form-group {
+            margin-bottom: 18px;
         }
 
-        .field label {
+        label {
             display: block;
-
-            color: #aaa;
-
-            font-size: 11px;
-            font-weight: 700;
-
             margin-bottom: 8px;
-        }
 
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-icon {
-            position: absolute;
-
-            left: 14px;
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            color: #666;
-
-            font-size: 14px;
+            color: #b6b6ba;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .6px;
         }
 
         input {
             width: 100%;
+            height: 48px;
 
-            height: 49px;
+            padding: 0 14px;
 
-            border: 1px solid #303030;
-
-            border-radius: 9px;
-
-            background: #0b0b0b;
-
-            color: #fff;
-
-            padding: 0 14px 0 40px;
+            border: 1px solid #303034;
+            border-radius: 10px;
 
             outline: none;
+
+            background: #0c0c0e;
+            color: #fff;
 
             font-size: 13px;
 
@@ -200,207 +138,148 @@
         }
 
         input::placeholder {
-            color: #4f4f4f;
+            color: #4f4f54;
         }
 
         input:focus {
-            border-color: var(--orange);
-
-            box-shadow:
-                0 0 0 3px rgba(255, 106, 0, .08);
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, .08);
         }
 
         /* BUTTON */
 
         .login-button {
             width: 100%;
-
-            height: 49px;
+            height: 48px;
 
             border: none;
+            border-radius: 10px;
 
-            border-radius: 9px;
-
-            background: var(--orange);
-
-            color: white;
+            background: #f59e0b;
+            color: #111;
 
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 750;
 
             cursor: pointer;
 
             transition: .2s;
-
-            margin-top: 4px;
         }
 
         .login-button:hover {
-            background: var(--orange-dark);
-
+            background: #ffb52e;
             transform: translateY(-1px);
         }
 
         .login-button:disabled {
-            opacity: .65;
+            opacity: .6;
             cursor: wait;
             transform: none;
         }
 
-        /* MESSAGE */
+        /* MENSAGEM */
 
         .message {
             display: none;
 
             margin-top: 15px;
+            padding: 11px 13px;
 
-            padding: 12px;
-
-            border-radius: 8px;
+            border-radius: 9px;
 
             font-size: 11px;
-
-            line-height: 1.4;
-
-            text-align: center;
+            line-height: 1.5;
         }
 
         .message.error {
             display: block;
-
-            color: #ff8585;
-
-            background: rgba(255, 50, 50, .08);
-
-            border: 1px solid rgba(255, 50, 50, .16);
+            color: #fca5a5;
+            background: rgba(220, 38, 38, .08);
+            border: 1px solid rgba(220, 38, 38, .25);
         }
 
         .message.success {
             display: block;
-
-            color: var(--green);
-
-            background: rgba(53, 216, 137, .07);
-
-            border: 1px solid rgba(53, 216, 137, .15);
+            color: #86efac;
+            background: rgba(34, 197, 94, .08);
+            border: 1px solid rgba(34, 197, 94, .22);
         }
-
-        /* FOOTER */
 
         .footer {
-            display: flex;
+            text-align: center;
+            margin-top: 22px;
 
-            justify-content: center;
-            align-items: center;
-
-            gap: 7px;
-
-            color: #555;
-
+            color: #4f4f54;
             font-size: 10px;
-
-            margin-top: 20px;
         }
 
-        .status {
-            width: 6px;
-            height: 6px;
-
-            border-radius: 50%;
-
-            background: var(--green);
-
-            box-shadow:
-                0 0 8px rgba(53, 216, 137, .6);
+        .footer span {
+            color: #f59e0b;
         }
 
-        /* MOBILE */
-
-        @media (max-width: 500px) {
-
-            body {
-                padding: 18px;
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 24px 20px;
             }
 
-            .card {
-                padding: 25px 21px;
-            }
-
-            .brand {
-                margin-bottom: 25px;
-            }
-
-            .card h2 {
-                font-size: 24px;
+            .logo-box {
+                width: 58px;
+                height: 58px;
             }
         }
     </style>
 </head>
 
+
 <body>
 
-    <div class="container">
-
-        <!-- LOGO -->
+    <main class="login-page">
 
         <div class="brand">
 
-            <div class="logo">
-                H
+            <div class="logo-box">
+
+                <img
+                    src="frontend/A8E0C9E9-E5F9-4B9A-8293-FE6E0E764BB6.png"
+                    alt="Hunter Help"
+                >
+
             </div>
 
-            <h1>
-                Hunter Help
-            </h1>
+            <h1>Hunter Help</h1>
 
             <p>
-                Inteligência comercial
+                Inteligência comercial para imobiliárias
             </p>
 
         </div>
 
 
-        <!-- LOGIN -->
+        <section class="login-card">
 
-        <div class="card">
-
-            <div class="eyebrow">
-                Área da imobiliária
-            </div>
-
-            <h2>
-                Bem-vindo de volta.
-            </h2>
+            <h2>Acessar plataforma</h2>
 
             <p class="description">
-                Acesse sua central de inteligência comercial
-                e descubra onde sua imobiliária pode vender mais.
+                Entre com a chave de acesso da sua imobiliária
+                para acessar o Hunter Help.
             </p>
 
 
             <form id="loginForm">
 
-                <div class="field">
+                <div class="form-group">
 
-                    <label for="agencyKey">
-                        Chave de acesso
+                    <label for="key">
+                        CHAVE DE ACESSO
                     </label>
 
-                    <div class="input-wrapper">
-
-                        <span class="input-icon">
-                            ◆
-                        </span>
-
-                        <input
-                            id="agencyKey"
-                            type="text"
-                            placeholder="HUNTER-DEMO-001"
-                            autocomplete="off"
-                            required
-                        >
-
-                    </div>
+                    <input
+                        type="text"
+                        id="key"
+                        placeholder="Digite sua chave de acesso"
+                        autocomplete="off"
+                        required
+                    >
 
                 </div>
 
@@ -410,7 +289,7 @@
                     class="login-button"
                     id="loginButton"
                 >
-                    Entrar no Hunter Help
+                    Entrar na plataforma
                 </button>
 
             </form>
@@ -421,50 +300,34 @@
                 class="message"
             ></div>
 
-        </div>
+        </section>
 
 
         <div class="footer">
-
-            <span class="status"></span>
-
-            Sistema operacional
-
+            Hunter Help <span>•</span> Inteligência comercial
         </div>
 
-    </div>
+    </main>
 
 
     <script>
-
-        /*
-         * BACKEND OFICIAL DO HUNTER HELP
-         */
 
         const API_URL =
             "https://hunter-help-api.onrender.com";
 
 
-        /*
-         * ELEMENTOS
-         */
-
-        const loginForm =
+        const form =
             document.getElementById("loginForm");
 
-        const agencyKey =
-            document.getElementById("agencyKey");
+        const input =
+            document.getElementById("key");
 
-        const loginButton =
+        const button =
             document.getElementById("loginButton");
 
         const message =
             document.getElementById("message");
 
-
-        /*
-         * MOSTRAR MENSAGEM
-         */
 
         function showMessage(text, type) {
 
@@ -476,153 +339,113 @@
         }
 
 
-        /*
-         * LOGIN
-         */
+        form.addEventListener("submit", async function(event) {
 
-        loginForm.addEventListener(
-            "submit",
-            async function(event) {
-
-                event.preventDefault();
+            event.preventDefault();
 
 
-                const key =
-                    agencyKey.value.trim();
+            const key =
+                input.value.trim();
 
 
-                if (!key) {
+            if (!key) {
 
-                    showMessage(
-                        "Informe a chave da imobiliária.",
-                        "error"
-                    );
+                showMessage(
+                    "Digite a chave de acesso.",
+                    "error"
+                );
 
-                    return;
-                }
-
-
-                loginButton.disabled = true;
-
-                loginButton.textContent =
-                    "Verificando acesso...";
-
-                message.className =
-                    "message";
-
-
-                try {
-
-                    const response =
-                        await fetch(
-                            `${API_URL}/api/auth/login`,
-                            {
-                                method: "POST",
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body: JSON.stringify({
-                                    key: key
-                                })
-                            }
-                        );
-
-
-                    const contentType =
-                        response.headers
-                            .get("content-type") || "";
-
-
-                    if (!contentType.includes("application/json")) {
-
-                        throw new Error(
-                            "O servidor retornou uma resposta inválida."
-                        );
-
-                    }
-
-
-                    const data =
-                        await response.json();
-
-
-                    if (!response.ok || !data.success) {
-
-                        throw new Error(
-                            data.message ||
-                            "Chave de acesso inválida."
-                        );
-
-                    }
-
-
-                    /*
-                     * SALVA A SESSÃO
-                     */
-
-                    localStorage.setItem(
-                        "hunter_token",
-                        data.token
-                    );
-
-
-                    localStorage.setItem(
-                        "hunter_agency",
-                        JSON.stringify(data.agency)
-                    );
-
-
-                    showMessage(
-                        "Acesso autorizado. Abrindo seu painel...",
-                        "success"
-                    );
-
-
-                    loginButton.textContent =
-                        "Acesso autorizado";
-
-
-                    /*
-                     * REDIRECIONAMENTO CORRETO
-                     *
-                     * index.html está na RAIZ
-                     * dashboard.html está em /frontend/
-                     */
-
-                    setTimeout(function() {
-
-                        window.location.href =
-                            "frontend/dashboard.html";
-
-                    }, 500);
-
-
-                } catch (error) {
-
-                    console.error(error);
-
-
-                    showMessage(
-                        error.message ||
-                        "Não foi possível conectar ao servidor.",
-                        "error"
-                    );
-
-
-                    loginButton.disabled = false;
-
-                    loginButton.textContent =
-                        "Entrar no Hunter Help";
-
-                }
-
+                return;
             }
-        );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Verificando acesso...";
+
+            message.className =
+                "message";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/auth/login`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                key: key
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok || !data.success) {
+
+                    throw new Error(
+                        data.message ||
+                        "Chave inválida."
+                    );
+
+                }
+
+
+                localStorage.setItem(
+                    "hunter_token",
+                    data.token
+                );
+
+
+                localStorage.setItem(
+                    "hunter_agency",
+                    JSON.stringify(data.agency)
+                );
+
+
+                showMessage(
+                    "Acesso autorizado. Entrando...",
+                    "success"
+                );
+
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "frontend/dashboard.html";
+
+                }, 500);
+
+
+            } catch (error) {
+
+                showMessage(
+                    error.message ||
+                    "Não foi possível conectar ao servidor.",
+                    "error"
+                );
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Entrar na plataforma";
+            }
+
+        });
 
     </script>
 
 </body>
+
 </html>
