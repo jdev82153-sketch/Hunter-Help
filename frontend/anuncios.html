@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Anúncios | Hunter Help</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -35,6 +42,7 @@
             display: flex;
         }
 
+
         /* =========================
            SIDEBAR
         ========================= */
@@ -61,13 +69,19 @@
             width: 40px;
             height: 40px;
             border-radius: 11px;
-            background: #f59e0b;
-            color: #111;
+            overflow: hidden;
+            background: #111;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 21px;
-            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .brand-text {
@@ -168,6 +182,7 @@
             border-color: #444;
         }
 
+
         /* =========================
            MAIN
         ========================= */
@@ -179,39 +194,21 @@
             overflow-x: hidden;
         }
 
-        .top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 30px;
+        .header {
+            margin-bottom: 28px;
         }
 
-        .top h1 {
+        .header h1 {
             font-size: 28px;
             margin-bottom: 7px;
         }
 
-        .top p {
+        .header p {
             color: #777;
             font-size: 13px;
+            line-height: 1.5;
         }
 
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            color: #7f7f84;
-            font-size: 11px;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #35c978;
-            box-shadow: 0 0 10px rgba(53, 201, 120, .5);
-        }
 
         /* =========================
            LAYOUT
@@ -219,8 +216,8 @@
 
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 20px;
             align-items: start;
         }
 
@@ -231,31 +228,36 @@
             padding: 22px;
         }
 
-        .panel.full {
-            grid-column: 1 / -1;
+        .panel-title {
+            margin-bottom: 20px;
         }
 
-        .panel-title {
+        .panel-title h2 {
             font-size: 15px;
-            font-weight: 700;
             margin-bottom: 5px;
         }
 
-        .panel-subtitle {
-            color: #707075;
-            font-size: 11px;
+        .panel-title p {
+            color: #666;
+            font-size: 10px;
             line-height: 1.5;
-            margin-bottom: 20px;
         }
+
 
         /* =========================
            FORM
         ========================= */
 
-        .form-grid {
+        .fields {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 13px;
+            gap: 12px;
         }
 
         .field {
@@ -264,101 +266,112 @@
             gap: 7px;
         }
 
-        .field.full {
-            grid-column: 1 / -1;
-        }
-
         .field label {
-            color: #858589;
-            font-size: 11px;
+            color: #999;
+            font-size: 10px;
         }
 
         .field input,
-        .field textarea,
-        .field select {
+        .field select,
+        .field textarea {
             width: 100%;
             background: #0b0b0c;
-            border: 1px solid #29292c;
-            border-radius: 8px;
-            color: #eee;
-            padding: 12px;
+            border: 1px solid #2a2a2d;
+            border-radius: 9px;
+            color: #fff;
             outline: none;
-            font-size: 12px;
+            padding: 11px 12px;
+            font-size: 11px;
+            transition: .2s;
+        }
+
+        .field input,
+        .field select {
+            height: 43px;
         }
 
         .field textarea {
-            min-height: 105px;
+            min-height: 82px;
             resize: vertical;
             line-height: 1.5;
         }
 
+        .field input::placeholder,
+        .field textarea::placeholder {
+            color: #555;
+        }
+
         .field input:focus,
-        .field textarea:focus,
-        .field select:focus {
-            border-color: #f59e0b;
+        .field select:focus,
+        .field textarea:focus {
+            border-color: #8f6518;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, .06);
         }
 
-        .field select option {
-            background: #111;
-        }
-
-        .generate-btn {
+        .generate {
             width: 100%;
-            margin-top: 16px;
+            height: 45px;
+            margin-top: 5px;
             border: 0;
-            border-radius: 8px;
+            border-radius: 9px;
             background: #f59e0b;
             color: #111;
-            padding: 12px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
+            transition: .2s;
         }
 
-        .generate-btn:hover {
-            background: #ffb52e;
+        .generate:hover {
+            background: #ffad21;
+            transform: translateY(-1px);
         }
+
+        .generate:disabled {
+            opacity: .6;
+            cursor: wait;
+            transform: none;
+        }
+
 
         /* =========================
-           RESULT
+           LOADING
         ========================= */
 
-        .result-empty {
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #555;
-            border: 1px dashed #29292c;
-            border-radius: 10px;
-            padding: 30px;
-        }
-
-        .result-empty-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 13px;
-            background: #19191b;
-            color: #f59e0b;
-            display: flex;
+        .loading {
+            display: none;
             align-items: center;
             justify-content: center;
-            font-size: 21px;
-            margin-bottom: 14px;
-        }
-
-        .result-empty strong {
-            color: #aaa;
-            font-size: 13px;
-            margin-bottom: 6px;
-        }
-
-        .result-empty span {
+            gap: 9px;
+            color: #777;
             font-size: 10px;
-            max-width: 280px;
-            line-height: 1.5;
+            padding: 18px 0 0;
         }
+
+        .loading.active {
+            display: flex;
+        }
+
+        .loader {
+            width: 14px;
+            height: 14px;
+            border: 2px solid #333;
+            border-top-color: #f59e0b;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* =========================
+           RESULTADO
+        ========================= */
 
         .result {
             display: none;
@@ -368,103 +381,139 @@
             display: block;
         }
 
-        .result-label {
-            color: #35c978;
-            font-size: 10px;
-            margin-bottom: 13px;
+        .result-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .output-block {
-            background: #0b0b0c;
-            border: 1px solid #252527;
-            border-radius: 9px;
-            padding: 14px;
-            margin-bottom: 12px;
+        .result-top h2 {
+            font-size: 15px;
         }
 
-        .output-block small {
-            display: block;
-            color: #666;
-            font-size: 9px;
-            letter-spacing: .5px;
+        .status {
+            color: #63d697;
+            background: #14231b;
+            border: 1px solid #21452f;
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 8px;
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           AD RESULT
+        ========================= */
+
+        .ad-block {
+            margin-bottom: 14px;
+        }
+
+        .ad-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 7px;
         }
 
-        .output-block strong {
-            display: block;
-            color: #f2f2f2;
+        .ad-label span:first-child {
+            color: #777;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+        }
+
+        .ad-label span:last-child {
+            color: #555;
+            font-size: 8px;
+        }
+
+        .output {
+            background: #0b0b0c;
+            border: 1px solid #28282b;
+            border-radius: 9px;
+            padding: 14px;
+            color: #d2d2d5;
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        .output.title-output {
+            color: #fff;
             font-size: 14px;
+            font-weight: 700;
             line-height: 1.4;
         }
 
-        .output-block p {
-            color: #aaa;
-            font-size: 11px;
-            line-height: 1.7;
-            white-space: pre-line;
+        .copy-button {
+            width: 100%;
+            height: 36px;
+            margin-top: 7px;
+            background: transparent;
+            border: 1px solid #2d2d30;
+            border-radius: 7px;
+            color: #999;
+            font-size: 9px;
+            transition: .2s;
         }
 
-        .copy-btn {
-            width: 100%;
-            border: 0;
-            border-radius: 8px;
-            background: #f59e0b;
-            color: #111;
-            padding: 12px;
-            font-size: 11px;
-            font-weight: 800;
+        .copy-button:hover {
+            color: #fff;
+            border-color: #555;
         }
+
 
         /* =========================
            TIPS
         ========================= */
 
         .tips {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            margin-top: 20px;
+            padding: 18px;
+            background: #17140f;
+            border: 1px solid #3b2d18;
+            border-radius: 12px;
         }
 
-        .tip {
-            background: #0b0b0c;
-            border: 1px solid #252527;
-            border-radius: 9px;
-            padding: 14px;
+        .tips small {
+            color: #f59e0b;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .tip strong {
-            display: block;
-            font-size: 11px;
-            margin-bottom: 6px;
+        .tips h3 {
+            font-size: 14px;
+            margin: 8px 0 7px;
         }
 
-        .tip span {
-            color: #6e6e73;
+        .tips p {
+            color: #7f7f84;
             font-size: 10px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* =========================
-           LOADING
-        ========================= */
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 15px 0;
-            color: #777;
-            font-size: 11px;
-        }
-
-        .loading.active {
-            display: block;
-        }
 
         /* =========================
            MOBILE
         ========================= */
 
+        @media (max-width: 1050px) {
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
         @media (max-width: 900px) {
+
+            .app {
+                display: block;
+            }
 
             .sidebar {
                 width: 100%;
@@ -472,10 +521,6 @@
                 border-right: 0;
                 border-bottom: 1px solid #252527;
                 padding: 12px;
-            }
-
-            .app {
-                display: block;
             }
 
             .brand {
@@ -509,57 +554,57 @@
                 padding: 22px 15px;
             }
 
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .panel.full {
-                grid-column: auto;
-            }
-
-            .tips {
-                grid-template-columns: 1fr;
-            }
         }
 
         @media (max-width: 600px) {
 
-            .top h1 {
+            .header h1 {
                 font-size: 23px;
             }
 
-            .status {
-                display: none;
+            .panel {
+                padding: 18px;
             }
 
-            .form-grid {
+            .row {
                 grid-template-columns: 1fr;
             }
 
-            .field.full {
-                grid-column: auto;
+            .result-top {
+                align-items: flex-start;
+                flex-direction: column;
             }
 
-            .panel {
-                padding: 17px;
-            }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
 <div class="app">
 
-    <!-- SIDEBAR -->
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
 
     <aside class="sidebar">
+
 
         <div class="brand">
 
             <div class="brand-icon">
-                H
+
+                <img
+                    src="../Assets/A8E0C9E9-E5F9-4B9A-8293-FE6E0E764BB6.png"
+                    alt="Hunter Help"
+                >
+
             </div>
+
 
             <div class="brand-text">
 
@@ -583,50 +628,103 @@
 
         <nav class="nav">
 
+
             <a href="dashboard.html">
-                <span class="nav-icon">⌂</span>
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
                 Dashboard
+
             </a>
+
 
             <a href="diagnostico.html">
-                <span class="nav-icon">◈</span>
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
                 Diagnóstico
+
             </a>
+
 
             <a href="leads.html">
-                <span class="nav-icon">◎</span>
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
                 Leads
+
             </a>
 
-            <a href="anuncios.html" class="active">
-                <span class="nav-icon">▣</span>
+
+            <a
+                href="anuncios.html"
+                class="active"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
                 Anúncios
+
             </a>
+
 
             <a href="atendimento.html">
-                <span class="nav-icon">◌</span>
+
+                <span class="nav-icon">
+                    ◌
+                </span>
+
                 Atendimento
+
             </a>
+
 
             <a href="concorrentes.html">
-                <span class="nav-icon">⇄</span>
+
+                <span class="nav-icon">
+                    ⇄
+                </span>
+
                 Concorrentes
+
             </a>
+
 
             <a href="seo.html">
-                <span class="nav-icon">⌕</span>
+
+                <span class="nav-icon">
+                    ⌕
+                </span>
+
                 SEO Local
+
             </a>
 
+
             <a href="automacao.html">
-                <span class="nav-icon">⚙</span>
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
                 Automação
+
             </a>
+
 
         </nav>
 
 
         <div class="sidebar-bottom">
+
 
             <div class="agency-mini">
 
@@ -648,67 +746,69 @@
                 Sair da conta
             </button>
 
+
         </div>
+
 
     </aside>
 
 
-    <!-- MAIN -->
+    <!-- =========================
+         MAIN
+    ========================= -->
 
     <main class="main">
 
-        <header class="top">
 
-            <div>
+        <header class="header">
 
-                <h1>
-                    Criar anúncio
-                </h1>
+            <h1>
+                Criar anúncio
+            </h1>
 
-                <p>
-                    Transforme as informações do imóvel em um anúncio mais atrativo.
-                </p>
-
-            </div>
-
-            <div class="status">
-
-                <span class="status-dot"></span>
-
-                Hunter Help online
-
-            </div>
+            <p>
+                Gere anúncios de imóveis mais claros, atrativos e preparados para conversão.
+            </p>
 
         </header>
 
 
         <div class="content-grid">
 
-            <!-- FORM -->
+
+            <!-- =========================
+                 FORMULÁRIO
+            ========================= -->
 
             <section class="panel">
 
+
                 <div class="panel-title">
-                    Informações do imóvel
+
+                    <h2>
+                        Dados do imóvel
+                    </h2>
+
+                    <p>
+                        Informe as principais características para gerar o anúncio.
+                    </p>
+
                 </div>
 
-                <div class="panel-subtitle">
-                    Preencha os principais dados e deixe o Hunter Help estruturar o anúncio.
-                </div>
+
+                <div class="fields">
 
 
-                <div class="form-grid">
+                    <div class="field">
 
-                    <div class="field full">
-
-                        <label>
-                            Nome ou identificação do imóvel
+                        <label for="imovel">
+                            Nome ou tipo do imóvel
                         </label>
 
                         <input
-                            type="text"
                             id="imovel"
-                            placeholder="Ex.: Casa moderna no Jardim América"
+                            type="text"
+                            placeholder="Ex.: Casa moderna em condomínio"
                         >
 
                     </div>
@@ -716,289 +816,305 @@
 
                     <div class="field">
 
-                        <label>
-                            Cidade
+                        <label for="cidade">
+                            Cidade / região
                         </label>
 
                         <input
-                            type="text"
                             id="cidade"
+                            type="text"
                             placeholder="Ex.: São José do Rio Preto"
                         >
 
                     </div>
 
 
-                    <div class="field">
+                    <div class="row">
 
-                        <label>
-                            Finalidade
-                        </label>
 
-                        <select id="finalidade">
+                        <div class="field">
 
-                            <option value="Venda">
-                                Venda
-                            </option>
+                            <label for="finalidade">
+                                Finalidade
+                            </label>
 
-                            <option value="Aluguel">
-                                Aluguel
-                            </option>
+                            <select id="finalidade">
 
-                        </select>
+                                <option value="venda">
+                                    Venda
+                                </option>
+
+                                <option value="aluguel">
+                                    Aluguel
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="quartos">
+                                Quartos
+                            </label>
+
+                            <input
+                                id="quartos"
+                                type="number"
+                                placeholder="Ex.: 3"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row">
+
+
+                        <div class="field">
+
+                            <label for="vagas">
+                                Vagas
+                            </label>
+
+                            <input
+                                id="vagas"
+                                type="number"
+                                placeholder="Ex.: 2"
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="diferenciais">
+                                Diferenciais
+                            </label>
+
+                            <input
+                                id="diferenciais"
+                                type="text"
+                                placeholder="Ex.: piscina, suíte, área gourmet"
+                            >
+
+                        </div>
+
 
                     </div>
 
 
                     <div class="field">
 
-                        <label>
-                            Quartos
-                        </label>
-
-                        <input
-                            type="number"
-                            id="quartos"
-                            min="0"
-                            placeholder="Ex.: 3"
-                        >
-
-                    </div>
-
-
-                    <div class="field">
-
-                        <label>
-                            Vagas
-                        </label>
-
-                        <input
-                            type="number"
-                            id="vagas"
-                            min="0"
-                            placeholder="Ex.: 2"
-                        >
-
-                    </div>
-
-
-                    <div class="field full">
-
-                        <label>
-                            Diferenciais
-                        </label>
-
-                        <input
-                            type="text"
-                            id="diferenciais"
-                            placeholder="Ex.: piscina, churrasqueira, suíte, área gourmet"
-                        >
-
-                    </div>
-
-
-                    <div class="field full">
-
-                        <label>
-                            Observações adicionais
+                        <label for="observacoes">
+                            Outras informações
                         </label>
 
                         <textarea
                             id="observacoes"
-                            placeholder="Digite informações importantes sobre o imóvel..."
+                            placeholder="Digite metragem, localização, condomínio, condições e outras informações..."
                         ></textarea>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="loading"
-                    id="loading"
-                >
-                    Criando anúncio...
-                </div>
-
-
-                <button
-                    class="generate-btn"
-                    onclick="gerarAnuncio()"
-                >
-                    Gerar anúncio
-                </button>
-
-            </section>
-
-
-            <!-- RESULT -->
-
-            <section class="panel">
-
-                <div class="panel-title">
-                    Resultado
-                </div>
-
-                <div class="panel-subtitle">
-                    Seu anúncio será estruturado com título, descrição e chamada para ação.
-                </div>
-
-
-                <div
-                    class="result-empty"
-                    id="resultEmpty"
-                >
-
-                    <div class="result-empty-icon">
-                        ▣
-                    </div>
-
-                    <strong>
-                        Nenhum anúncio gerado
-                    </strong>
-
-                    <span>
-                        Preencha os dados do imóvel ao lado para gerar uma versão comercial.
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="result"
-                    id="result"
-                >
-
-                    <div class="result-label">
-                        ANÚNCIO GERADO COM SUCESSO
-                    </div>
-
-
-                    <div class="output-block">
-
-                        <small>
-                            TÍTULO
-                        </small>
-
-                        <strong id="resultadoTitulo">
-                            —
-                        </strong>
-
-                    </div>
-
-
-                    <div class="output-block">
-
-                        <small>
-                            DESCRIÇÃO
-                        </small>
-
-                        <p id="resultadoDescricao">
-                            —
-                        </p>
-
-                    </div>
-
-
-                    <div class="output-block">
-
-                        <small>
-                            CHAMADA PARA AÇÃO
-                        </small>
-
-                        <strong id="resultadoCta">
-                            —
-                        </strong>
 
                     </div>
 
 
                     <button
-                        class="copy-btn"
-                        onclick="copiarAnuncio()"
+                        class="generate"
+                        id="generateBtn"
+                        onclick="gerarAnuncio()"
                     >
-                        Copiar anúncio completo
+                        Gerar anúncio
                     </button>
 
+
+                    <div
+                        class="loading"
+                        id="loading"
+                    >
+
+                        <span class="loader"></span>
+
+                        Criando anúncio comercial...
+
+                    </div>
+
+
                 </div>
+
 
             </section>
 
 
-            <!-- TIPS -->
+            <!-- =========================
+                 RESULTADO
+            ========================= -->
 
-            <section class="panel full">
+            <section
+                class="panel result"
+                id="resultado"
+            >
 
-                <div class="panel-title">
-                    Boas práticas
+
+                <div class="result-top">
+
+                    <h2>
+                        Anúncio gerado
+                    </h2>
+
+                    <span class="status">
+                        PRONTO PARA USO
+                    </span>
+
                 </div>
 
-                <div class="panel-subtitle">
-                    Pequenos ajustes podem aumentar a qualidade percebida do anúncio.
+
+                <div class="ad-block">
+
+
+                    <div class="ad-label">
+
+                        <span>
+                            Título
+                        </span>
+
+                        <span>
+                            Otimizado para conversão
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="output title-output"
+                        id="tituloOutput"
+                    ></div>
+
+
+                    <button
+                        class="copy-button"
+                        onclick="copiarCampo('tituloOutput', this)"
+                    >
+                        Copiar título
+                    </button>
+
+
+                </div>
+
+
+                <div class="ad-block">
+
+
+                    <div class="ad-label">
+
+                        <span>
+                            Descrição
+                        </span>
+
+                        <span>
+                            Texto comercial
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="output"
+                        id="descricaoOutput"
+                    ></div>
+
+
+                    <button
+                        class="copy-button"
+                        onclick="copiarCampo('descricaoOutput', this)"
+                    >
+                        Copiar descrição
+                    </button>
+
+
+                </div>
+
+
+                <div class="ad-block">
+
+
+                    <div class="ad-label">
+
+                        <span>
+                            Chamada para ação
+                        </span>
+
+                        <span>
+                            CTA
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="output"
+                        id="ctaOutput"
+                    ></div>
+
+
+                    <button
+                        class="copy-button"
+                        onclick="copiarCampo('ctaOutput', this)"
+                    >
+                        Copiar CTA
+                    </button>
+
+
                 </div>
 
 
                 <div class="tips">
 
-                    <div class="tip">
+                    <small>
+                        Estratégia Hunter Help
+                    </small>
 
-                        <strong>
-                            Destaque benefícios
-                        </strong>
+                    <h3>
+                        Não venda apenas o imóvel. Venda o próximo passo.
+                    </h3>
 
-                        <span>
-                            Não liste apenas características. Mostre o que torna o imóvel interessante para o comprador.
-                        </span>
-
-                    </div>
-
-
-                    <div class="tip">
-
-                        <strong>
-                            Título objetivo
-                        </strong>
-
-                        <span>
-                            Use localização, tipo de imóvel e principal diferencial para chamar atenção.
-                        </span>
-
-                    </div>
-
-
-                    <div class="tip">
-
-                        <strong>
-                            CTA claro
-                        </strong>
-
-                        <span>
-                            Termine o anúncio orientando o interessado sobre o próximo passo.
-                        </span>
-
-                    </div>
+                    <p>
+                        O anúncio deve despertar interesse e levar o potencial cliente a solicitar informações, agendar uma visita ou iniciar uma conversa com a imobiliária.
+                    </p>
 
                 </div>
 
+
             </section>
+
 
         </div>
 
+
     </main>
+
 
 </div>
 
 
 <script>
 
+
     /* =========================
        AUTH
     ========================= */
 
-    const token = localStorage.getItem("hunter_token");
+    const token =
+        localStorage.getItem("hunter_token");
+
 
     if (!token) {
-        window.location.href = "../index.html";
+
+        window.location.href =
+            "../index.html";
+
     }
 
 
@@ -1006,150 +1122,206 @@
        AGENCY
     ========================= */
 
-    const agency = JSON.parse(
-        localStorage.getItem("hunter_agency") || "{}"
-    );
+    const agency =
+        JSON.parse(
+            localStorage.getItem("hunter_agency") || "{}"
+        );
+
 
     document.getElementById("agencyName").textContent =
         agency.name || "Sua imobiliária";
 
 
     /* =========================
-       LOGOUT
-    ========================= */
-
-    function logout() {
-
-        localStorage.removeItem("hunter_token");
-        localStorage.removeItem("hunter_agency");
-
-        window.location.href = "../index.html";
-    }
-
-
-    /* =========================
        GERAR ANÚNCIO
     ========================= */
 
-    let anuncioCompleto = "";
-
-
     function gerarAnuncio() {
 
+
         const imovel =
-            document.getElementById("imovel").value.trim();
+            document
+                .getElementById("imovel")
+                .value
+                .trim();
+
 
         const cidade =
-            document.getElementById("cidade").value.trim();
+            document
+                .getElementById("cidade")
+                .value
+                .trim();
+
 
         const finalidade =
-            document.getElementById("finalidade").value;
+            document
+                .getElementById("finalidade")
+                .value;
+
 
         const quartos =
-            document.getElementById("quartos").value;
+            document
+                .getElementById("quartos")
+                .value
+                .trim();
+
 
         const vagas =
-            document.getElementById("vagas").value;
+            document
+                .getElementById("vagas")
+                .value
+                .trim();
+
 
         const diferenciais =
-            document.getElementById("diferenciais").value.trim();
+            document
+                .getElementById("diferenciais")
+                .value
+                .trim();
+
 
         const observacoes =
-            document.getElementById("observacoes").value.trim();
+            document
+                .getElementById("observacoes")
+                .value
+                .trim();
 
 
-        if (!imovel) {
+        if (!imovel || !cidade) {
 
-            alert("Informe o nome ou identificação do imóvel.");
+            alert(
+                "Informe pelo menos o tipo do imóvel e a cidade."
+            );
 
             return;
+
         }
+
+
+        const button =
+            document.getElementById("generateBtn");
 
 
         const loading =
             document.getElementById("loading");
 
-        const result =
-            document.getElementById("result");
 
-        const empty =
-            document.getElementById("resultEmpty");
+        const resultado =
+            document.getElementById("resultado");
 
+
+        button.disabled = true;
+
+        button.textContent =
+            "Gerando...";
+
+
+        resultado.classList.remove("active");
 
         loading.classList.add("active");
 
 
         setTimeout(() => {
 
-            loading.classList.remove("active");
 
-            const local =
-                cidade
-                    ? ` em ${cidade}`
-                    : "";
-
-
-            const quartosTexto =
-                quartos
-                    ? `${quartos} quarto${quartos == 1 ? "" : "s"}`
-                    : "ambientes bem distribuídos";
+            const finalidadeTexto =
+                finalidade === "aluguel"
+                    ? "para aluguel"
+                    : "à venda";
 
 
-            const vagasTexto =
-                vagas
-                    ? `${vagas} vaga${vagas == 1 ? "" : "s"}`
-                    : "vaga de garagem";
+            let titulo =
+                `${imovel} ${finalidadeTexto} em ${cidade}`;
 
 
-            const diferencialTexto =
-                diferenciais ||
-                "ambientes planejados para oferecer conforto e praticidade";
+            if (quartos) {
+
+                titulo +=
+                    ` | ${quartos} quartos`;
+
+            }
 
 
-            const observacaoTexto =
-                observacoes
-                    ? ` ${observacoes}`
-                    : "";
+            let descricao =
+                `Encontre este excelente ${imovel.toLowerCase()} ${finalidadeTexto} em ${cidade}.`;
 
 
-            const titulo =
-                `${imovel}${local} — ${finalidade} com excelente oportunidade`;
+            if (quartos) {
+
+                descricao +=
+                    ` O imóvel conta com ${quartos} quarto${quartos == 1 ? "" : "s"}`;
+
+            }
 
 
-            const descricao =
-`Conheça este imóvel ${local}, ideal para quem busca conforto, praticidade e uma excelente oportunidade.
+            if (vagas) {
 
-O imóvel conta com ${quartosTexto} e ${vagasTexto}. Entre os principais diferenciais estão ${diferencialTexto}.
+                descricao +=
+                    ` e ${vagas} vaga${vagas == 1 ? "" : "s"} de garagem`;
 
-${observacaoTexto}
+            }
 
-Entre em contato para receber mais informações, consultar disponibilidade e agendar uma visita.`;
+
+            if (diferenciais) {
+
+                descricao +=
+                    `. Entre os diferenciais estão: ${diferenciais}`;
+
+            }
+
+
+            if (observacoes) {
+
+                descricao +=
+                    `. ${observacoes}`;
+
+            }
+
+
+            descricao +=
+                `\n\nUma oportunidade para quem busca praticidade, conforto e uma excelente localização. Entre em contato para receber mais informações e agendar uma visita.`;
 
 
             const cta =
-                `Fale com nossa equipe e agende sua visita.`;
+                finalidade === "aluguel"
+                    ? "Gostou do imóvel? Fale com nossa equipe e consulte disponibilidade, condições e agende sua visita."
+                    : "Gostou deste imóvel? Fale com nossa equipe, solicite mais informações e agende uma visita.";
 
 
-            document.getElementById("resultadoTitulo").textContent =
+            document.getElementById(
+                "tituloOutput"
+            ).textContent =
                 titulo;
 
-            document.getElementById("resultadoDescricao").textContent =
+
+            document.getElementById(
+                "descricaoOutput"
+            ).textContent =
                 descricao;
 
-            document.getElementById("resultadoCta").textContent =
+
+            document.getElementById(
+                "ctaOutput"
+            ).textContent =
                 cta;
 
 
-            anuncioCompleto =
-`${titulo}
+            loading.classList.remove("active");
 
-${descricao}
+            button.disabled = false;
 
-${cta}`;
+            button.textContent =
+                "Gerar anúncio";
 
 
-            empty.style.display = "none";
-            result.classList.add("active");
+            resultado.classList.add("active");
+
+
+            resultado.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
 
         }, 1000);
 
@@ -1160,28 +1332,60 @@ ${cta}`;
        COPIAR
     ========================= */
 
-    function copiarAnuncio() {
+    function copiarCampo(id, button) {
 
-        navigator.clipboard.writeText(anuncioCompleto);
 
-        const button =
-            document.querySelector(".copy-btn");
+        const texto =
+            document.getElementById(id).textContent;
 
-        const original =
-            button.textContent;
 
-        button.textContent =
-            "Anúncio copiado ✓";
+        navigator.clipboard
+            .writeText(texto)
+            .then(() => {
 
-        setTimeout(() => {
+                const original =
+                    button.textContent;
 
-            button.textContent =
-                original;
 
-        }, 1800);
+                button.textContent =
+                    "Copiado ✓";
+
+
+                setTimeout(() => {
+
+                    button.textContent =
+                        original;
+
+                }, 1400);
+
+            });
+
     }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    function logout() {
+
+        localStorage.removeItem(
+            "hunter_token"
+        );
+
+        localStorage.removeItem(
+            "hunter_agency"
+        );
+
+        window.location.href =
+            "../index.html";
+
+    }
+
 
 </script>
 
+
 </body>
+
 </html>
