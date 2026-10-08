@@ -4,49 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard — Hunter Help</title>
+    <title>Dashboard | Hunter Help</title>
 
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg: #090909;
-            --panel: #111111;
-            --panel-2: #151515;
-            --border: #252525;
-            --text: #f5f5f5;
-            --muted: #8d8d8d;
-            --orange: #ff6a00;
-            --orange-dark: #d95200;
-            --green: #39d98a;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: Inter, Arial, sans-serif;
+            background: #0b0b0c;
+            color: #f5f5f5;
             min-height: 100vh;
         }
 
         button {
-            font-family: inherit;
+            font: inherit;
         }
 
-        /* SIDEBAR */
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
 
         .sidebar {
+            width: 250px;
+            background: #111113;
+            border-right: 1px solid #242426;
+            padding: 24px 16px;
             position: fixed;
             left: 0;
             top: 0;
-            width: 245px;
-            height: 100vh;
-            background: #0d0d0d;
-            border-right: 1px solid var(--border);
-            padding: 24px 16px;
+            bottom: 0;
             z-index: 10;
         }
 
@@ -54,83 +49,75 @@
             display: flex;
             align-items: center;
             gap: 11px;
-            padding: 0 8px 30px;
+            padding: 0 10px 28px;
         }
 
         .brand-icon {
             width: 38px;
             height: 38px;
-            background: var(--orange);
-            border-radius: 10px;
+            border-radius: 11px;
+            background: #f59e0b;
+            color: #111;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
             font-weight: 900;
-            color: #fff;
+            font-size: 18px;
         }
 
-        .brand-name {
-            font-size: 17px;
-            font-weight: 800;
-        }
-
-        .brand-name span {
+        .brand-text strong {
             display: block;
-            color: #777;
-            font-size: 10px;
-            font-weight: 500;
-            margin-top: 3px;
-            letter-spacing: .7px;
-            text-transform: uppercase;
+            font-size: 17px;
+            letter-spacing: -.3px;
         }
 
-        .menu-title {
-            color: #555;
+        .brand-text span {
+            display: block;
+            color: #77777c;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .nav-title {
+            color: #5f5f64;
             font-size: 10px;
-            font-weight: 700;
+            text-transform: uppercase;
             letter-spacing: 1.2px;
-            text-transform: uppercase;
-            padding: 0 10px;
-            margin: 10px 0;
+            padding: 0 11px 9px;
         }
 
-        .menu {
+        .nav {
             display: flex;
             flex-direction: column;
             gap: 5px;
         }
 
-        .menu a {
+        .nav a {
             text-decoration: none;
-            color: #929292;
-            padding: 12px 12px;
+            color: #85858b;
+            padding: 11px 12px;
             border-radius: 9px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-size: 13px;
             transition: .2s;
         }
 
-        .menu a:hover {
-            background: #171717;
+        .nav a:hover {
+            background: #19191c;
             color: #fff;
         }
 
-        .menu a.active {
-            background: rgba(255, 106, 0, .12);
-            color: #fff;
+        .nav a.active {
+            background: #211b11;
+            color: #f59e0b;
         }
 
-        .menu-icon {
-            width: 18px;
+        .nav-icon {
+            width: 20px;
             text-align: center;
             font-size: 15px;
-        }
-
-        .menu a.active .menu-icon {
-            color: var(--orange);
         }
 
         .sidebar-bottom {
@@ -140,15 +127,35 @@
             right: 16px;
         }
 
+        .agency-mini {
+            background: #171719;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 13px;
+            margin-bottom: 10px;
+        }
+
+        .agency-mini small {
+            display: block;
+            color: #68686d;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .agency-mini strong {
+            font-size: 12px;
+            color: #ddd;
+        }
+
         .logout {
             width: 100%;
-            border: 1px solid var(--border);
+            border: 1px solid #28282b;
             background: transparent;
-            color: #888;
-            padding: 11px;
+            color: #77777c;
+            padding: 10px;
             border-radius: 9px;
             cursor: pointer;
-            transition: .2s;
+            font-size: 12px;
         }
 
         .logout:hover {
@@ -156,404 +163,324 @@
             border-color: #444;
         }
 
-        /* MAIN */
+        /* =========================
+           MAIN
+        ========================= */
 
         .main {
-            margin-left: 245px;
-            min-height: 100vh;
-            padding: 30px 38px 50px;
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 34px;
         }
 
-        .topbar {
+        .top {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 38px;
+            align-items: flex-start;
+            margin-bottom: 30px;
         }
 
         .eyebrow {
-            color: var(--orange);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
+            color: #f59e0b;
+            font-size: 11px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            letter-spacing: 1.5px;
+            margin-bottom: 7px;
+            font-weight: 700;
         }
 
-        .title {
-            font-size: 30px;
-            font-weight: 800;
-            letter-spacing: -.8px;
+        h1 {
+            font-size: 28px;
+            letter-spacing: -1px;
+            margin-bottom: 7px;
         }
 
         .subtitle {
-            color: var(--muted);
+            color: #77777d;
             font-size: 13px;
-            margin-top: 7px;
+            line-height: 1.6;
         }
 
-        .agency-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 13px;
-            border: 1px solid var(--border);
-            background: #101010;
-            border-radius: 10px;
+        .status {
+            background: #111113;
+            border: 1px solid #27272a;
+            padding: 9px 13px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #9a9aa0;
         }
 
-        .agency-avatar {
-            width: 35px;
-            height: 35px;
-            background: #222;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--orange);
-            font-size: 12px;
-            font-weight: 800;
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 6px;
         }
 
-        .agency-info strong {
-            display: block;
-            font-size: 12px;
-        }
+        /* =========================
+           KPI
+        ========================= */
 
-        .agency-info span {
-            color: #666;
-            font-size: 10px;
-        }
-
-        /* CARDS */
-
-        .stats {
+        .kpis {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 14px;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
         }
 
-        .stat {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            padding: 20px;
+        .kpi {
+            background: #111113;
+            border: 1px solid #252527;
+            border-radius: 14px;
+            padding: 18px;
         }
 
-        .stat-label {
-            color: #777;
-            font-size: 11px;
-            margin-bottom: 14px;
-        }
-
-        .stat-value {
-            font-size: 27px;
-            font-weight: 800;
-        }
-
-        .stat-value small {
-            color: #666;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .stat-change {
-            margin-top: 9px;
-            color: var(--green);
+        .kpi small {
+            display: block;
+            color: #68686d;
             font-size: 10px;
+            margin-bottom: 9px;
         }
 
-        .orange-line {
-            height: 3px;
-            width: 30px;
-            background: var(--orange);
-            border-radius: 10px;
-            margin-top: 15px;
+        .kpi strong {
+            font-size: 29px;
+            letter-spacing: -1px;
         }
 
-        /* CONTENT GRID */
+        .kpi span {
+            display: block;
+            color: #707076;
+            font-size: 10px;
+            margin-top: 6px;
+        }
+
+        .orange {
+            color: #f59e0b;
+        }
+
+        .green {
+            color: #22c55e;
+        }
+
+        /* =========================
+           GRID
+        ========================= */
 
         .content-grid {
             display: grid;
-            grid-template-columns: 1.35fr .65fr;
+            grid-template-columns: 1.5fr 1fr;
             gap: 18px;
         }
 
-        .panel {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
+        .card {
+            background: #111113;
+            border: 1px solid #252527;
+            border-radius: 15px;
+            padding: 21px;
         }
 
-        .panel-header {
-            padding: 21px 22px;
-            border-bottom: 1px solid var(--border);
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 18px;
         }
 
-        .panel-title {
-            font-size: 15px;
-            font-weight: 750;
+        .card-header h2 {
+            font-size: 14px;
         }
 
-        .panel-subtitle {
-            color: #666;
+        .card-header span {
+            color: #68686d;
             font-size: 10px;
-            margin-top: 4px;
         }
 
-        .view-all {
-            color: var(--orange);
-            font-size: 11px;
-            text-decoration: none;
-        }
+        /* =========================
+           SCORE
+        ========================= */
 
-        /* OPPORTUNITIES */
-
-        .opportunity {
-            padding: 18px 22px;
+        .score-area {
             display: flex;
             align-items: center;
-            gap: 15px;
-            border-bottom: 1px solid #1d1d1d;
+            gap: 25px;
         }
 
-        .opportunity:last-child {
-            border-bottom: none;
-        }
-
-        .opp-number {
-            width: 34px;
-            height: 34px;
-            background: #1a1a1a;
-            border-radius: 8px;
+        .score-circle {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            border: 8px solid #2a2417;
+            border-top-color: #f59e0b;
+            border-right-color: #f59e0b;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--orange);
-            font-weight: 800;
-            font-size: 12px;
+            flex-shrink: 0;
         }
 
-        .opp-info {
+        .score-circle strong {
+            font-size: 34px;
+            letter-spacing: -2px;
+        }
+
+        .score-circle span {
+            color: #6e6e74;
+            font-size: 10px;
+        }
+
+        .score-info {
             flex: 1;
         }
 
-        .opp-info strong {
-            font-size: 12px;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .opp-info span {
-            color: #666;
-            font-size: 10px;
-        }
-
-        .opp-btn {
-            border: 1px solid #333;
-            background: transparent;
-            color: #bbb;
-            padding: 8px 11px;
-            border-radius: 7px;
-            font-size: 10px;
-            cursor: pointer;
-        }
-
-        .opp-btn:hover {
-            border-color: var(--orange);
-            color: var(--orange);
-        }
-
-        /* TODAY */
-
-        .today {
-            padding: 22px;
-        }
-
-        .score {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .score-number {
-            font-size: 45px;
-            font-weight: 900;
-            color: var(--orange);
-        }
-
-        .score-text {
-            color: #777;
-            font-size: 10px;
-            text-align: right;
-            line-height: 1.5;
-        }
-
-        .progress {
-            height: 5px;
-            background: #252525;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 23px;
-        }
-
-        .progress div {
-            width: 74%;
-            height: 100%;
-            background: var(--orange);
-        }
-
-        .today-task {
-            border: 1px solid #292929;
-            border-radius: 10px;
-            padding: 15px;
-            background: #151515;
-        }
-
-        .today-task-label {
-            color: var(--orange);
-            font-size: 9px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .today-task strong {
-            font-size: 12px;
-            display: block;
-            line-height: 1.4;
-        }
-
-        .today-task p {
-            color: #707070;
-            font-size: 10px;
-            line-height: 1.5;
-            margin-top: 7px;
-        }
-
-        .task-btn {
-            margin-top: 12px;
-            width: 100%;
-            background: var(--orange);
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 10px;
-        }
-
-        .task-btn:hover {
-            background: var(--orange-dark);
-        }
-
-        /* QUICK ACTIONS */
-
-        .quick-title {
-            margin: 28px 0 14px;
+        .score-info h3 {
             font-size: 14px;
-            font-weight: 750;
+            margin-bottom: 7px;
         }
 
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        .quick-card {
-            border: 1px solid var(--border);
-            background: var(--panel);
-            border-radius: 12px;
-            padding: 18px;
-            cursor: pointer;
-            transition: .2s;
-        }
-
-        .quick-card:hover {
-            transform: translateY(-2px);
-            border-color: #3b3b3b;
-        }
-
-        .quick-icon {
-            color: var(--orange);
-            font-size: 19px;
+        .score-info p {
+            color: #737379;
+            font-size: 11px;
+            line-height: 1.6;
             margin-bottom: 14px;
         }
 
-        .quick-card strong {
+        .score-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .bar-row {
+            display: grid;
+            grid-template-columns: 100px 1fr 35px;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .bar-row span {
+            color: #77777d;
+            font-size: 10px;
+        }
+
+        .bar {
+            height: 5px;
+            background: #252527;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar div {
+            height: 100%;
+            background: #f59e0b;
+            border-radius: 10px;
+        }
+
+        .bar-value {
+            text-align: right;
+            color: #aaa;
+            font-size: 10px;
+        }
+
+        /* =========================
+           OPPORTUNITIES
+        ========================= */
+
+        .opportunities {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .opportunity {
+            background: #18181a;
+            border: 1px solid #28282a;
+            border-radius: 10px;
+            padding: 13px;
+            display: flex;
+            gap: 11px;
+            align-items: flex-start;
+        }
+
+        .op-icon {
+            width: 31px;
+            height: 31px;
+            border-radius: 8px;
+            background: #241c0e;
+            color: #f59e0b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
             font-size: 12px;
+            font-weight: 800;
+        }
+
+        .opportunity strong {
+            font-size: 11px;
             display: block;
+            margin-bottom: 4px;
+        }
+
+        .opportunity p {
+            color: #707076;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           TODAY
+        ========================= */
+
+        .today {
+            margin-top: 18px;
+            background: #17130c;
+            border: 1px solid #443315;
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .today-label {
+            color: #a27622;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .today h2 {
+            font-size: 15px;
             margin-bottom: 5px;
         }
 
-        .quick-card span {
-            color: #666;
-            font-size: 9px;
-            line-height: 1.4;
+        .today p {
+            color: #77777d;
+            font-size: 11px;
+            line-height: 1.5;
         }
 
-        /* MOBILE */
+        .today button {
+            margin-top: 13px;
+            background: #f59e0b;
+            color: #111;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
 
         @media (max-width: 1050px) {
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
 
-            .quick-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 800px) {
-            .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-                padding: 15px;
-            }
-
-            .brand {
-                padding-bottom: 15px;
-            }
-
-            .menu-title,
-            .sidebar-bottom {
-                display: none;
-            }
-
-            .menu {
-                flex-direction: row;
-                overflow-x: auto;
-            }
-
-            .menu a {
-                white-space: nowrap;
-                padding: 9px 11px;
-            }
-
-            .main {
-                margin-left: 0;
-                padding: 25px 18px 40px;
-            }
-
-            .topbar {
-                align-items: flex-start;
-                gap: 20px;
-            }
-
-            .agency-box {
-                display: none;
+            .kpis {
+                grid-template-columns: 1fr 1fr;
             }
 
             .content-grid {
@@ -561,34 +488,72 @@
             }
         }
 
-        @media (max-width: 520px) {
-            .title {
-                font-size: 25px;
+        @media (max-width: 700px) {
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                bottom: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid #242426;
+                padding: 14px;
             }
 
-            .stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 9px;
+            .brand {
+                padding-bottom: 14px;
             }
 
-            .stat {
-                padding: 15px;
-            }
-
-            .stat-value {
-                font-size: 22px;
-            }
-
-            .quick-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .opportunity {
-                padding: 15px;
-            }
-
-            .opp-btn {
+            .nav-title,
+            .sidebar-bottom {
                 display: none;
+            }
+
+            .nav {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .nav a {
+                justify-content: center;
+                padding: 9px 4px;
+                font-size: 0;
+            }
+
+            .nav-icon {
+                font-size: 16px;
+            }
+
+            .app {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 22px 15px;
+            }
+
+            .top {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .kpis {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .score-area {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .score-info {
+                width: 100%;
             }
         }
     </style>
@@ -596,337 +561,432 @@
 
 <body>
 
+<div class="app">
+
+    <!-- =========================
+         SIDEBAR PADRÃO
+    ========================== -->
+
     <aside class="sidebar">
 
         <div class="brand">
-            <div class="brand-icon">H</div>
 
-            <div class="brand-name">
-                Hunter Help
-                <span>Inteligência comercial</span>
+            <div class="brand-icon">
+                H
             </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    Hunter Help
+                </strong>
+
+                <span>
+                    Inteligência comercial
+                </span>
+
+            </div>
+
         </div>
 
-        <div class="menu-title">Principal</div>
 
-        <nav class="menu">
+        <div class="nav-title">
+            Menu principal
+        </div>
+
+
+        <nav class="nav">
 
             <a href="dashboard.html" class="active">
-                <span class="menu-icon">⌂</span>
+                <span class="nav-icon">⌂</span>
                 Dashboard
             </a>
 
             <a href="diagnostico.html">
-                <span class="menu-icon">◉</span>
+                <span class="nav-icon">◈</span>
                 Diagnóstico
             </a>
 
             <a href="leads.html">
-                <span class="menu-icon">♢</span>
+                <span class="nav-icon">◎</span>
                 Leads
             </a>
 
             <a href="anuncios.html">
-                <span class="menu-icon">▣</span>
+                <span class="nav-icon">▣</span>
                 Anúncios
             </a>
 
             <a href="atendimento.html">
-                <span class="menu-icon">◌</span>
+                <span class="nav-icon">◌</span>
                 Atendimento
             </a>
 
             <a href="concorrentes.html">
-                <span class="menu-icon">◇</span>
+                <span class="nav-icon">⇄</span>
                 Concorrentes
             </a>
 
             <a href="seo.html">
-                <span class="menu-icon">⌕</span>
+                <span class="nav-icon">⌕</span>
                 SEO Local
             </a>
 
             <a href="automacao.html">
-                <span class="menu-icon">⚙</span>
+                <span class="nav-icon">⚙</span>
                 Automação
             </a>
 
         </nav>
 
+
         <div class="sidebar-bottom">
-            <button class="logout" onclick="logout()">
+
+            <div class="agency-mini">
+
+                <small>
+                    IMOBILIÁRIA
+                </small>
+
+                <strong id="agencyName">
+                    Carregando...
+                </strong>
+
+            </div>
+
+
+            <button
+                class="logout"
+                onclick="logout()"
+            >
                 Sair da conta
             </button>
+
         </div>
 
     </aside>
 
 
+    <!-- =========================
+         CONTEÚDO
+    ========================== -->
+
     <main class="main">
 
-        <header class="topbar">
+        <header class="top">
 
             <div>
-                <div class="eyebrow">Painel comercial</div>
 
-                <h1 class="title">
+                <div class="eyebrow">
                     Visão geral
+                </div>
+
+                <h1>
+                    Dashboard
                 </h1>
 
                 <p class="subtitle">
-                    Veja onde sua imobiliária pode vender mais.
+                    Acompanhe a saúde comercial da sua imobiliária
+                    e descubra onde existem oportunidades de crescimento.
                 </p>
+
             </div>
 
-            <div class="agency-box">
 
-                <div class="agency-avatar" id="agencyInitials">
-                    ID
-                </div>
+            <div class="status">
 
-                <div class="agency-info">
-                    <strong id="agencyName">
-                        Imobiliária Demo
-                    </strong>
+                <span class="status-dot"></span>
 
-                    <span>
-                        Conta ativa
-                    </span>
-                </div>
+                Sistema online
 
             </div>
 
         </header>
 
 
-        <section class="stats">
+        <!-- KPIs -->
 
-            <div class="stat">
-                <div class="stat-label">
-                    Índice comercial
-                </div>
+        <section class="kpis">
 
-                <div class="stat-value">
-                    74<small>/100</small>
-                </div>
+            <div class="kpi">
 
-                <div class="stat-change">
-                    ↑ 8% este mês
-                </div>
+                <small>
+                    ÍNDICE COMERCIAL
+                </small>
 
-                <div class="orange-line"></div>
+                <strong class="orange">
+                    74
+                </strong>
+
+                <span>
+                    de 100 pontos
+                </span>
+
             </div>
 
 
-            <div class="stat">
-                <div class="stat-label">
-                    Presença digital
-                </div>
+            <div class="kpi">
 
-                <div class="stat-value">
-                    82<small>/100</small>
-                </div>
+                <small>
+                    PRESENÇA DIGITAL
+                </small>
 
-                <div class="stat-change">
-                    ↑ Boa presença
-                </div>
+                <strong class="green">
+                    82
+                </strong>
 
-                <div class="orange-line"></div>
+                <span>
+                    boa presença
+                </span>
+
             </div>
 
 
-            <div class="stat">
-                <div class="stat-label">
-                    Captação
-                </div>
+            <div class="kpi">
 
-                <div class="stat-value">
-                    68<small>/100</small>
-                </div>
+                <small>
+                    CAPTAÇÃO
+                </small>
 
-                <div class="stat-change">
-                    ↑ 5% este mês
-                </div>
+                <strong>
+                    68
+                </strong>
 
-                <div class="orange-line"></div>
+                <span>
+                    abaixo do potencial
+                </span>
+
             </div>
 
 
-            <div class="stat">
-                <div class="stat-label">
-                    Conversão
-                </div>
+            <div class="kpi">
 
-                <div class="stat-value">
-                    54<small>/100</small>
-                </div>
+                <small>
+                    CONVERSÃO
+                </small>
 
-                <div class="stat-change">
-                    ↑ Pode melhorar
-                </div>
+                <strong class="orange">
+                    54
+                </strong>
 
-                <div class="orange-line"></div>
+                <span>
+                    principal oportunidade
+                </span>
+
             </div>
 
         </section>
 
+
+        <!-- CONTEÚDO -->
 
         <section class="content-grid">
 
-            <div class="panel">
 
-                <div class="panel-header">
+            <!-- SCORE -->
 
-                    <div>
-                        <div class="panel-title">
-                            Oportunidades encontradas
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Saúde comercial
+                    </h2>
+
+                    <span>
+                        Última análise
+                    </span>
+
+                </div>
+
+
+                <div class="score-area">
+
+                    <div class="score-circle">
+
+                        <strong>
+                            74
+                        </strong>
+
+                        <span>
+                            /100
+                        </span>
+
+                    </div>
+
+
+                    <div class="score-info">
+
+                        <h3>
+                            Sua imobiliária está no caminho certo.
+                        </h3>
+
+                        <p>
+                            A presença digital está relativamente forte,
+                            mas existem pontos de conversão que podem
+                            gerar mais oportunidades comerciais.
+                        </p>
+
+
+                        <div class="score-bars">
+
+                            <div class="bar-row">
+
+                                <span>
+                                    Presença digital
+                                </span>
+
+                                <div class="bar">
+                                    <div style="width:82%"></div>
+                                </div>
+
+                                <div class="bar-value">
+                                    82
+                                </div>
+
+                            </div>
+
+
+                            <div class="bar-row">
+
+                                <span>
+                                    Captação
+                                </span>
+
+                                <div class="bar">
+                                    <div style="width:68%"></div>
+                                </div>
+
+                                <div class="bar-value">
+                                    68
+                                </div>
+
+                            </div>
+
+
+                            <div class="bar-row">
+
+                                <span>
+                                    Conversão
+                                </span>
+
+                                <div class="bar">
+                                    <div style="width:54%"></div>
+                                </div>
+
+                                <div class="bar-value">
+                                    54
+                                </div>
+
+                            </div>
+
+
+                            <div class="bar-row">
+
+                                <span>
+                                    Atendimento
+                                </span>
+
+                                <div class="bar">
+                                    <div style="width:79%"></div>
+                                </div>
+
+                                <div class="bar-value">
+                                    79
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="panel-subtitle">
-                            Pontos que podem gerar mais resultados
-                        </div>
                     </div>
-
-                    <a href="diagnostico.html" class="view-all">
-                        Ver diagnóstico →
-                    </a>
-
-                </div>
-
-
-                <div class="opportunity">
-
-                    <div class="opp-number">
-                        01
-                    </div>
-
-                    <div class="opp-info">
-
-                        <strong>
-                            Melhorar o follow-up dos leads
-                        </strong>
-
-                        <span>
-                            Leads sem retorno podem estar sendo perdidos.
-                        </span>
-
-                    </div>
-
-                    <button class="opp-btn" onclick="goTo('atendimento.html')">
-                        Melhorar
-                    </button>
-
-                </div>
-
-
-                <div class="opportunity">
-
-                    <div class="opp-number">
-                        02
-                    </div>
-
-                    <div class="opp-info">
-
-                        <strong>
-                            Criar uma landing page de captação
-                        </strong>
-
-                        <span>
-                            Transforme visitantes em oportunidades comerciais.
-                        </span>
-
-                    </div>
-
-                    <button class="opp-btn" onclick="goTo('leads.html')">
-                        Criar
-                    </button>
-
-                </div>
-
-
-                <div class="opportunity">
-
-                    <div class="opp-number">
-                        03
-                    </div>
-
-                    <div class="opp-info">
-
-                        <strong>
-                            Otimizar anúncios de imóveis
-                        </strong>
-
-                        <span>
-                            Melhore títulos, descrições e chamadas para ação.
-                        </span>
-
-                    </div>
-
-                    <button class="opp-btn" onclick="goTo('anuncios.html')">
-                        Otimizar
-                    </button>
 
                 </div>
 
             </div>
 
 
-            <div class="panel">
+            <!-- OPORTUNIDADES -->
 
-                <div class="panel-header">
+            <div class="card">
 
-                    <div>
-                        <div class="panel-title">
-                            O que fazer hoje?
-                        </div>
+                <div class="card-header">
 
-                        <div class="panel-subtitle">
-                            Próxima ação recomendada
-                        </div>
-                    </div>
+                    <h2>
+                        Oportunidades
+                    </h2>
+
+                    <span>
+                        Prioridade
+                    </span>
 
                 </div>
 
 
-                <div class="today">
+                <div class="opportunities">
 
-                    <div class="score">
+                    <div class="opportunity">
 
-                        <div class="score-number">
-                            74
+                        <div class="op-icon">
+                            01
                         </div>
 
-                        <div class="score-text">
-                            Índice<br>
-                            comercial
+                        <div>
+
+                            <strong>
+                                Melhorar follow-up
+                            </strong>
+
+                            <p>
+                                Leads podem estar sendo perdidos
+                                por falta de acompanhamento.
+                            </p>
+
                         </div>
 
                     </div>
 
 
-                    <div class="progress">
-                        <div></div>
+                    <div class="opportunity">
+
+                        <div class="op-icon">
+                            02
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Criar landing page
+                            </strong>
+
+                            <p>
+                                Uma página focada em conversão
+                                pode aumentar a captação.
+                            </p>
+
+                        </div>
+
                     </div>
 
 
-                    <div class="today-task">
+                    <div class="opportunity">
 
-                        <div class="today-task-label">
-                            Prioridade alta
+                        <div class="op-icon">
+                            03
                         </div>
 
-                        <strong>
-                            Reative seus leads antigos
-                        </strong>
+                        <div>
 
-                        <p>
-                            Uma nova abordagem pode recuperar contatos
-                            que ainda não fecharam negócio.
-                        </p>
+                            <strong>
+                                Otimizar anúncios
+                            </strong>
 
-                        <button class="task-btn" onclick="goTo('atendimento.html')">
-                            Criar abordagem
-                        </button>
+                            <p>
+                                Títulos e descrições mais comerciais
+                                podem gerar mais contatos.
+                            </p>
+
+                        </div>
 
                     </div>
 
@@ -937,138 +997,88 @@
         </section>
 
 
-        <h2 class="quick-title">
-            Ações rápidas
-        </h2>
+        <!-- O QUE FAZER HOJE -->
 
+        <section class="today">
 
-        <section class="quick-grid">
-
-            <div class="quick-card" onclick="goTo('diagnostico.html')">
-
-                <div class="quick-icon">
-                    ◉
-                </div>
-
-                <strong>
-                    Fazer diagnóstico
-                </strong>
-
-                <span>
-                    Descubra os pontos que estão limitando suas vendas.
-                </span>
-
+            <div class="today-label">
+                Próxima ação
             </div>
 
+            <h2>
+                O que você deve fazer hoje para vender mais?
+            </h2>
 
-            <div class="quick-card" onclick="goTo('leads.html')">
+            <p>
+                Comece melhorando o acompanhamento dos leads que
+                demonstraram interesse mas ainda não avançaram.
+            </p>
 
-                <div class="quick-icon">
-                    ♢
-                </div>
-
-                <strong>
-                    Encontrar leads
-                </strong>
-
-                <span>
-                    Encontre novas oportunidades comerciais.
-                </span>
-
-            </div>
-
-
-            <div class="quick-card" onclick="goTo('anuncios.html')">
-
-                <div class="quick-icon">
-                    ▣
-                </div>
-
-                <strong>
-                    Criar anúncio
-                </strong>
-
-                <span>
-                    Gere títulos e descrições melhores para seus imóveis.
-                </span>
-
-            </div>
-
-
-            <div class="quick-card" onclick="goTo('atendimento.html')">
-
-                <div class="quick-icon">
-                    ◌
-                </div>
-
-                <strong>
-                    Melhorar atendimento
-                </strong>
-
-                <span>
-                    Crie respostas e follow-ups para seus clientes.
-                </span>
-
-            </div>
+            <button onclick="irParaAtendimento()">
+                Melhorar atendimento
+            </button>
 
         </section>
 
     </main>
 
-
-    <script>
-
-        // Proteção básica da página
-        const token = localStorage.getItem("hunter_token");
-
-        if (!token) {
-            window.location.href = "../index.html";
-        }
+</div>
 
 
-        // Dados da imobiliária
-        try {
+<script>
 
-            const agency =
-                JSON.parse(
-                    localStorage.getItem("hunter_agency") || "{}"
-                );
+    /* =========================
+       PROTEÇÃO
+    ========================== */
 
-            if (agency.name) {
-                document.getElementById("agencyName").textContent =
-                    agency.name;
-            }
+    const token =
+        localStorage.getItem("hunter_token");
 
-            if (agency.initials) {
-                document.getElementById("agencyInitials").textContent =
-                    agency.initials;
-            }
-
-        } catch (error) {
-
-            console.log(
-                "Não foi possível carregar os dados da imobiliária."
-            );
-
-        }
+    if (!token) {
+        window.location.href = "../index.html";
+    }
 
 
-        // Navegação
-        function goTo(page) {
-            window.location.href = page;
-        }
+    /* =========================
+       AGÊNCIA
+    ========================== */
+
+    const agency = JSON.parse(
+        localStorage.getItem("hunter_agency") || "{}"
+    );
+
+    document.getElementById("agencyName").textContent =
+        agency.name || "Sua imobiliária";
 
 
-        // Logout
-        function logout() {
+    /* =========================
+       AÇÃO
+    ========================== */
 
-            localStorage.removeItem("hunter_token");
-            localStorage.removeItem("hunter_agency");
+    function irParaAtendimento() {
 
-            window.location.href = "../index.html";
-        }
+        window.location.href =
+            "atendimento.html";
 
-    </script>
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================== */
+
+    function logout() {
+
+        localStorage.removeItem("hunter_token");
+
+        localStorage.removeItem("hunter_agency");
+
+        window.location.href =
+            "../index.html";
+
+    }
+
+</script>
 
 </body>
 </html>
