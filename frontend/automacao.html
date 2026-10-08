@@ -1,1 +1,1028 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Automação | Hunter Help</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #0b0b0c;
+            color: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            background: #111113;
+            border-right: 1px solid #242426;
+            padding: 24px 16px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 10px 28px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: #f59e0b;
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: 17px;
+            letter-spacing: -.3px;
+        }
+
+        .brand-text span {
+            display: block;
+            color: #77777c;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .nav-title {
+            color: #5f5f64;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            padding: 0 11px 9px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #85858b;
+            padding: 11px 12px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .nav a:hover {
+            background: #19191c;
+            color: #fff;
+        }
+
+        .nav a.active {
+            background: #211b11;
+            color: #f59e0b;
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 16px;
+            right: 16px;
+        }
+
+        .agency-mini {
+            background: #171719;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 13px;
+            margin-bottom: 10px;
+        }
+
+        .agency-mini small {
+            display: block;
+            color: #68686d;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .agency-mini strong {
+            font-size: 12px;
+            color: #ddd;
+        }
+
+        .logout {
+            width: 100%;
+            border: 1px solid #28282b;
+            background: transparent;
+            color: #77777c;
+            padding: 10px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .logout:hover {
+            color: #fff;
+            border-color: #444;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 34px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            color: #f59e0b;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 7px;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 28px;
+            letter-spacing: -1px;
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            color: #77777d;
+            font-size: 13px;
+            max-width: 680px;
+            line-height: 1.6;
+        }
+
+        .status {
+            background: #111113;
+            border: 1px solid #27272a;
+            padding: 9px 13px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #9a9aa0;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        /* AUTOMATION GRID */
+
+        .automation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .automation-card {
+            background: #111113;
+            border: 1px solid #252527;
+            border-radius: 15px;
+            padding: 21px;
+            transition: .2s;
+        }
+
+        .automation-card:hover {
+            border-color: #3a3a3d;
+            transform: translateY(-1px);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            background: #211b11;
+            color: #f59e0b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        .switch {
+            position: relative;
+            width: 42px;
+            height: 23px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: #29292c;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            width: 17px;
+            height: 17px;
+            left: 3px;
+            top: 3px;
+            background: #777;
+            border-radius: 50%;
+            transition: .2s;
+        }
+
+        .switch input:checked + .slider {
+            background: #b87308;
+        }
+
+        .switch input:checked + .slider:before {
+            transform: translateX(19px);
+            background: #fff;
+        }
+
+        .automation-card h2 {
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .automation-card p {
+            color: #74747a;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .automation-info {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #18181a;
+            border: 1px solid #28282a;
+            color: #8c8c91;
+            border-radius: 6px;
+            padding: 5px 8px;
+            font-size: 10px;
+        }
+
+        /* FLOW */
+
+        .flow-card {
+            background: #111113;
+            border: 1px solid #252527;
+            border-radius: 15px;
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 14px;
+        }
+
+        .section-header span {
+            color: #65656a;
+            font-size: 11px;
+        }
+
+        .flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .flow-step {
+            background: #18181a;
+            border: 1px solid #28282a;
+            border-radius: 11px;
+            padding: 16px;
+            position: relative;
+        }
+
+        .step-number {
+            color: #f59e0b;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 9px;
+        }
+
+        .flow-step strong {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .flow-step p {
+            color: #6e6e74;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+        }
+
+        .stat {
+            background: #111113;
+            border: 1px solid #252527;
+            border-radius: 13px;
+            padding: 18px;
+        }
+
+        .stat small {
+            display: block;
+            color: #66666b;
+            font-size: 10px;
+            margin-bottom: 8px;
+        }
+
+        .stat strong {
+            font-size: 25px;
+        }
+
+        .stat span {
+            display: block;
+            color: #6b6b71;
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .green {
+            color: #22c55e;
+        }
+
+        .orange {
+            color: #f59e0b;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1000px) {
+
+            .flow {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                bottom: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid #242426;
+                padding: 14px;
+            }
+
+            .brand {
+                padding-bottom: 14px;
+            }
+
+            .nav-title,
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .nav {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .nav a {
+                justify-content: center;
+                padding: 9px 4px;
+                font-size: 0;
+            }
+
+            .nav-icon {
+                font-size: 16px;
+            }
+
+            .app {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 22px 15px;
+            }
+
+            .top {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .automation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">H</div>
+
+            <div class="brand-text">
+                <strong>Hunter Help</strong>
+                <span>Inteligência comercial</span>
+            </div>
+        </div>
+
+        <div class="nav-title">
+            Menu principal
+        </div>
+
+        <nav class="nav">
+
+            <a href="dashboard.html">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="diagnostico.html">
+                <span class="nav-icon">◈</span>
+                Diagnóstico
+            </a>
+
+            <a href="leads.html">
+                <span class="nav-icon">◎</span>
+                Leads
+            </a>
+
+            <a href="anuncios.html">
+                <span class="nav-icon">▣</span>
+                Anúncios
+            </a>
+
+            <a href="atendimento.html">
+                <span class="nav-icon">◌</span>
+                Atendimento
+            </a>
+
+            <a href="concorrentes.html">
+                <span class="nav-icon">⇄</span>
+                Concorrentes
+            </a>
+
+            <a href="seo.html">
+                <span class="nav-icon">⌕</span>
+                SEO Local
+            </a>
+
+            <a href="automacao.html" class="active">
+                <span class="nav-icon">⚙</span>
+                Automação
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="agency-mini">
+
+                <small>IMOBILIÁRIA</small>
+
+                <strong id="agencyName">
+                    Carregando...
+                </strong>
+
+            </div>
+
+            <button class="logout" onclick="logout()">
+                Sair da conta
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="top">
+
+            <div>
+
+                <div class="eyebrow">
+                    Operação comercial
+                </div>
+
+                <h1>
+                    Automação
+                </h1>
+
+                <p class="subtitle">
+                    Automatize tarefas repetitivas da sua imobiliária
+                    e mantenha os leads avançando até o próximo passo.
+                </p>
+
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Sistema online
+            </div>
+
+        </header>
+
+
+        <!-- AUTOMAÇÕES -->
+
+        <section class="automation-grid">
+
+            <div class="automation-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        ↗
+                    </div>
+
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            checked
+                            onchange="toggleAutomation(this, 'Follow-up automático')"
+                        >
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <h2>
+                    Follow-up automático
+                </h2>
+
+                <p>
+                    Identifique leads que pararam de responder e
+                    gere automaticamente uma nova abordagem comercial.
+                </p>
+
+                <div class="automation-info">
+
+                    <span class="tag">
+                        WhatsApp
+                    </span>
+
+                    <span class="tag">
+                        Follow-up
+                    </span>
+
+                    <span class="tag">
+                        Leads
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="automation-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        ◉
+                    </div>
+
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            checked
+                            onchange="toggleAutomation(this, 'Distribuição de leads')"
+                        >
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <h2>
+                    Distribuição de leads
+                </h2>
+
+                <p>
+                    Organize novos contatos e distribua oportunidades
+                    para os responsáveis pelo atendimento.
+                </p>
+
+                <div class="automation-info">
+
+                    <span class="tag">
+                        Captação
+                    </span>
+
+                    <span class="tag">
+                        Equipe
+                    </span>
+
+                    <span class="tag">
+                        Organização
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="automation-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        ✦
+                    </div>
+
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            onchange="toggleAutomation(this, 'Resposta inicial')"
+                        >
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <h2>
+                    Resposta inicial
+                </h2>
+
+                <p>
+                    Gere uma primeira resposta personalizada para
+                    novos interessados em imóveis e anúncios.
+                </p>
+
+                <div class="automation-info">
+
+                    <span class="tag">
+                        Atendimento
+                    </span>
+
+                    <span class="tag">
+                        IA
+                    </span>
+
+                    <span class="tag">
+                        Conversão
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="automation-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        $
+                    </div>
+
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            onchange="toggleAutomation(this, 'Reativação de leads')"
+                        >
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <h2>
+                    Reativação de leads
+                </h2>
+
+                <p>
+                    Encontre contatos antigos e gere campanhas de
+                    reativação para recuperar oportunidades esquecidas.
+                </p>
+
+                <div class="automation-info">
+
+                    <span class="tag">
+                        Reativação
+                    </span>
+
+                    <span class="tag">
+                        CRM
+                    </span>
+
+                    <span class="tag">
+                        Vendas
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FLUXO -->
+
+        <section class="flow-card">
+
+            <div class="section-header">
+
+                <h2>
+                    Fluxo comercial automatizado
+                </h2>
+
+                <span>
+                    Exemplo de operação
+                </span>
+
+            </div>
+
+            <div class="flow">
+
+                <div class="flow-step">
+
+                    <div class="step-number">
+                        ETAPA 01
+                    </div>
+
+                    <strong>
+                        Lead entra
+                    </strong>
+
+                    <p>
+                        Um novo interessado é identificado.
+                    </p>
+
+                </div>
+
+
+                <div class="flow-step">
+
+                    <div class="step-number">
+                        ETAPA 02
+                    </div>
+
+                    <strong>
+                        Primeira resposta
+                    </strong>
+
+                    <p>
+                        O atendimento recebe uma sugestão de resposta.
+                    </p>
+
+                </div>
+
+
+                <div class="flow-step">
+
+                    <div class="step-number">
+                        ETAPA 03
+                    </div>
+
+                    <strong>
+                        Follow-up
+                    </strong>
+
+                    <p>
+                        O sistema identifica quando é hora de retornar.
+                    </p>
+
+                </div>
+
+
+                <div class="flow-step">
+
+                    <div class="step-number">
+                        ETAPA 04
+                    </div>
+
+                    <strong>
+                        Conversão
+                    </strong>
+
+                    <p>
+                        O lead avança para visita, proposta ou negócio.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INDICADORES -->
+
+        <section class="stats">
+
+            <div class="stat">
+
+                <small>
+                    Leads automatizados
+                </small>
+
+                <strong>
+                    128
+                </strong>
+
+                <span>
+                    neste mês
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <small>
+                    Follow-ups realizados
+                </small>
+
+                <strong class="orange">
+                    84
+                </strong>
+
+                <span>
+                    automaticamente
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <small>
+                    Oportunidades recuperadas
+                </small>
+
+                <strong class="green">
+                    19
+                </strong>
+
+                <span>
+                    retornaram ao funil
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* PROTEÇÃO */
+
+    const token = localStorage.getItem("hunter_token");
+
+    if (!token) {
+        window.location.href = "../index.html";
+    }
+
+
+    /* AGÊNCIA */
+
+    const agency = JSON.parse(
+        localStorage.getItem("hunter_agency") || "{}"
+    );
+
+    document.getElementById("agencyName").textContent =
+        agency.name || "Sua imobiliária";
+
+
+    /* AUTOMAÇÕES */
+
+    function toggleAutomation(element, name) {
+
+        if (element.checked) {
+
+            alert(
+                name + " ativada."
+            );
+
+        } else {
+
+            alert(
+                name + " desativada."
+            );
+
+        }
+
+    }
+
+
+    /* LOGOUT */
+
+    function logout() {
+
+        localStorage.removeItem("hunter_token");
+        localStorage.removeItem("hunter_agency");
+
+        window.location.href = "../index.html";
+
+    }
+
+</script>
+
+</body>
+</html>
