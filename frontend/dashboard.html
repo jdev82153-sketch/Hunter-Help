@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard — Hunter Help</title>
 
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
-
     <style>
-        /* ===== PADRÃO DO SIDEBAR ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0d0d0e;
+            color: #fff;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
 
         .sidebar {
             width: 250px;
-            min-width: 250px;
             min-height: 100vh;
             background: #111112;
             border-right: 1px solid #252527;
@@ -33,10 +47,8 @@
         }
 
         .brand-icon {
-            width: 40px !important;
-            height: 40px !important;
-            min-width: 40px !important;
-            max-width: 40px !important;
+            width: 40px;
+            height: 40px;
             border-radius: 11px;
             overflow: hidden;
             background: #111;
@@ -47,10 +59,8 @@
         }
 
         .brand-icon img {
-            width: 40px !important;
-            height: 40px !important;
-            max-width: 40px !important;
-            max-height: 40px !important;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
         }
@@ -64,6 +74,7 @@
         .brand-text strong {
             font-size: 16px;
             color: #fff;
+            font-weight: 700;
         }
 
         .brand-text span {
@@ -146,74 +157,314 @@
             border-radius: 8px;
             font-size: 12px;
             cursor: pointer;
+            transition: .2s;
         }
 
         .logout:hover {
+            border-color: #555;
             color: #fff;
-            border-color: #444;
         }
 
-        /* ===== DASHBOARD ===== */
-
-        body {
-            background: #0d0d0e;
-        }
+        /* =========================
+           MAIN
+        ========================= */
 
         .main {
-            background: #0d0d0e;
-            min-height: 100vh;
+            flex: 1;
+            min-width: 0;
+            padding: 38px;
         }
 
-        .topbar {
-            margin-bottom: 28px;
+        .top {
+            margin-bottom: 30px;
         }
 
-        .topbar h1 {
-            color: #f5f5f5;
-            font-size: 29px;
+        .eyebrow {
+            color: #f59e0b;
+            font-size: 10px;
             font-weight: 700;
-            letter-spacing: -.7px;
-            margin: 6px 0;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
         }
 
-        .topbar p {
-            color: #747479;
-            font-size: 13px;
+        .top h1 {
+            font-size: 30px;
+            line-height: 1.2;
+            margin-bottom: 8px;
         }
 
-        .stats {
+        .top p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* =========================
+           KPI
+        ========================= */
+
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 14px;
+            margin-bottom: 22px;
         }
 
-        .stat-card {
+        .kpi {
             background: #151516;
             border: 1px solid #252527;
             border-radius: 13px;
+            padding: 20px;
+        }
+
+        .kpi-label {
+            color: #777;
+            font-size: 11px;
+            margin-bottom: 12px;
+        }
+
+        .kpi-value {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .kpi-description {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .positive {
+            color: #5ecb8b;
+        }
+
+        .warning {
+            color: #f59e0b;
+        }
+
+        /* =========================
+           GRID
+        ========================= */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.35fr .9fr;
+            gap: 18px;
         }
 
         .panel {
             background: #151516;
             border: 1px solid #252527;
             border-radius: 14px;
+            padding: 23px;
         }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 23px;
+        }
+
+        .panel-header h2 {
+            font-size: 16px;
+        }
+
+        .panel-header span {
+            color: #666;
+            font-size: 11px;
+        }
+
+        /* =========================
+           SCORE
+        ========================= */
+
+        .score-area {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 27px;
+        }
+
+        .score-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 8px solid #f59e0b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .score-circle strong {
+            font-size: 31px;
+        }
+
+        .score-info h3 {
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        .score-info p {
+            color: #777;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           BARS
+        ========================= */
+
+        .metric {
+            margin-bottom: 17px;
+        }
+
+        .metric:last-child {
+            margin-bottom: 0;
+        }
+
+        .metric-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+        }
+
+        .metric-top span:first-child {
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .metric-top span:last-child {
+            color: #ddd;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .bar {
+            height: 6px;
+            border-radius: 20px;
+            background: #242426;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: #f59e0b;
+        }
+
+        /* =========================
+           INSIGHTS
+        ========================= */
+
+        .insight {
+            padding: 15px;
+            border: 1px solid #252527;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .insight:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #f59e0b;
+        }
+
+        .insight strong {
+            font-size: 13px;
+        }
+
+        .insight p {
+            color: #707074;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           TODAY
+        ========================= */
 
         .today {
-            background: #151516;
-            border: 1px solid #252527;
+            margin-top: 18px;
+            background: #171513;
+            border: 1px solid #3a2d19;
             border-radius: 14px;
+            padding: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
         }
 
-        /* ===== MOBILE ===== */
+        .today small {
+            display: block;
+            color: #f59e0b;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 7px;
+        }
+
+        .today h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .today p {
+            color: #777;
+            font-size: 11px;
+        }
+
+        .today-button {
+            border: 0;
+            background: #f59e0b;
+            color: #17120a;
+            font-weight: 700;
+            padding: 11px 17px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 1100px) {
+            .kpis {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         @media (max-width: 900px) {
-
             .sidebar {
                 width: 100%;
-                min-width: 0;
                 min-height: auto;
                 border-right: 0;
                 border-bottom: 1px solid #252527;
                 padding: 12px;
+            }
+
+            .app {
+                display: block;
             }
 
             .brand {
@@ -247,114 +498,119 @@
                 padding: 22px 15px;
             }
         }
+
+        @media (max-width: 560px) {
+            .kpis {
+                grid-template-columns: 1fr 1fr;
+                gap: 9px;
+            }
+
+            .kpi {
+                padding: 15px;
+            }
+
+            .kpi-value {
+                font-size: 25px;
+            }
+
+            .top h1 {
+                font-size: 25px;
+            }
+
+            .score-area {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .today {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .today-button {
+                width: 100%;
+            }
+        }
     </style>
-
 </head>
-
 
 <body>
 
 <div class="app">
 
-
     <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
         <div class="brand">
-
             <div class="brand-icon">
-
                 <img
                     src="./A8E0C9E9-E5F9-4B9A-8293-FE6E0E764BB6.png"
                     alt="Hunter Help"
                 >
-
             </div>
 
             <div class="brand-text">
-
                 <strong>Hunter Help</strong>
-
-                <span>
-                    Inteligência comercial
-                </span>
-
+                <span>Inteligência comercial</span>
             </div>
-
         </div>
-
 
         <div class="nav-title">
-            Menu principal
+            Plataforma
         </div>
-
 
         <nav class="nav">
 
-            <a
-                href="dashboard.html"
-                class="active"
-            >
+            <a href="dashboard.html" class="active">
                 <span class="nav-icon">⌂</span>
-                Dashboard
+                <span>Dashboard</span>
             </a>
 
             <a href="diagnostico.html">
-                <span class="nav-icon">◈</span>
-                Diagnóstico
+                <span class="nav-icon">◉</span>
+                <span>Diagnóstico</span>
             </a>
 
             <a href="leads.html">
-                <span class="nav-icon">◎</span>
-                Leads
+                <span class="nav-icon">♢</span>
+                <span>Leads</span>
             </a>
 
             <a href="anuncios.html">
                 <span class="nav-icon">▣</span>
-                Anúncios
+                <span>Anúncios</span>
             </a>
 
             <a href="atendimento.html">
                 <span class="nav-icon">◌</span>
-                Atendimento
+                <span>Atendimento</span>
             </a>
 
             <a href="concorrentes.html">
-                <span class="nav-icon">⇄</span>
-                Concorrentes
+                <span class="nav-icon">◈</span>
+                <span>Concorrentes</span>
             </a>
 
             <a href="seo.html">
                 <span class="nav-icon">⌕</span>
-                SEO Local
+                <span>SEO Local</span>
             </a>
 
             <a href="automacao.html">
                 <span class="nav-icon">⚙</span>
-                Automação
+                <span>Automação</span>
             </a>
 
         </nav>
 
-
         <div class="sidebar-bottom">
 
             <div class="agency-mini">
-
                 <small>IMOBILIÁRIA</small>
-
-                <strong id="agencyName">
-                    Carregando...
-                </strong>
-
+                <strong id="agencyName">Imobiliária Demo</strong>
             </div>
 
-
-            <button
-                class="logout"
-                onclick="logout()"
-            >
+            <button class="logout" id="logoutButton">
                 Sair da conta
             </button>
 
@@ -363,353 +619,259 @@
     </aside>
 
 
-    <!-- CONTEÚDO -->
-
+    <!-- MAIN -->
     <main class="main">
 
-        <header class="topbar">
+        <header class="top">
 
-            <div>
-
-                <span class="eyebrow">
-                    VISÃO GERAL
-                </span>
-
-                <h1>
-                    Dashboard
-                </h1>
-
-                <p>
-                    Acompanhe os principais indicadores
-                    comerciais da sua imobiliária.
-                </p>
-
+            <div class="eyebrow">
+                Visão geral
             </div>
 
+            <h1>Dashboard</h1>
 
-            <div class="status">
-                <span></span>
-                Sistema online
-            </div>
+            <p>
+                Acompanhe os principais indicadores comerciais da sua imobiliária.
+            </p>
 
         </header>
 
 
-        <!-- INDICADORES -->
+        <!-- KPIs -->
+        <section class="kpis">
 
-        <section class="stats">
-
-            <div class="stat-card">
-
-                <span class="stat-label">
+            <div class="kpi">
+                <div class="kpi-label">
                     Índice comercial
-                </span>
+                </div>
 
-                <strong>
-                    74<span>/100</span>
-                </strong>
+                <div class="kpi-value warning">
+                    74
+                </div>
 
-                <small class="positive">
-                    ↑ 8% este mês
-                </small>
-
+                <div class="kpi-description">
+                    Bom potencial de crescimento
+                </div>
             </div>
 
 
-            <div class="stat-card">
-
-                <span class="stat-label">
+            <div class="kpi">
+                <div class="kpi-label">
                     Presença digital
-                </span>
+                </div>
 
-                <strong>
-                    82<span>/100</span>
-                </strong>
+                <div class="kpi-value positive">
+                    82
+                </div>
 
-                <small>
-                    Bom desempenho
-                </small>
-
+                <div class="kpi-description">
+                    Acima da média
+                </div>
             </div>
 
 
-            <div class="stat-card">
+            <div class="kpi">
+                <div class="kpi-label">
+                    Captação
+                </div>
 
-                <span class="stat-label">
-                    Captação de leads
-                </span>
+                <div class="kpi-value warning">
+                    68
+                </div>
 
-                <strong>
-                    68<span>/100</span>
-                </strong>
-
-                <small>
-                    Há oportunidades
-                </small>
-
+                <div class="kpi-description">
+                    Existem oportunidades
+                </div>
             </div>
 
 
-            <div class="stat-card">
-
-                <span class="stat-label">
+            <div class="kpi">
+                <div class="kpi-label">
                     Conversão
-                </span>
+                </div>
 
-                <strong>
-                    54<span>/100</span>
-                </strong>
+                <div class="kpi-value warning">
+                    54
+                </div>
 
-                <small class="warning">
-                    Precisa de atenção
-                </small>
-
+                <div class="kpi-description">
+                    Principal ponto de atenção
+                </div>
             </div>
 
         </section>
 
 
-        <!-- PAINÉIS -->
-
+        <!-- CONTENT -->
         <section class="dashboard-grid">
 
-
+            <!-- SAÚDE -->
             <div class="panel">
 
                 <div class="panel-header">
+                    <h2>Saúde comercial</h2>
+                    <span>Atualizado agora</span>
+                </div>
 
-                    <div>
+                <div class="score-area">
 
-                        <span class="eyebrow">
-                            PERFORMANCE
-                        </span>
-
-                        <h2>
-                            Saúde comercial
-                        </h2>
-
+                    <div class="score-circle">
+                        <strong>74</strong>
                     </div>
 
+                    <div class="score-info">
+                        <h3>Bom potencial</h3>
 
-                    <div class="score">
-
-                        <strong>
-                            74
-                        </strong>
-
-                        <span>/100</span>
-
+                        <p>
+                            Sua imobiliária possui uma boa estrutura,
+                            mas existem pontos comerciais que podem gerar
+                            mais leads e melhorar a conversão.
+                        </p>
                     </div>
 
                 </div>
 
 
-                <div class="progress-list">
+                <div class="metric">
 
-
-                    <div class="progress-item">
-
-                        <div class="progress-info">
-
-                            <span>
-                                Presença digital
-                            </span>
-
-                            <strong>82</strong>
-
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:82%"></div>
-                        </div>
-
+                    <div class="metric-top">
+                        <span>Presença digital</span>
+                        <span>82%</span>
                     </div>
 
-
-                    <div class="progress-item">
-
-                        <div class="progress-info">
-
-                            <span>
-                                Captação de leads
-                            </span>
-
-                            <strong>68</strong>
-
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:68%"></div>
-                        </div>
-
+                    <div class="bar">
+                        <div class="bar-fill" style="width:82%"></div>
                     </div>
 
+                </div>
 
-                    <div class="progress-item">
 
-                        <div class="progress-info">
+                <div class="metric">
 
-                            <span>
-                                Conversão
-                            </span>
-
-                            <strong>54</strong>
-
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:54%"></div>
-                        </div>
-
+                    <div class="metric-top">
+                        <span>Captação</span>
+                        <span>68%</span>
                     </div>
 
-
-                    <div class="progress-item">
-
-                        <div class="progress-info">
-
-                            <span>
-                                Atendimento
-                            </span>
-
-                            <strong>79</strong>
-
-                        </div>
-
-                        <div class="progress">
-                            <div style="width:79%"></div>
-                        </div>
-
+                    <div class="bar">
+                        <div class="bar-fill" style="width:68%"></div>
                     </div>
 
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-top">
+                        <span>Conversão</span>
+                        <span>54%</span>
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill" style="width:54%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-top">
+                        <span>Atendimento</span>
+                        <span>79%</span>
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill" style="width:79%"></div>
+                    </div>
 
                 </div>
 
             </div>
 
 
+            <!-- INSIGHTS -->
             <div class="panel">
 
                 <div class="panel-header">
+                    <h2>Hunter Insight</h2>
+                    <span>Oportunidades</span>
+                </div>
 
-                    <div>
 
-                        <span class="eyebrow">
-                            HUNTER INSIGHT
-                        </span>
+                <div class="insight">
 
-                        <h2>
-                            Principais oportunidades
-                        </h2>
-
+                    <div class="insight-title">
+                        <span class="dot"></span>
+                        <strong>Melhorar follow-up</strong>
                     </div>
+
+                    <p>
+                        Leads que não recebem acompanhamento podem
+                        estar sendo perdidos durante o processo comercial.
+                    </p>
 
                 </div>
 
 
-                <div class="opportunity">
+                <div class="insight">
 
-                    <div class="opportunity-number">
-                        01
+                    <div class="insight-title">
+                        <span class="dot"></span>
+                        <strong>Criar landing page</strong>
                     </div>
 
-                    <div>
-
-                        <strong>
-                            Melhorar o follow-up
-                        </strong>
-
-                        <p>
-                            Criar uma rotina de acompanhamento
-                            pode recuperar leads que não avançaram.
-                        </p>
-
-                    </div>
+                    <p>
+                        Uma página focada em captação pode aumentar
+                        a quantidade de contatos interessados.
+                    </p>
 
                 </div>
 
 
-                <div class="opportunity">
+                <div class="insight">
 
-                    <div class="opportunity-number">
-                        02
+                    <div class="insight-title">
+                        <span class="dot"></span>
+                        <strong>Otimizar anúncios</strong>
                     </div>
 
-                    <div>
-
-                        <strong>
-                            Aumentar a captação
-                        </strong>
-
-                        <p>
-                            Existem oportunidades para gerar
-                            mais contatos através dos canais digitais.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="opportunity">
-
-                    <div class="opportunity-number">
-                        03
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Melhorar a conversão
-                        </strong>
-
-                        <p>
-                            O atendimento e o processo comercial
-                            são pontos importantes para evolução.
-                        </p>
-
-                    </div>
+                    <p>
+                        Títulos, descrições e chamadas melhores podem
+                        aumentar o interesse nos imóveis anunciados.
+                    </p>
 
                 </div>
 
             </div>
-
 
         </section>
 
 
-        <!-- PRÓXIMA AÇÃO -->
-
+        <!-- TODAY -->
         <section class="today">
 
-            <div class="today-content">
+            <div>
+                <small>Ação recomendada para hoje</small>
 
-                <span class="eyebrow">
-                    RECOMENDAÇÃO
-                </span>
-
-                <h2>
-                    Sua próxima ação
-                </h2>
+                <h3>
+                    Melhorar o atendimento dos leads
+                </h3>
 
                 <p>
-                    Analise seus atendimentos e descubra como
-                    transformar mais conversas em oportunidades
-                    reais de negócio.
+                    Analise suas conversas e descubra como aumentar
+                    as chances de conversão.
                 </p>
-
             </div>
 
-
-            <a
-                href="atendimento.html"
-                class="action-button"
+            <button
+                class="today-button"
+                onclick="window.location.href='atendimento.html'"
             >
-                Analisar atendimento →
-            </a>
+                Analisar atendimento
+            </button>
 
         </section>
-
 
     </main>
 
@@ -718,62 +880,4 @@
 
 <script>
 
-    const token =
-        localStorage.getItem("hunter_token");
-
-
-    if (!token) {
-
-        window.location.href =
-            "../index.html";
-
-    }
-
-
-    try {
-
-        const agency =
-            JSON.parse(
-                localStorage.getItem(
-                    "hunter_agency"
-                ) || "{}"
-            );
-
-
-        document.getElementById(
-            "agencyName"
-        ).textContent =
-            agency.name ||
-            "Sua imobiliária";
-
-    } catch (error) {
-
-        document.getElementById(
-            "agencyName"
-        ).textContent =
-            "Sua imobiliária";
-
-    }
-
-
-    function logout() {
-
-        localStorage.removeItem(
-            "hunter_token"
-        );
-
-        localStorage.removeItem(
-            "hunter_agency"
-        );
-
-        window.location.href =
-            "../index.html";
-
-    }
-
-</script>
-
-
-</body>
-
-    </html>
+    con
