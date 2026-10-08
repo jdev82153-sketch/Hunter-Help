@@ -1,1 +1,1074 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Dashboard — Hunter Help</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #090909;
+            --panel: #111111;
+            --panel-2: #151515;
+            --border: #252525;
+            --text: #f5f5f5;
+            --muted: #8d8d8d;
+            --orange: #ff6a00;
+            --orange-dark: #d95200;
+            --green: #39d98a;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: #0d0d0d;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 8px 30px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--orange);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .brand-name {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .brand-name span {
+            display: block;
+            color: #777;
+            font-size: 10px;
+            font-weight: 500;
+            margin-top: 3px;
+            letter-spacing: .7px;
+            text-transform: uppercase;
+        }
+
+        .menu-title {
+            color: #555;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 0 10px;
+            margin: 10px 0;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #929292;
+            padding: 12px 12px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .menu a:hover {
+            background: #171717;
+            color: #fff;
+        }
+
+        .menu a.active {
+            background: rgba(255, 106, 0, .12);
+            color: #fff;
+        }
+
+        .menu-icon {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .menu a.active .menu-icon {
+            color: var(--orange);
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 16px;
+            right: 16px;
+        }
+
+        .logout {
+            width: 100%;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: #888;
+            padding: 11px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .logout:hover {
+            color: #fff;
+            border-color: #444;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+            padding: 30px 38px 50px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 38px;
+        }
+
+        .eyebrow {
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -.8px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        .agency-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 13px;
+            border: 1px solid var(--border);
+            background: #101010;
+            border-radius: 10px;
+        }
+
+        .agency-avatar {
+            width: 35px;
+            height: 35px;
+            background: #222;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .agency-info strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .agency-info span {
+            color: #666;
+            font-size: 10px;
+        }
+
+        /* CARDS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .stat {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 11px;
+            margin-bottom: 14px;
+        }
+
+        .stat-value {
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        .stat-value small {
+            color: #666;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .stat-change {
+            margin-top: 9px;
+            color: var(--green);
+            font-size: 10px;
+        }
+
+        .orange-line {
+            height: 3px;
+            width: 30px;
+            background: var(--orange);
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        /* CONTENT GRID */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.35fr .65fr;
+            gap: 18px;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 21px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-size: 15px;
+            font-weight: 750;
+        }
+
+        .panel-subtitle {
+            color: #666;
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .view-all {
+            color: var(--orange);
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        /* OPPORTUNITIES */
+
+        .opportunity {
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #1d1d1d;
+        }
+
+        .opportunity:last-child {
+            border-bottom: none;
+        }
+
+        .opp-number {
+            width: 34px;
+            height: 34px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .opp-info {
+            flex: 1;
+        }
+
+        .opp-info strong {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .opp-info span {
+            color: #666;
+            font-size: 10px;
+        }
+
+        .opp-btn {
+            border: 1px solid #333;
+            background: transparent;
+            color: #bbb;
+            padding: 8px 11px;
+            border-radius: 7px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .opp-btn:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        /* TODAY */
+
+        .today {
+            padding: 22px;
+        }
+
+        .score {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .score-number {
+            font-size: 45px;
+            font-weight: 900;
+            color: var(--orange);
+        }
+
+        .score-text {
+            color: #777;
+            font-size: 10px;
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        .progress {
+            height: 5px;
+            background: #252525;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 23px;
+        }
+
+        .progress div {
+            width: 74%;
+            height: 100%;
+            background: var(--orange);
+        }
+
+        .today-task {
+            border: 1px solid #292929;
+            border-radius: 10px;
+            padding: 15px;
+            background: #151515;
+        }
+
+        .today-task-label {
+            color: var(--orange);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .today-task strong {
+            font-size: 12px;
+            display: block;
+            line-height: 1.4;
+        }
+
+        .today-task p {
+            color: #707070;
+            font-size: 10px;
+            line-height: 1.5;
+            margin-top: 7px;
+        }
+
+        .task-btn {
+            margin-top: 12px;
+            width: 100%;
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 10px;
+        }
+
+        .task-btn:hover {
+            background: var(--orange-dark);
+        }
+
+        /* QUICK ACTIONS */
+
+        .quick-title {
+            margin: 28px 0 14px;
+            font-size: 14px;
+            font-weight: 750;
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .quick-card {
+            border: 1px solid var(--border);
+            background: var(--panel);
+            border-radius: 12px;
+            padding: 18px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-2px);
+            border-color: #3b3b3b;
+        }
+
+        .quick-icon {
+            color: var(--orange);
+            font-size: 19px;
+            margin-bottom: 14px;
+        }
+
+        .quick-card strong {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .quick-card span {
+            color: #666;
+            font-size: 9px;
+            line-height: 1.4;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1050px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 15px;
+            }
+
+            .brand {
+                padding-bottom: 15px;
+            }
+
+            .menu-title,
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .menu {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .menu a {
+                white-space: nowrap;
+                padding: 9px 11px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 25px 18px 40px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .agency-box {
+                display: none;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .title {
+                font-size: 25px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 9px;
+            }
+
+            .stat {
+                padding: 15px;
+            }
+
+            .stat-value {
+                font-size: 22px;
+            }
+
+            .quick-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .opportunity {
+                padding: 15px;
+            }
+
+            .opp-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">H</div>
+
+            <div class="brand-name">
+                Hunter Help
+                <span>Inteligência comercial</span>
+            </div>
+        </div>
+
+        <div class="menu-title">Principal</div>
+
+        <nav class="menu">
+
+            <a href="dashboard.html" class="active">
+                <span class="menu-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="diagnostico.html">
+                <span class="menu-icon">◉</span>
+                Diagnóstico
+            </a>
+
+            <a href="leads.html">
+                <span class="menu-icon">♢</span>
+                Leads
+            </a>
+
+            <a href="anuncios.html">
+                <span class="menu-icon">▣</span>
+                Anúncios
+            </a>
+
+            <a href="atendimento.html">
+                <span class="menu-icon">◌</span>
+                Atendimento
+            </a>
+
+            <a href="concorrentes.html">
+                <span class="menu-icon">◇</span>
+                Concorrentes
+            </a>
+
+            <a href="seo.html">
+                <span class="menu-icon">⌕</span>
+                SEO Local
+            </a>
+
+            <a href="automacao.html">
+                <span class="menu-icon">⚙</span>
+                Automação
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="logout" onclick="logout()">
+                Sair da conta
+            </button>
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <div class="eyebrow">Painel comercial</div>
+
+                <h1 class="title">
+                    Visão geral
+                </h1>
+
+                <p class="subtitle">
+                    Veja onde sua imobiliária pode vender mais.
+                </p>
+            </div>
+
+            <div class="agency-box">
+
+                <div class="agency-avatar" id="agencyInitials">
+                    ID
+                </div>
+
+                <div class="agency-info">
+                    <strong id="agencyName">
+                        Imobiliária Demo
+                    </strong>
+
+                    <span>
+                        Conta ativa
+                    </span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="stats">
+
+            <div class="stat">
+                <div class="stat-label">
+                    Índice comercial
+                </div>
+
+                <div class="stat-value">
+                    74<small>/100</small>
+                </div>
+
+                <div class="stat-change">
+                    ↑ 8% este mês
+                </div>
+
+                <div class="orange-line"></div>
+            </div>
+
+
+            <div class="stat">
+                <div class="stat-label">
+                    Presença digital
+                </div>
+
+                <div class="stat-value">
+                    82<small>/100</small>
+                </div>
+
+                <div class="stat-change">
+                    ↑ Boa presença
+                </div>
+
+                <div class="orange-line"></div>
+            </div>
+
+
+            <div class="stat">
+                <div class="stat-label">
+                    Captação
+                </div>
+
+                <div class="stat-value">
+                    68<small>/100</small>
+                </div>
+
+                <div class="stat-change">
+                    ↑ 5% este mês
+                </div>
+
+                <div class="orange-line"></div>
+            </div>
+
+
+            <div class="stat">
+                <div class="stat-label">
+                    Conversão
+                </div>
+
+                <div class="stat-value">
+                    54<small>/100</small>
+                </div>
+
+                <div class="stat-change">
+                    ↑ Pode melhorar
+                </div>
+
+                <div class="orange-line"></div>
+            </div>
+
+        </section>
+
+
+        <section class="content-grid">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <div class="panel-title">
+                            Oportunidades encontradas
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Pontos que podem gerar mais resultados
+                        </div>
+                    </div>
+
+                    <a href="diagnostico.html" class="view-all">
+                        Ver diagnóstico →
+                    </a>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="opp-number">
+                        01
+                    </div>
+
+                    <div class="opp-info">
+
+                        <strong>
+                            Melhorar o follow-up dos leads
+                        </strong>
+
+                        <span>
+                            Leads sem retorno podem estar sendo perdidos.
+                        </span>
+
+                    </div>
+
+                    <button class="opp-btn" onclick="goTo('atendimento.html')">
+                        Melhorar
+                    </button>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="opp-number">
+                        02
+                    </div>
+
+                    <div class="opp-info">
+
+                        <strong>
+                            Criar uma landing page de captação
+                        </strong>
+
+                        <span>
+                            Transforme visitantes em oportunidades comerciais.
+                        </span>
+
+                    </div>
+
+                    <button class="opp-btn" onclick="goTo('leads.html')">
+                        Criar
+                    </button>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="opp-number">
+                        03
+                    </div>
+
+                    <div class="opp-info">
+
+                        <strong>
+                            Otimizar anúncios de imóveis
+                        </strong>
+
+                        <span>
+                            Melhore títulos, descrições e chamadas para ação.
+                        </span>
+
+                    </div>
+
+                    <button class="opp-btn" onclick="goTo('anuncios.html')">
+                        Otimizar
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <div class="panel-title">
+                            O que fazer hoje?
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Próxima ação recomendada
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="today">
+
+                    <div class="score">
+
+                        <div class="score-number">
+                            74
+                        </div>
+
+                        <div class="score-text">
+                            Índice<br>
+                            comercial
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress">
+                        <div></div>
+                    </div>
+
+
+                    <div class="today-task">
+
+                        <div class="today-task-label">
+                            Prioridade alta
+                        </div>
+
+                        <strong>
+                            Reative seus leads antigos
+                        </strong>
+
+                        <p>
+                            Uma nova abordagem pode recuperar contatos
+                            que ainda não fecharam negócio.
+                        </p>
+
+                        <button class="task-btn" onclick="goTo('atendimento.html')">
+                            Criar abordagem
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <h2 class="quick-title">
+            Ações rápidas
+        </h2>
+
+
+        <section class="quick-grid">
+
+            <div class="quick-card" onclick="goTo('diagnostico.html')">
+
+                <div class="quick-icon">
+                    ◉
+                </div>
+
+                <strong>
+                    Fazer diagnóstico
+                </strong>
+
+                <span>
+                    Descubra os pontos que estão limitando suas vendas.
+                </span>
+
+            </div>
+
+
+            <div class="quick-card" onclick="goTo('leads.html')">
+
+                <div class="quick-icon">
+                    ♢
+                </div>
+
+                <strong>
+                    Encontrar leads
+                </strong>
+
+                <span>
+                    Encontre novas oportunidades comerciais.
+                </span>
+
+            </div>
+
+
+            <div class="quick-card" onclick="goTo('anuncios.html')">
+
+                <div class="quick-icon">
+                    ▣
+                </div>
+
+                <strong>
+                    Criar anúncio
+                </strong>
+
+                <span>
+                    Gere títulos e descrições melhores para seus imóveis.
+                </span>
+
+            </div>
+
+
+            <div class="quick-card" onclick="goTo('atendimento.html')">
+
+                <div class="quick-icon">
+                    ◌
+                </div>
+
+                <strong>
+                    Melhorar atendimento
+                </strong>
+
+                <span>
+                    Crie respostas e follow-ups para seus clientes.
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        // Proteção básica da página
+        const token = localStorage.getItem("hunter_token");
+
+        if (!token) {
+            window.location.href = "../index.html";
+        }
+
+
+        // Dados da imobiliária
+        try {
+
+            const agency =
+                JSON.parse(
+                    localStorage.getItem("hunter_agency") || "{}"
+                );
+
+            if (agency.name) {
+                document.getElementById("agencyName").textContent =
+                    agency.name;
+            }
+
+            if (agency.initials) {
+                document.getElementById("agencyInitials").textContent =
+                    agency.initials;
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Não foi possível carregar os dados da imobiliária."
+            );
+
+        }
+
+
+        // Navegação
+        function goTo(page) {
+            window.location.href = page;
+        }
+
+
+        // Logout
+        function logout() {
+
+            localStorage.removeItem("hunter_token");
+            localStorage.removeItem("hunter_agency");
+
+            window.location.href = "../index.html";
+        }
+
+    </script>
+
+</body>
+</html>
