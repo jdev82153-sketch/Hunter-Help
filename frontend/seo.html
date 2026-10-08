@@ -1,1 +1,1075 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>SEO Local | Hunter Help</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #0b0b0c;
+            color: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            background: #111113;
+            border-right: 1px solid #242426;
+            padding: 24px 16px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 10px 28px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: #f59e0b;
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: 17px;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-text span {
+            display: block;
+            color: #77777c;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .nav-title {
+            color: #5f5f64;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            padding: 0 11px 9px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #85858b;
+            padding: 11px 12px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .nav a:hover {
+            background: #19191c;
+            color: #fff;
+        }
+
+        .nav a.active {
+            background: #211b11;
+            color: #f59e0b;
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 16px;
+            right: 16px;
+        }
+
+        .agency-mini {
+            background: #171719;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 13px;
+            margin-bottom: 10px;
+        }
+
+        .agency-mini small {
+            display: block;
+            color: #68686d;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .agency-mini strong {
+            font-size: 12px;
+            color: #ddd;
+        }
+
+        .logout {
+            width: 100%;
+            border: 1px solid #28282b;
+            background: transparent;
+            color: #77777c;
+            padding: 10px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .logout:hover {
+            color: #fff;
+            border-color: #444;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 34px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            color: #f59e0b;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 7px;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 28px;
+            letter-spacing: -1px;
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            color: #77777d;
+            font-size: 13px;
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+        .status {
+            background: #111113;
+            border: 1px solid #27272a;
+            padding: 9px 13px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #9a9aa0;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        /* SEARCH */
+
+        .search-card {
+            background: #111113;
+            border: 1px solid #252527;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 22px;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        label {
+            display: block;
+            color: #77777d;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            background: #18181a;
+            border: 1px solid #29292c;
+            color: #eee;
+            padding: 12px 13px;
+            border-radius: 9px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #a56b0b;
+        }
+
+        select option {
+            background: #18181a;
+        }
+
+        .analyze-btn {
+            border: none;
+            background: #f59e0b;
+            color: #111;
+            font-weight: 800;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .analyze-btn:hover {
+            background: #ffad20;
+        }
+
+        /* SCORE */
+
+        .score-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .score-card,
+        .metrics-card {
+            background: #111113;
+            border: 1px solid #252527;
+            border-radius: 15px;
+            padding: 22px;
+        }
+
+        .score-card h2,
+        .metrics-card h2,
+        .opportunities h2 {
+            font-size: 14px;
+            margin-bottom: 17px;
+        }
+
+        .score-number {
+            font-size: 55px;
+            font-weight: 850;
+            letter-spacing: -3px;
+            color: #f59e0b;
+        }
+
+        .score-total {
+            color: #626267;
+            font-size: 15px;
+        }
+
+        .score-label {
+            margin-top: 5px;
+            color: #8c8c92;
+            font-size: 12px;
+        }
+
+        .progress {
+            height: 7px;
+            background: #222225;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 17px;
+        }
+
+        .progress-bar {
+            width: 76%;
+            height: 100%;
+            background: #f59e0b;
+            border-radius: 20px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .metric {
+            background: #18181a;
+            border: 1px solid #262629;
+            border-radius: 11px;
+            padding: 15px;
+        }
+
+        .metric small {
+            color: #6f6f75;
+            font-size: 10px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric strong {
+            font-size: 24px;
+        }
+
+        .metric span {
+            display: block;
+            color: #68686d;
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .good {
+            color: #22c55e;
+        }
+
+        .medium {
+            color: #f59e0b;
+        }
+
+        .weak {
+            color: #ef4444;
+        }
+
+        /* OPPORTUNITIES */
+
+        .opportunities {
+            background: #111113;
+            border: 1px solid #252527;
+            border-radius: 15px;
+            padding: 22px;
+        }
+
+        .opportunity-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 11px;
+        }
+
+        .opportunity {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: #18181a;
+            border: 1px solid #28282a;
+            border-radius: 11px;
+            padding: 15px;
+        }
+
+        .op-icon {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            border-radius: 9px;
+            background: #241c0e;
+            color: #f59e0b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .opportunity strong {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .opportunity p {
+            color: #737379;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* ACTION */
+
+        .action {
+            margin-top: 18px;
+            background: #17130c;
+            border: 1px solid #443315;
+            border-radius: 13px;
+            padding: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .action-text small {
+            color: #a27622;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .action-text strong {
+            display: block;
+            margin-top: 4px;
+            font-size: 13px;
+        }
+
+        .action-text p {
+            color: #77777d;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .action button {
+            border: none;
+            background: #f59e0b;
+            color: #111;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* LOADING */
+
+        .loading {
+            display: none;
+            color: #888;
+            font-size: 12px;
+            padding-top: 12px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1000px) {
+            .search-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .score-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                bottom: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid #242426;
+                padding: 14px;
+            }
+
+            .brand {
+                padding-bottom: 14px;
+            }
+
+            .nav-title,
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .nav {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .nav a {
+                justify-content: center;
+                padding: 9px 4px;
+                font-size: 0;
+            }
+
+            .nav-icon {
+                font-size: 16px;
+            }
+
+            .app {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 22px 15px;
+            }
+
+            .top {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .opportunity-list {
+                grid-template-columns: 1fr;
+            }
+
+            .action {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .action button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">H</div>
+
+            <div class="brand-text">
+                <strong>Hunter Help</strong>
+                <span>Inteligência comercial</span>
+            </div>
+        </div>
+
+        <div class="nav-title">Menu principal</div>
+
+        <nav class="nav">
+
+            <a href="dashboard.html">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="diagnostico.html">
+                <span class="nav-icon">◈</span>
+                Diagnóstico
+            </a>
+
+            <a href="leads.html">
+                <span class="nav-icon">◎</span>
+                Leads
+            </a>
+
+            <a href="anuncios.html">
+                <span class="nav-icon">▣</span>
+                Anúncios
+            </a>
+
+            <a href="atendimento.html">
+                <span class="nav-icon">◌</span>
+                Atendimento
+            </a>
+
+            <a href="concorrentes.html">
+                <span class="nav-icon">⇄</span>
+                Concorrentes
+            </a>
+
+            <a href="seo.html" class="active">
+                <span class="nav-icon">⌕</span>
+                SEO Local
+            </a>
+
+            <a href="automacao.html">
+                <span class="nav-icon">⚙</span>
+                Automação
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="agency-mini">
+                <small>IMOBILIÁRIA</small>
+                <strong id="agencyName">Carregando...</strong>
+            </div>
+
+            <button class="logout" onclick="logout()">
+                Sair da conta
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="top">
+
+            <div>
+                <div class="eyebrow">Visibilidade local</div>
+
+                <h1>SEO Local</h1>
+
+                <p class="subtitle">
+                    Descubra como sua imobiliária aparece nas buscas locais
+                    e quais ações podem aumentar sua visibilidade e geração
+                    de oportunidades.
+                </p>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Sistema online
+            </div>
+
+        </header>
+
+
+        <!-- BUSCA -->
+
+        <section class="search-card">
+
+            <div class="search-grid">
+
+                <div>
+                    <label>Nome da imobiliária</label>
+
+                    <input
+                        id="company"
+                        type="text"
+                        placeholder="Ex.: Hunter Imóveis"
+                    >
+                </div>
+
+                <div>
+                    <label>Cidade / região</label>
+
+                    <input
+                        id="city"
+                        type="text"
+                        placeholder="Ex.: São José do Rio Preto"
+                    >
+                </div>
+
+                <div>
+                    <label>Principal serviço</label>
+
+                    <select id="service">
+
+                        <option value="imoveis">
+                            Compra e venda de imóveis
+                        </option>
+
+                        <option value="aluguel">
+                            Aluguel de imóveis
+                        </option>
+
+                        <option value="lancamentos">
+                            Lançamentos
+                        </option>
+
+                        <option value="comercial">
+                            Imóveis comerciais
+                        </option>
+
+                    </select>
+                </div>
+
+                <button class="analyze-btn" onclick="analisarSEO()">
+                    Analisar presença
+                </button>
+
+            </div>
+
+            <div class="loading" id="loading">
+                Analisando presença local...
+            </div>
+
+        </section>
+
+
+        <!-- SCORES -->
+
+        <section class="score-layout">
+
+            <div class="score-card">
+
+                <h2>Índice de SEO Local</h2>
+
+                <span class="score-number" id="score">
+                    76
+                </span>
+
+                <span class="score-total">
+                    /100
+                </span>
+
+                <div class="score-label">
+                    Boa presença, mas ainda existem oportunidades.
+                </div>
+
+                <div class="progress">
+                    <div
+                        class="progress-bar"
+                        id="progressBar"
+                    ></div>
+                </div>
+
+            </div>
+
+
+            <div class="metrics-card">
+
+                <h2>Indicadores locais</h2>
+
+                <div class="metrics">
+
+                    <div class="metric">
+
+                        <small>Google</small>
+
+                        <strong class="good">
+                            84
+                        </strong>
+
+                        <span>
+                            Boa presença
+                        </span>
+
+                    </div>
+
+
+                    <div class="metric">
+
+                        <small>Avaliações</small>
+
+                        <strong class="medium">
+                            71
+                        </strong>
+
+                        <span>
+                            Pode melhorar
+                        </span>
+
+                    </div>
+
+
+                    <div class="metric">
+
+                        <small>Palavras-chave</small>
+
+                        <strong class="medium">
+                            68
+                        </strong>
+
+                        <span>
+                            Baixa exploração
+                        </span>
+
+                    </div>
+
+
+                    <div class="metric">
+
+                        <small>Maps</small>
+
+                        <strong class="good">
+                            81
+                        </strong>
+
+                        <span>
+                            Boa visibilidade
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- OPORTUNIDADES -->
+
+        <section class="opportunities">
+
+            <h2>
+                Oportunidades encontradas
+            </h2>
+
+            <div class="opportunity-list">
+
+                <div class="opportunity">
+
+                    <div class="op-icon">
+                        01
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Trabalhar palavras-chave locais
+                        </strong>
+
+                        <p>
+                            Criar páginas e conteúdos utilizando termos
+                            como imóveis, casas e apartamentos combinados
+                            com a cidade atendida.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="op-icon">
+                        02
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Aumentar avaliações
+                        </strong>
+
+                        <p>
+                            Criar um processo simples para solicitar
+                            avaliações de clientes satisfeitos após
+                            cada atendimento ou negócio concluído.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="op-icon">
+                        03
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Melhorar o perfil local
+                        </strong>
+
+                        <p>
+                            Atualizar fotos, descrição, serviços,
+                            horários e informações comerciais para
+                            fortalecer a presença nas buscas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="opportunity">
+
+                    <div class="op-icon">
+                        04
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Criar páginas por região
+                        </strong>
+
+                        <p>
+                            Criar páginas específicas para bairros e
+                            regiões estratégicas pode ampliar o alcance
+                            de pesquisas imobiliárias.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="action">
+
+                <div class="action-text">
+
+                    <small>
+                        Próxima ação recomendada
+                    </small>
+
+                    <strong>
+                        Criar uma estratégia local de aquisição
+                    </strong>
+
+                    <p>
+                        Estruture páginas, conteúdos e avaliações
+                        para transformar buscas locais em oportunidades.
+                    </p>
+
+                </div>
+
+                <button onclick="irParaDiagnostico()">
+                    Ver diagnóstico completo
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* PROTEÇÃO */
+
+    const token = localStorage.getItem("hunter_token");
+
+    if (!token) {
+        window.location.href = "../index.html";
+    }
+
+
+    /* AGÊNCIA */
+
+    const agency = JSON.parse(
+        localStorage.getItem("hunter_agency") || "{}"
+    );
+
+    document.getElementById("agencyName").textContent =
+        agency.name || "Sua imobiliária";
+
+
+    /* ANÁLISE */
+
+    function analisarSEO() {
+
+        const company =
+            document.getElementById("company").value.trim();
+
+        const city =
+            document.getElementById("city").value.trim();
+
+        const loading =
+            document.getElementById("loading");
+
+        if (!company || !city) {
+
+            alert(
+                "Informe o nome da imobiliária e a cidade."
+            );
+
+            return;
+        }
+
+        loading.style.display = "block";
+
+        setTimeout(() => {
+
+            loading.style.display = "none";
+
+            const score = Math.floor(
+                Math.random() * 12
+            ) + 72;
+
+            document.getElementById("score").textContent =
+                score;
+
+            document.getElementById("progressBar").style.width =
+                score + "%";
+
+            alert(
+                "Análise concluída para " +
+                company +
+                " em " +
+                city +
+                "."
+            );
+
+        }, 1200);
+
+    }
+
+
+    /* DIAGNÓSTICO */
+
+    function irParaDiagnostico() {
+
+        window.location.href = "diagnostico.html";
+
+    }
+
+
+    /* LOGOUT */
+
+    function logout() {
+
+        localStorage.removeItem("hunter_token");
+        localStorage.removeItem("hunter_agency");
+
+        window.location.href = "../index.html";
+
+    }
+
+</script>
+
+</body>
+</html>
