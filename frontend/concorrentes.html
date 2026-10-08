@@ -1,1 +1,974 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Concorrentes — Hunter Help</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #090909;
+            --panel: #111111;
+            --panel2: #151515;
+            --border: #272727;
+            --text: #f5f5f5;
+            --muted: #888;
+            --orange: #ff8a00;
+            --green: #39d98a;
+            --red: #ff6262;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: #0d0d0d;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            z-index: 20;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 4px 8px 28px;
+        }
+
+        .logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--orange);
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 21px;
+        }
+
+        .brand strong {
+            display: block;
+            font-size: 16px;
+        }
+
+        .brand span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .menu-title {
+            color: #555;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 10px 9px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #999;
+            padding: 12px 11px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 13px;
+        }
+
+        .menu a:hover {
+            background: #171717;
+            color: #fff;
+        }
+
+        .menu a.active {
+            color: var(--orange);
+            background: rgba(255,138,0,.1);
+            border: 1px solid rgba(255,138,0,.15);
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 20px;
+        }
+
+        .logout {
+            width: 100%;
+            padding: 11px;
+            background: transparent;
+            border: 1px solid #292929;
+            color: #888;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .logout:hover {
+            color: #fff;
+            border-color: #444;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+            padding: 30px 36px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 27px;
+            letter-spacing: -.7px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .agency {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 9px 13px;
+            border-radius: 9px;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        /* SEARCH */
+
+        .search-panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 21px;
+            margin-bottom: 22px;
+        }
+
+        .search-panel h2 {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .search-panel p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        .search-row input {
+            width: 100%;
+            background: #0b0b0b;
+            color: #fff;
+            border: 1px solid #292929;
+            border-radius: 9px;
+            padding: 13px;
+            outline: none;
+        }
+
+        .search-row input:focus {
+            border-color: var(--orange);
+        }
+
+        .search-button {
+            border: none;
+            background: var(--orange);
+            color: #111;
+            font-weight: 800;
+            padding: 0 22px;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background: #ff9e2e;
+        }
+
+        .search-button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        /* OVERVIEW */
+
+        .overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 13px;
+            margin-bottom: 22px;
+        }
+
+        .metric {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 16px;
+        }
+
+        .metric span {
+            color: var(--muted);
+            font-size: 10px;
+            display: block;
+            margin-bottom: 9px;
+        }
+
+        .metric strong {
+            font-size: 22px;
+        }
+
+        .metric small {
+            display: block;
+            color: var(--green);
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        /* COMPARISON */
+
+        .comparison {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .comparison-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-header h2 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .comparison-header p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .competitors {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .competitor {
+            padding: 20px;
+            border-right: 1px solid var(--border);
+        }
+
+        .competitor:last-child {
+            border-right: none;
+        }
+
+        .competitor-main {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 17px;
+        }
+
+        .avatar {
+            width: 43px;
+            height: 43px;
+            border-radius: 10px;
+            background: #1b1b1b;
+            border: 1px solid #303030;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            font-weight: 800;
+        }
+
+        .competitor h3 {
+            font-size: 14px;
+        }
+
+        .competitor-location {
+            color: #666;
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .score {
+            margin-bottom: 18px;
+        }
+
+        .score-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+        }
+
+        .score-top span {
+            color: #999;
+            font-size: 10px;
+        }
+
+        .score-top strong {
+            font-size: 11px;
+        }
+
+        .progress {
+            height: 6px;
+            background: #252525;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress div {
+            height: 100%;
+            border-radius: 10px;
+            background: var(--orange);
+        }
+
+        .good {
+            color: var(--green);
+        }
+
+        .attention {
+            color: var(--orange);
+        }
+
+        .weak {
+            color: var(--red);
+        }
+
+        .analysis {
+            display: grid;
+            gap: 8px;
+        }
+
+        .analysis-item {
+            background: #0c0c0c;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 9px;
+        }
+
+        .analysis-item span {
+            display: block;
+            color: #666;
+            font-size: 9px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .analysis-item strong {
+            font-size: 11px;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        /* OPPORTUNITY */
+
+        .opportunity {
+            margin-top: 22px;
+            background: rgba(255,138,0,.055);
+            border: 1px solid rgba(255,138,0,.14);
+            border-radius: 13px;
+            padding: 18px;
+        }
+
+        .opportunity h2 {
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .opportunity p {
+            color: #999;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .opportunity strong {
+            color: var(--orange);
+        }
+
+        /* LOADING */
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 35px;
+            color: #888;
+        }
+
+        .loader {
+            width: 27px;
+            height: 27px;
+            border: 3px solid #292929;
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1000px) {
+            .overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .competitors {
+                grid-template-columns: 1fr;
+            }
+
+            .competitor {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .competitor:last-child {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .sidebar-bottom {
+                position: static;
+                margin-top: 15px;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 22px 15px 45px;
+            }
+
+            .agency {
+                display: none;
+            }
+
+            .search-row {
+                grid-template-columns: 1fr;
+            }
+
+            .search-button {
+                padding: 12px;
+            }
+
+            .overview {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="logo">H</div>
+
+        <div>
+            <strong>Hunter Help</strong>
+            <span>Inteligência comercial</span>
+        </div>
+    </div>
+
+    <div class="menu-title">Principal</div>
+
+    <nav class="menu">
+
+        <a href="dashboard.html">⌂ Dashboard</a>
+
+        <a href="diagnostico.html">◈ Diagnóstico</a>
+
+        <a href="leads.html">◎ Leads</a>
+
+        <a href="anuncios.html">▣ Anúncios</a>
+
+        <a href="atendimento.html">◌ Atendimento</a>
+
+        <a href="concorrentes.html" class="active">
+            ⌁ Concorrentes
+        </a>
+
+        <a href="seo.html">
+            ⌕ SEO Local
+        </a>
+
+        <a href="automacao.html">
+            ⚙ Automação
+        </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <button class="logout" onclick="logout()">
+            Sair da conta
+        </button>
+    </div>
+
+</aside>
+
+
+<main class="main">
+
+    <header class="topbar">
+
+        <div>
+            <h1>Análise de Concorrentes</h1>
+
+            <p class="subtitle">
+                Descubra onde sua imobiliária pode ganhar vantagem no mercado.
+            </p>
+        </div>
+
+        <div class="agency" id="agencyName">
+            Imobiliária
+        </div>
+
+    </header>
+
+
+    <!-- BUSCA -->
+
+    <section class="search-panel">
+
+        <h2>Pesquisar mercado</h2>
+
+        <p>
+            Informe uma cidade ou região para comparar o posicionamento
+            comercial das imobiliárias.
+        </p>
+
+        <div class="search-row">
+
+            <input
+                id="location"
+                type="text"
+                placeholder="Ex.: São José do Rio Preto - SP"
+            >
+
+            <button
+                class="search-button"
+                id="searchButton"
+                onclick="analyzeMarket()"
+            >
+                Analisar mercado
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- MÉTRICAS -->
+
+    <section class="overview">
+
+        <div class="metric">
+            <span>Seu posicionamento</span>
+            <strong>74/100</strong>
+            <small>Bom</small>
+        </div>
+
+        <div class="metric">
+            <span>Média dos concorrentes</span>
+            <strong>68/100</strong>
+            <small>Você está +6 pontos</small>
+        </div>
+
+        <div class="metric">
+            <span>Maior oportunidade</span>
+            <strong>SEO</strong>
+            <small>Potencial alto</small>
+        </div>
+
+        <div class="metric">
+            <span>Concorrentes analisados</span>
+            <strong>3</strong>
+            <small>Na região</small>
+        </div>
+
+    </section>
+
+
+    <!-- COMPARAÇÃO -->
+
+    <section class="comparison">
+
+        <div class="comparison-header">
+
+            <h2>Panorama competitivo</h2>
+
+            <p>
+                Comparação simulada baseada em presença digital,
+                captação, atendimento e posicionamento.
+            </p>
+
+        </div>
+
+
+        <div class="competitors">
+
+            <!-- CONCORRENTE 1 -->
+
+            <article class="competitor">
+
+                <div class="competitor-main">
+
+                    <div class="avatar">
+                        RP
+                    </div>
+
+                    <div>
+                        <h3>RP Imóveis</h3>
+
+                        <div class="competitor-location">
+                            Região analisada
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="score">
+
+                    <div class="score-top">
+                        <span>Índice comercial</span>
+                        <strong>81/100</strong>
+                    </div>
+
+                    <div class="progress">
+                        <div style="width:81%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="analysis">
+
+                    <div class="analysis-item">
+                        <span>Ponto forte</span>
+                        <strong>
+                            Boa presença nas buscas locais.
+                        </strong>
+                    </div>
+
+                    <div class="analysis-item">
+                        <span>Ponto fraco</span>
+                        <strong>
+                            Atendimento sem diferenciação.
+                        </strong>
+                    </div>
+
+                    <div class="analysis-item">
+                        <span>Oportunidade</span>
+                        <strong>
+                            Conteúdo e relacionamento.
+                        </strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- CONCORRENTE 2 -->
+
+            <article class="competitor">
+
+                <div class="competitor-main">
+
+                    <div class="avatar">
+                        IM
+                    </div>
+
+                    <div>
+                        <h3>Ideal Imobiliária</h3>
+
+                        <div class="competitor-location">
+                            Região analisada
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="score">
+
+                    <div class="score-top">
+                        <span>Índice comercial</span>
+                        <strong>73/100</strong>
+                    </div>
+
+                    <div class="progress">
+                        <div style="width:73%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="analysis">
+
+                    <div class="analysis-item">
+                        <span>Ponto forte</span>
+                        <strong>
+                            Grande quantidade de imóveis.
+                        </strong>
+                    </div>
+
+                    <div class="analysis-item">
+                        <span>Ponto fraco</span>
+                        <strong>
+                            Comunicação pouco persuasiva.
+                        </strong>
+                    </div>
+
+                    <div class="analysis-item">
+                        <span>Oportunidade</span>
+                        <strong>
+                            Melhorar conversão dos anúncios.
+                        </strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- CONCORRENTE 3 -->
+
+            <article class="competitor">
+
+                <div class="competitor-main">
+
+                    <div class="avatar">
+                        VC
+                    </div>
+
+                    <div>
+                        <h3>Vale Casa</h3>
+
+                        <div class="competitor-location">
+                            Região analisada
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="score">
+
+                    <div class="score-top">
+                        <span>Índice comercial</span>
+                        <strong>61/100</strong>
+                    </div>
+
+                    <div class="progress">
+                        <div style="width:61%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="analysis">
+
+                    <div class="analysis-item">
+                        <span>Ponto forte</span>
+                        <strong>
+                            Presença ativa nas redes sociais.
+                        </strong>
+                    </div>
+
+                    <div class="analysis-item">
+                        <span>Ponto fraco</span>
+                        <strong>
+                            Baixa otimização local.
+                        </strong>
+                    </div>
+
+                    <div class="analysis-item">
+                        <span>Oportunidade</span>
+                        <strong>
+                            Ganhar posições no Google.
+                        </strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- OPORTUNIDADE -->
+
+    <section class="opportunity">
+
+        <h2>
+            ⚡ Oportunidade encontrada
+        </h2>
+
+        <p>
+            Sua imobiliária pode ganhar vantagem competitiva trabalhando
+            principalmente <strong>SEO local + conversão de anúncios +
+            follow-up comercial</strong>.
+            Esses três pontos podem aumentar o aproveitamento dos leads
+            sem depender apenas de aumentar o volume de tráfego.
+        </p>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    /* PROTEÇÃO */
+
+    const token = localStorage.getItem("hunter_token");
+
+    if (!token) {
+        window.location.href = "../index.html";
+    }
+
+
+    /* AGÊNCIA */
+
+    const agency = JSON.parse(
+        localStorage.getItem("hunter_agency") || "{}"
+    );
+
+    if (agency.name) {
+        document.getElementById("agencyName").textContent =
+            agency.name;
+    }
+
+
+    /* ANALISAR */
+
+    function analyzeMarket() {
+
+        const location =
+            document.getElementById("location")
+            .value
+            .trim();
+
+        const button =
+            document.getElementById("searchButton");
+
+
+        if (!location) {
+
+            alert(
+                "Informe uma cidade ou região."
+            );
+
+            return;
+        }
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Analisando...";
+
+
+        setTimeout(() => {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Atualizar análise";
+
+            alert(
+                `Análise de mercado gerada para ${location}.`
+            );
+
+            console.log({
+                location
+            });
+
+        }, 1000);
+
+    }
+
+
+    /* LOGOUT */
+
+    function logout() {
+
+        localStorage.removeItem("hunter_token");
+
+        localStorage.removeItem("hunter_agency");
+
+        window.location.href =
+            "../index.html";
+    }
+
+</script>
+
+</body>
+</html>
